@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
   }
 }
