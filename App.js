@@ -4,7 +4,7 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, B
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, containerStyle]}>
       <Button 
       title="Click Me"
       onPress={() => Alert.alert(
@@ -15,11 +15,13 @@ export default function App() {
   );
 }
 
+const containerStyle = { backgroundColor: "orange" };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 });
