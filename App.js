@@ -15,7 +15,6 @@ export default function App() {
           height: 300,
           uri: "https://picsum.photos/200/300"}}/>
       </TouchableOpacity>
-      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }
@@ -24,7 +23,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    marginTop: 22,
     alignItems: 'center',
     justifyContent: 'center',
   },
