@@ -33,7 +33,7 @@ const ViewAllUser = () => {
         style={{ backgroundColor: 'white', padding: 20 }}>
         <Text>Id: {item.user_id}</Text>
         <Text>Name: {item.user_name}</Text>
-        <Text>Contact: {item.user_contact}</Text>
+        <Text>Contact: {item.user_mail}</Text>
         <Text>Address: {item.user_address}</Text>
       </View>
     );

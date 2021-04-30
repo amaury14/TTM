@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, FlatList, Text, View, SafeAreaView } from 'react-native';
+import { Alert, FlatList, Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import OperationCard from './OperationCard';
 
@@ -67,9 +67,8 @@ const ViewAllOperation = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
-        <View style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
+        <View>
           <FlatList
             data={flatListItems}
             ItemSeparatorComponent={listViewItemSeparator}
@@ -77,9 +76,16 @@ const ViewAllOperation = () => {
             renderItem={({ item }) => listItemView(item)}
           />
         </View>
-      </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+  }
+});
 
 export default ViewAllOperation;
