@@ -4,9 +4,9 @@
     "slug": "TDM",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/icon2.png",
     "splash": {
-      "image": "./app/assets/splash.png",
+      "image": "./app/assets/background.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,7 +24,7 @@
       }
     },
     "web": {
-      "favicon": "./app/assets/favicon.png"
+      "favicon": "./app/assets/icon2.png"
     },
     "description": "Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
   }
