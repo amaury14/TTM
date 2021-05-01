@@ -10,7 +10,7 @@ const ViewAllOperation = () => {
   const navigation = useNavigation();
   let [flatListItems, setFlatListItems] = useState([]);
 
-  let getOperations = () => {
+  let updateData = () => {
     db.transaction((tx) => {
       tx.executeSql('SELECT * FROM table_ops', [], (tx, results) => {
         var temp = [];
@@ -24,7 +24,18 @@ const ViewAllOperation = () => {
     });
   };
 
-  getOperations();
+  // Refreshing data on component focus
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      updateData();
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  // Update data on enter to component
+  useEffect(() => {
+    updateData();
+  }, []);
 
   let deleteOperation = (op_id) => {
     db.transaction((tx) => {

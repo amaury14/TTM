@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Alert,
     Button,
@@ -24,7 +24,7 @@ import colors from '../../config/colors';
 var db = SQLite.openDatabase('TDM.db');
 
 const UpdateOperation = ({ route, navigation }) => {
-    const { op_id } = route.params;
+    let { op_id } = route.params;
 
     let [pairCoin, setPairCoin] = useState('');
     let [investment, setInvestment] = useState('');
@@ -63,7 +63,7 @@ const UpdateOperation = ({ route, navigation }) => {
       setCloseDate(closeDate);
     };
 
-    const searchOperation = () => {
+    useEffect(() => {
       db.transaction((tx) => {
         tx.executeSql(
           'SELECT * FROM table_ops where op_id = ?',
@@ -75,18 +75,16 @@ const UpdateOperation = ({ route, navigation }) => {
               updateAllStates(res.pairCoin, res.investment, res.lowPoint, res.highPoint,
                 res.startPoint, res.grids, res.startDate, res.stopLoss, res.triggerPrice, res.takeProfit,
                 res.profitPercent, res.notes, res.psicotrading, res.closeDate);
-              } else {
+            } else {
               alert('No operation found');
               updateAllStates('', '', '', '', '', '', '', '', '', '', '', '', '', '');
             }
           },
         );
       });
-    };
-
-    searchOperation();
+    }, []);
   
-    const update_operation = () => {
+    let update_operation = () => {
       if (!pairCoin) {
         alert('Please fill Pair/Coin');
         return;

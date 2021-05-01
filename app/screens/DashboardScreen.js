@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, ImageBackground, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Mybutton from './components/Mybutton';
 import Mytext from './components/Mytext';
@@ -50,6 +50,10 @@ const DashboardScreen = ({navigation}) => {
           <Mybutton
             title="Register User"
             customClick={() => navigation.navigate('Register')}
+          />
+          <Mybutton
+            title="Update User"
+            customClick={() => navigation.navigate('UpdateUser')}
           />
           <Mybutton
             title="View All Users"

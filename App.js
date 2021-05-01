@@ -12,6 +12,7 @@ import ViewAllUser from './app/screens/user/ViewAllUser';
 import RegisterOperation from './app/screens/operations/RegisterOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
+import UpdateUser from './app/screens/user/UpdateUser';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,20 @@ export default function App() {
             },
           }}
         />
+        <Stack.Screen
+          name="UpdateUser"
+          component={UpdateUser}
+          options={{
+            title: 'Update User', //Set Header Title
+            headerStyle: {
+              backgroundColor: '#f4511e', //Set Header color
+            },
+            headerTintColor: '#fff', //Set Header text color
+            headerTitleStyle: {
+              fontWeight: 'bold', //Set Header text style
+            },
+          }}
+        />        
         <Stack.Screen
           name="ViewAll"
           component={ViewAllUser}
