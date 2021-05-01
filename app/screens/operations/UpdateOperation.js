@@ -13,7 +13,6 @@ import {
     TextInput,
     View
 } from 'react-native';
-import NumericInput from 'react-native-numeric-input'
 import { Icon } from 'react-native-elements';
 import Mybutton from '../components/Mybutton';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -152,19 +151,19 @@ const UpdateOperation = ({ route, navigation }) => {
                   blurOnSubmit={false}                  
                 />
                 <TextInput
-                  value={highPoint}
-                  underlineColorAndroid="transparent"
-                  placeholder="Enter highPoint"
-                  placeholderTextColor="#007FFF"
-                  onChangeText={(highPoint) => setHighPoint(highPoint)}
-                  blurOnSubmit={false}                  
-                />
-                <TextInput
                   value={startPoint}
                   underlineColorAndroid="transparent"
                   placeholder="Enter startPoint"
                   placeholderTextColor="#007FFF"
                   onChangeText={(startPoint) => setStartPoint(startPoint)}
+                  blurOnSubmit={false}                  
+                />
+                <TextInput
+                  value={highPoint}
+                  underlineColorAndroid="transparent"
+                  placeholder="Enter highPoint"
+                  placeholderTextColor="#007FFF"
+                  onChangeText={(highPoint) => setHighPoint(highPoint)}
                   blurOnSubmit={false}                  
                 />
                 <TextInput

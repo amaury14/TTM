@@ -37,16 +37,34 @@ const ViewAllOperation = () => {
     updateData();
   }, []);
 
-  let deleteOperation = (op_id) => {
+  let deleteOperationAction = (op_id) => {
     db.transaction((tx) => {
       tx.executeSql(
         'DELETE FROM table_ops where op_id=?',
         [op_id],
         (tx, results) => {
           console.log('delete operation', results.rowsAffected);
+          updateData();
         },
       );
     });
+  };
+
+  let deleteOperation = (op_id) => {
+    Alert.alert(
+      'Advertencia',
+      'Desea realmente eliminar esta operación?',
+      [
+        {
+          text: 'SI',
+          onPress: () => deleteOperationAction(op_id),
+        },
+        {
+          text: 'NO'
+        },
+      ],
+      {cancelable: true},
+    );
   };
 
   let listViewItemSeparator = () => {

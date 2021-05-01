@@ -13,6 +13,7 @@
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
+    "cryptocurrency-icons": "^0.17.1",
     "expo": "~41.0.1",
     "expo-sqlite": "~9.1.0",
     "expo-status-bar": "~1.0.4",

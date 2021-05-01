@@ -14,6 +14,8 @@ import ViewAllOperation from './app/screens/operations/ViewAllOperation';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import UpdateUser from './app/screens/user/UpdateUser';
 
+import colors from './app/config/colors';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -26,7 +28,7 @@ export default function App() {
           options={{
             title: 'Dashboard', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -38,9 +40,9 @@ export default function App() {
           name="Register"
           component={RegisterUser}
           options={{
-            title: 'Register User', //Set Header Title
+            title: 'Agregar Usuario', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -52,9 +54,9 @@ export default function App() {
           name="UpdateUser"
           component={UpdateUser}
           options={{
-            title: 'Update User', //Set Header Title
+            title: 'Modificar Usuario', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -66,9 +68,9 @@ export default function App() {
           name="ViewAll"
           component={ViewAllUser}
           options={{
-            title: 'View Users', //Set Header Title
+            title: 'Usuarios', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -80,9 +82,9 @@ export default function App() {
           name="RegisterOperation"
           component={RegisterOperation}
           options={{
-            title: 'Register Operation', //Set Header Title
+            title: 'Agregar Operación', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -94,9 +96,9 @@ export default function App() {
           name="UpdateOperation"
           component={UpdateOperation}
           options={{
-            title: 'Update Operation', //Set Header Title
+            title: 'Modificar Operación', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -108,9 +110,9 @@ export default function App() {
           name="ViewAllOperation"
           component={ViewAllOperation}
           options={{
-            title: 'All Operations', //Set Header Title
+            title: 'Operaciones', //Set Header Title
             headerStyle: {
-              backgroundColor: '#f4511e', //Set Header color
+              backgroundColor: colors.placeholderBlue, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
