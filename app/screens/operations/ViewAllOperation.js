@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, FlatList, Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as SQLite from 'expo-sqlite';
 import OperationCard from './OperationCard';
 
 var db = SQLite.openDatabase('TDM.db');
 
 const ViewAllOperation = () => {
+  const navigation = useNavigation();
   let [flatListItems, setFlatListItems] = useState([]);
 
   let getOperations = () => {
@@ -25,28 +27,12 @@ const ViewAllOperation = () => {
   getOperations();
 
   let deleteOperation = (op_id) => {
-    console.log('entro');
     db.transaction((tx) => {
       tx.executeSql(
         'DELETE FROM table_ops where op_id=?',
         [op_id],
         (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Success',
-              'Operation deleted successfully',
-              [
-                {
-                  text: 'Ok',
-                  onPress: () => getOperations()
-                },
-              ],
-              {cancelable: false},
-            );
-          } else {
-            alert('Please insert a valid Operation Id');
-          }
+          console.log('delete operation', results.rowsAffected);
         },
       );
     });
@@ -62,7 +48,11 @@ const ViewAllOperation = () => {
 
   let listItemView = (item) => {
     return (
-      <OperationCard item={item} customClick={() => deleteOperation(item.op_id)} />
+      <OperationCard
+        item={item}
+        deleteClick={() => deleteOperation(item.op_id)}
+        updateClick={() => navigation.navigate('UpdateOperation', { op_id: item.op_id })}
+      />
     );
   };
 

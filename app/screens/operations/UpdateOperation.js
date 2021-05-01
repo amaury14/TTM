@@ -23,26 +23,70 @@ import colors from '../../config/colors';
 
 var db = SQLite.openDatabase('TDM.db');
 
-const RegisterOperation = ({navigation}) => {
-  let [pairCoin, setPairCoin] = useState('');
-  let [investment, setInvestment] = useState('');
-  let [lowPoint, setLowPoint] = useState('');
-  let [highPoint, setHighPoint] = useState('');
-  let [startPoint, setStartPoint] = useState('');
-  let [grids, setGrids] = useState('');
-  let [startDate, setStartDate] = useState(new Date());
-  let [stopLoss, setStopLoss] = useState('');
-  let [triggerPrice, setTriggerPrice] = useState('');
-  let [takeProfit, setTakeProfit] = useState('');
-  // =================
-  let [profitPercent, setProfitPercent] = useState('');
-  let [notes, setNotes] = useState('');
-  let [psicotrading, setPsicotrading] = useState('');
-  let [closeDate, setCloseDate] = useState(new Date());
-  let [showStartDate, setShowStartDate] = useState(false);
-  let [showCloseDate, setShowCloseDate] = useState(false);
+const UpdateOperation = ({ route, navigation }) => {
+    const { op_id } = route.params;
+
+    let [pairCoin, setPairCoin] = useState('');
+    let [investment, setInvestment] = useState('');
+    let [lowPoint, setLowPoint] = useState('');
+    let [highPoint, setHighPoint] = useState('');
+    let [startPoint, setStartPoint] = useState('');
+    let [grids, setGrids] = useState('');
+    let [startDate, setStartDate] = useState(new Date());
+    let [stopLoss, setStopLoss] = useState('');
+    let [triggerPrice, setTriggerPrice] = useState('');
+    let [takeProfit, setTakeProfit] = useState('');
+    // =================
+    let [profitPercent, setProfitPercent] = useState('');
+    let [notes, setNotes] = useState('');
+    let [psicotrading, setPsicotrading] = useState('');
+    let [closeDate, setCloseDate] = useState(new Date());
+    let [showStartDate, setShowStartDate] = useState(false);
+    let [showCloseDate, setShowCloseDate] = useState(false);
+
+    let updateAllStates = (pairCoin, investment, lowPoint, highPoint,
+       startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit,
+       profitPercent, notes, psicotrading, closeDate) => {
+      setPairCoin(pairCoin);
+      setInvestment(investment);
+      setLowPoint(lowPoint);
+      setHighPoint(highPoint);
+      setStartPoint(startPoint);
+      setGrids(grids);
+      setStartDate(startDate);
+      setStopLoss(stopLoss);
+      setTriggerPrice(triggerPrice);
+      setTakeProfit(takeProfit);
+      setProfitPercent(profitPercent);
+      setNotes(notes);
+      setPsicotrading(psicotrading);
+      setCloseDate(closeDate);
+    };
+
+    const searchOperation = () => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'SELECT * FROM table_ops where op_id = ?',
+          [op_id],
+          (tx, results) => {
+            var len = results.rows.length;
+            if (len > 0) {
+              let res = results.rows.item(0);
+              updateAllStates(res.pairCoin, res.investment, res.lowPoint, res.highPoint,
+                res.startPoint, res.grids, res.startDate, res.stopLoss, res.triggerPrice, res.takeProfit,
+                res.profitPercent, res.notes, res.psicotrading, res.closeDate);
+              } else {
+              alert('No operation found');
+              updateAllStates('', '', '', '', '', '', '', '', '', '', '', '', '', '');
+            }
+          },
+        );
+      });
+    };
+
+    searchOperation();
   
-    let register_operation = () => {  
+    const update_operation = () => {
       if (!pairCoin) {
         alert('Please fill Pair/Coin');
         return;
@@ -54,11 +98,11 @@ const RegisterOperation = ({navigation}) => {
   
       db.transaction(function (tx) {
         tx.executeSql(
-          'INSERT INTO table_ops (pairCoin, investment, lowPoint, highPoint, startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, psicotrading, closeDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-          [pairCoin, investment, lowPoint, highPoint, startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, psicotrading, closeDate],
+          'UPDATE table_ops set pairCoin=?, investment=?, lowPoint=?, highPoint=?, startPoint=?, grids=?, startDate=?, stopLoss=?, triggerPrice=?, takeProfit=?, profitPercent=?, notes=?, psicotrading=?, closeDate=? where op_id=?',
+          [pairCoin, investment, lowPoint, highPoint, startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, psicotrading, closeDate, op_id],
           (tx, results) => {
-            console.log('register operation', results.rowsAffected);
-            navigation.navigate('DashboardScreen');
+            console.log('update operation', results.rowsAffected);
+            navigation.navigate('DashboardScreen'); 
           },
         );
       });
@@ -84,7 +128,7 @@ const RegisterOperation = ({navigation}) => {
             <ScrollView keyboardShouldPersistTaps="handled">
               <KeyboardAvoidingView
                 behavior="padding"
-                style={{flex: 1, justifyContent: 'space-between'}}>
+                style={{flex: 1, justifyContent: 'space-between'}}>    
                 <TextInput
                   value={pairCoin}
                   underlineColorAndroid="transparent"
@@ -214,7 +258,7 @@ const RegisterOperation = ({navigation}) => {
                     onChange={(event, selectedDate) => { setCloseDate(selectedDate); showDatepicker('closeDate', false)}}
                     />
                 )}
-                <Mybutton title="Save" customClick={register_operation} />
+                <Mybutton title="Save" customClick={update_operation} />
               </KeyboardAvoidingView>
             </ScrollView>
           </View>          
@@ -254,4 +298,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default RegisterOperation;
+export default UpdateOperation;

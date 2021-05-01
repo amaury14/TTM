@@ -11,8 +11,8 @@ const OperationCard = (props) => {
     const item = props.item;
 
     const getProfitPercent = (triggerPrice, takeProfit) => {
-        const amount = takeProfit - triggerPrice;
-        return (amount * 100) - triggerPrice; 
+        const amount = parseInt(takeProfit) - parseInt(triggerPrice);
+        return (amount * 100) - parseInt(triggerPrice); 
     }
 
     return (
@@ -37,12 +37,13 @@ const OperationCard = (props) => {
                         <Icon
                         name='edit'
                         type='material'
-                        color='gray'/>
+                        color='gray'
+                        onPress={props.updateClick} />
                         <Icon
                         name='delete'
                         type='material'
                         color='gray'
-                        onPress={props.customClick} />                        
+                        onPress={props.deleteClick} />                        
                     </View>                
             </View>)}
         </View>

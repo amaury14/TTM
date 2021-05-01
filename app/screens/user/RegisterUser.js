@@ -39,23 +39,8 @@ const RegisterUser = ({navigation}) => {
         'INSERT INTO table_user (user_name, user_mail, user_address) VALUES (?,?,?)',
         [userName, userMail, userAddress],
         (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          if (results.rowsAffected > 0) {
-            Alert.alert(
-              'Success',
-              'You are Registered Successfully',
-              [
-                {
-                  text: 'Ok',
-                  onPress: () => navigation.navigate('DashboardScreen'),
-                },
-              ],
-              {cancelable: false},
-            );
-          } else {
-            alert('Registration Failed');
-            navigation.navigate('DashboardScreen');
-          } 
+          console.log('register user', results.rowsAffected);
+          navigation.navigate('DashboardScreen');
         },
       );
     });

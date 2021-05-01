@@ -16,11 +16,10 @@ const DashboardScreen = ({navigation}) => {
           "SELECT name FROM sqlite_master WHERE type='table' AND name='table_ops'",
           [],
           function (tx, res) {
-            console.log('item:', res.rows.length);
             if (res.rows.length === 0) {
               txn.executeSql('DROP TABLE IF EXISTS table_ops', []);
               txn.executeSql(
-                'CREATE TABLE IF NOT EXISTS table_ops(op_id INTEGER PRIMARY KEY AUTOINCREMENT, pairCoin VARCHAR(20), investment INT(10), lowPoint REAL, highPoint REAL, startPoint REAL, grids INT(10), startDate NUMERIC, stopLoss REAL, triggerPrice REAL, takeProfit REAL, profitPercent REAL, notes VARCHAR(255), psicotrading INT(10), closeDate NUMERIC)',
+                'CREATE TABLE IF NOT EXISTS table_ops(op_id INTEGER PRIMARY KEY AUTOINCREMENT, pairCoin VARCHAR(20), investment VARCHAR(20), lowPoint VARCHAR(20), highPoint VARCHAR(20), startPoint VARCHAR(20), grids VARCHAR(20), startDate NUMERIC, stopLoss VARCHAR(20), triggerPrice VARCHAR(20), takeProfit VARCHAR(20), profitPercent VARCHAR(20), notes VARCHAR(255), psicotrading VARCHAR(20), closeDate NUMERIC)',
                 [],
               );
             }
@@ -32,7 +31,6 @@ const DashboardScreen = ({navigation}) => {
         "SELECT name FROM sqlite_master WHERE type='table' AND name='table_user'",
         [],
         function (tx, res) {
-          console.log('item:', res.rows.length);
           if (res.rows.length === 0) {
             txn.executeSql('DROP TABLE IF EXISTS table_user', []);
             txn.executeSql(
