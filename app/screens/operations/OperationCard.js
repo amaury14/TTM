@@ -11,7 +11,7 @@ const OperationCard = (props) => {
     const getProfitPercent = (triggerPrice, takeProfit) => {
         const amount = parseInt(takeProfit) - parseInt(triggerPrice);
         const res = (amount * 100) / parseInt(triggerPrice);
-        return res.toFixed(2);
+        return isNaN(res.toFixed(2)) ? '-' : `${res.toFixed(2)}%`;
     }
 
     let getIcon = (pair) => {
@@ -72,7 +72,7 @@ const OperationCard = (props) => {
                     </View>
                     <View style={styles.column3}>
                         <Text style={styles.label}>% Posible Profit</Text>
-                        <Text style={styles.value}>{getProfitPercent(item.triggerPrice, item.takeProfit)}%</Text>
+                        <Text style={styles.value}>{getProfitPercent(item.triggerPrice, item.takeProfit)}</Text>
                     </View>
                     <View style={styles.column4}>
                         <Icon
