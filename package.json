@@ -26,6 +26,7 @@
     "react-native-gesture-handler": "^1.10.3",
     "react-native-ico-material-design": "^3.3.1",
     "react-native-numeric-input": "^1.9.0",
+    "react-native-progress": "^4.1.2",
     "react-native-radio-buttons-group": "^2.2.3",
     "react-native-reanimated": "^2.1.0",
     "react-native-safe-area-context": "^3.2.0",

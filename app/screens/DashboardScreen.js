@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import TDMDashboard from './components/TDMDashboard';
 import TDMButtom from './components/TDMButtom';
 import ViewAllOperation from './operations/ViewAllOperation';
 import * as SQLite from 'expo-sqlite';
@@ -55,10 +56,11 @@ const DashboardScreen = ({navigation}) => {
   return (
       <View style={styles.body}>
           <LinearGradient
-          colors={[colors.mainColor, 'transparent', 'transparent']}
+          colors={[colors.mainColor, colors.mainColor, 'transparent']}
           style={styles.background}
           >
-            <TDMButtom
+            <TDMDashboard></TDMDashboard>
+            {/* <TDMButtom
               title="Register User"
               customClick={() => navigation.navigate('Register')}
             />
@@ -73,7 +75,7 @@ const DashboardScreen = ({navigation}) => {
             <TDMButtom
               title="Register Operation"
               customClick={() => navigation.navigate('RegisterOperation')}
-            />
+            /> */}
             <View style={styles.splitter}></View>
             <ViewAllOperation></ViewAllOperation>
           </LinearGradient>
@@ -95,13 +97,13 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: 'white',
+      backgroundColor: colors.white,
     },
     splitter: {
       margin: 10,
-      backgroundColor: 'gray',
-      width: '100%',
+      backgroundColor: colors.gray,
       height: 1,
+      width: 370,
     }
 });
 
