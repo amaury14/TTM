@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 
 import colors from '../../config/colors';
 
-function MyTabBar({ state, descriptors, navigation }) {
+function TDMTabBar({ state, descriptors, navigation }) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MyTabBar;
+export default TDMTabBar;

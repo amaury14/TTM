@@ -3,7 +3,7 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 
 import colors from '../../config/colors';
 
-const Mybutton = (props) => {
+const TDMButtom = (props) => {
   return (
     <TouchableOpacity style={styles.button} onPress={props.customClick}>
       <Text style={styles.text}>{props.title}</Text>
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Mybutton;
+export default TDMButtom;

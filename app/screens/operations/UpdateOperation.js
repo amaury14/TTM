@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
     Alert,
-    Button,
-    Image,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
@@ -13,9 +11,8 @@ import {
     TextInput,
     View
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import RadioGroup from 'react-native-radio-buttons-group';
-import Mybutton from '../components/Mybutton';
+import TDMButtom from '../components/TDMButtom';
 import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
@@ -150,7 +147,8 @@ const UpdateOperation = ({ route, navigation }) => {
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
                       onChangeText={(investment) => setInvestment(investment)}
-                      blurOnSubmit={false}                  
+                      blurOnSubmit={false}
+                      keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -161,7 +159,8 @@ const UpdateOperation = ({ route, navigation }) => {
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(grids) => setGrids(grids)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     /> 
                   </View>                 
                 </View>
@@ -174,7 +173,8 @@ const UpdateOperation = ({ route, navigation }) => {
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(stopLoss) => setStopLoss(stopLoss)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -185,7 +185,8 @@ const UpdateOperation = ({ route, navigation }) => {
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
                         onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
-                        blurOnSubmit={false}                  
+                        blurOnSubmit={false}
+                        keyboardType="numeric"
                       />
                   </View>
                   <View style={styles.column}>
@@ -196,7 +197,8 @@ const UpdateOperation = ({ route, navigation }) => {
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
                       onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
-                      blurOnSubmit={false}                  
+                      blurOnSubmit={false}
+                      keyboardType="numeric"
                     />
                   </View>
                 </View>
@@ -209,7 +211,8 @@ const UpdateOperation = ({ route, navigation }) => {
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(triggerPrice) => setTriggerPrice(triggerPrice)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -221,6 +224,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(takeProfit) => setTakeProfit(takeProfit)}
                     blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -232,6 +236,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(profitPercent) => setProfitPercent(profitPercent)}
                     blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                 </View>
@@ -257,7 +262,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     />
                   </View>
                 </View>
-                <Mybutton title="Guardar" customClick={update_operation} />
+                <TDMButtom title="Guardar" customClick={update_operation} />
               </KeyboardAvoidingView>
             </ScrollView>
           </View>          

@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import RegisterOperation from './operations/RegisterOperation';
 import DashboardScreen from './DashboardScreen';
-import MyTabBar from './components/MyTabBar';
+import TDMTabBar from './components/TDMTabBar';
 
 import colors from '../config/colors';
 
@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 function BottomTabsScreen() {
   return (
     <SafeAreaView style={styles.container}>
-        <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
+        <Tab.Navigator tabBar={props => <TDMTabBar {...props} />}>
             <Tab.Screen
                 name="DashboardScreen"
                 component={DashboardScreen}

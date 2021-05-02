@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native';
-import Mybutton from '../components/Mybutton';
+import TDMButtom from '../components/TDMButtom';
 import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
@@ -79,7 +79,7 @@ const RegisterUser = ({navigation}) => {
               onChangeText={(userAddress) => setUserAddress(userAddress)}
               blurOnSubmit={false}                  
               />
-              <Mybutton title="Guardar" customClick={register_user} />
+              <TDMButtom title="Guardar" customClick={register_user} />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>

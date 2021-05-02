@@ -12,7 +12,7 @@ import {
     View
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
-import Mybutton from '../components/Mybutton';
+import TDMButtom from '../components/TDMButtom';
 import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
@@ -99,7 +99,8 @@ const RegisterOperation = ({navigation}) => {
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
                       onChangeText={(investment) => setInvestment(investment)}
-                      blurOnSubmit={false}                  
+                      blurOnSubmit={false}
+                      keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -110,7 +111,8 @@ const RegisterOperation = ({navigation}) => {
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(grids) => setGrids(grids)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     /> 
                   </View>                 
                 </View>
@@ -123,7 +125,8 @@ const RegisterOperation = ({navigation}) => {
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(stopLoss) => setStopLoss(stopLoss)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -134,7 +137,8 @@ const RegisterOperation = ({navigation}) => {
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
                         onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
-                        blurOnSubmit={false}                  
+                        blurOnSubmit={false}
+                        keyboardType="numeric"
                       />
                   </View>
                   <View style={styles.column}>
@@ -145,7 +149,8 @@ const RegisterOperation = ({navigation}) => {
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
                       onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
-                      blurOnSubmit={false}                  
+                      blurOnSubmit={false}
+                      keyboardType="numeric"
                     />
                   </View>
                 </View>
@@ -158,7 +163,8 @@ const RegisterOperation = ({navigation}) => {
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(triggerPrice) => setTriggerPrice(triggerPrice)}
-                    blurOnSubmit={false}                  
+                    blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -170,6 +176,7 @@ const RegisterOperation = ({navigation}) => {
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(takeProfit) => setTakeProfit(takeProfit)}
                     blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                   <View style={styles.column}>
@@ -181,6 +188,7 @@ const RegisterOperation = ({navigation}) => {
                     placeholderTextColor={colors.mainColor}
                     onChangeText={(profitPercent) => setProfitPercent(profitPercent)}
                     blurOnSubmit={false}
+                    keyboardType="numeric"
                     />
                   </View>
                 </View>
@@ -206,7 +214,7 @@ const RegisterOperation = ({navigation}) => {
                     />
                   </View>
                 </View>
-                <Mybutton title="Guardar" customClick={register_operation} />
+                <TDMButtom title="Guardar" customClick={register_operation} />
               </KeyboardAvoidingView>
             </ScrollView>  
         </View>

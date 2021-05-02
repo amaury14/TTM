@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Mybutton from './components/Mybutton';
+import TDMButtom from './components/TDMButtom';
 import ViewAllOperation from './operations/ViewAllOperation';
 import * as SQLite from 'expo-sqlite';
 
@@ -50,19 +50,19 @@ const DashboardScreen = ({navigation}) => {
           colors={[colors.mainColor, 'transparent', 'transparent']}
           style={styles.background}
           >
-            <Mybutton
+            <TDMButtom
               title="Register User"
               customClick={() => navigation.navigate('Register')}
             />
-            <Mybutton
+            <TDMButtom
               title="Update User"
               customClick={() => navigation.navigate('UpdateUser')}
             />
-            <Mybutton
+            <TDMButtom
               title="View All Users"
               customClick={() => navigation.navigate('ViewAll')}
             />
-            <Mybutton
+            <TDMButtom
               title="Register Operation"
               customClick={() => navigation.navigate('RegisterOperation')}
             />

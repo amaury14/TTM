@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 import Mytextinput from '../components/Mytextinput';
-import Mybutton from '../components/Mybutton';
+import TDMButtom from '../components/TDMButtom';
 import * as SQLite from 'expo-sqlite';
 
 var db = SQLite.openDatabase('TDM.db');
@@ -89,7 +89,7 @@ const UpdateUser = ({navigation}) => {
                 style={{padding: 10}}
                 onChangeText={(inputUserId) => setInputUserId(inputUserId)}
               />
-              <Mybutton title="Search User" customClick={searchUser} />
+              <TDMButtom title="Search User" customClick={searchUser} />
               <Mytextinput
                 placeholder="Enter Name"
                 value={userName}
@@ -113,7 +113,7 @@ const UpdateUser = ({navigation}) => {
                 multiline={true}
                 style={{textAlignVertical: 'top', padding: 10}}
               />
-              <Mybutton title="Update User" customClick={updateUser} />
+              <TDMButtom title="Update User" customClick={updateUser} />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
