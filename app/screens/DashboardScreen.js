@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import Mybutton from './components/Mybutton';
 import ViewAllOperation from './operations/ViewAllOperation';
 import * as SQLite from 'expo-sqlite';
@@ -45,29 +46,41 @@ const DashboardScreen = ({navigation}) => {
 
   return (
       <View style={styles.body}>
-          <Mybutton
-            title="Register User"
-            customClick={() => navigation.navigate('Register')}
-          />
-          <Mybutton
-            title="Update User"
-            customClick={() => navigation.navigate('UpdateUser')}
-          />
-          <Mybutton
-            title="View All Users"
-            customClick={() => navigation.navigate('ViewAll')}
-          />
-          <Mybutton
-            title="Register Operation"
-            customClick={() => navigation.navigate('RegisterOperation')}
-          />
-          <View style={styles.splitter}></View>
-          <ViewAllOperation></ViewAllOperation>
+          <LinearGradient
+          colors={[colors.placeholderBlue, 'transparent', 'transparent']}
+          style={styles.background}
+          >
+            <Mybutton
+              title="Register User"
+              customClick={() => navigation.navigate('Register')}
+            />
+            <Mybutton
+              title="Update User"
+              customClick={() => navigation.navigate('UpdateUser')}
+            />
+            <Mybutton
+              title="View All Users"
+              customClick={() => navigation.navigate('ViewAll')}
+            />
+            <Mybutton
+              title="Register Operation"
+              customClick={() => navigation.navigate('RegisterOperation')}
+            />
+            <View style={styles.splitter}></View>
+            <ViewAllOperation></ViewAllOperation>
+          </LinearGradient>
       </View>
   );
 };
 
 const styles = StyleSheet.create({
+    background: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      height: '100%',
+    },
     container: {
         flex: 1,
     },
