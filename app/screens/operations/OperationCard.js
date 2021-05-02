@@ -69,7 +69,7 @@ const OperationCard = (props) => {
                     </View>
                     <View style={styles.column2}>
                         <Text style={styles.label}>Rango de Precios</Text>
-                        <Text style={styles.value}>{item.lowPoint} - {item.highPoint}</Text>
+                        <Text style={styles.value}>{item.lowerLimit} - {item.upperLimit}</Text>
                     </View>
                     <View style={styles.column3}>
                         <Text style={styles.label}>% Posible Profit</Text>

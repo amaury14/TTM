@@ -19,7 +19,7 @@ const DashboardScreen = ({navigation}) => {
             if (res.rows.length === 0) {
               txn.executeSql('DROP TABLE IF EXISTS table_ops', []);
               txn.executeSql(
-                'CREATE TABLE IF NOT EXISTS table_ops(op_id INTEGER PRIMARY KEY AUTOINCREMENT, pairCoin VARCHAR(20), investment VARCHAR(20), lowPoint VARCHAR(20), highPoint VARCHAR(20), startPoint VARCHAR(20), grids VARCHAR(20), startDate NUMERIC, stopLoss VARCHAR(20), triggerPrice VARCHAR(20), takeProfit VARCHAR(20), profitPercent VARCHAR(20), notes VARCHAR(255), psicotrading VARCHAR(20), closeDate NUMERIC)',
+                'CREATE TABLE IF NOT EXISTS table_ops(op_id INTEGER PRIMARY KEY AUTOINCREMENT, pairCoin VARCHAR(20), investment VARCHAR(20), lowerLimit VARCHAR(20), upperLimit VARCHAR(20), grids VARCHAR(20), startDate NUMERIC, stopLoss VARCHAR(20), triggerPrice VARCHAR(20), takeProfit VARCHAR(20), profitPercent VARCHAR(20), notes VARCHAR(255), closeDate NUMERIC, state VARCHAR(1))',
                 [],
               );
             }

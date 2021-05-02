@@ -4,11 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import * as SQLite from 'expo-sqlite';
 import OperationCard from './OperationCard';
 
+import colors from '../../config/colors';
+
 var db = SQLite.openDatabase('TDM.db');
 
 const ViewAllOperation = () => {
   const navigation = useNavigation();
   let [flatListItems, setFlatListItems] = useState([]);
+  let [loading, setLoading] = useState(false);
 
   let updateData = () => {
     db.transaction((tx) => {
@@ -38,6 +41,7 @@ const ViewAllOperation = () => {
   }, []);
 
   let deleteOperationAction = (op_id) => {
+    setLoading(true);
     db.transaction((tx) => {
       tx.executeSql(
         'DELETE FROM table_ops where op_id=?',
@@ -45,6 +49,7 @@ const ViewAllOperation = () => {
         (tx, results) => {
           console.log('delete operation', results.rowsAffected);
           updateData();
+          setLoading(false)
         },
       );
     });
@@ -70,7 +75,7 @@ const ViewAllOperation = () => {
   let listViewItemSeparator = () => {
     return (
       <View
-        style={{ height: 0.2, width: '100%', backgroundColor: '#808080' }}
+        style={{ height: 0.2, width: '100%' }}
       />
     );
   };
@@ -93,6 +98,8 @@ const ViewAllOperation = () => {
             ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => listItemView(item)}
+            refreshing={loading}
+            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
           />
         </View>
     </SafeAreaView>
@@ -104,6 +111,11 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'flex-start',
       alignItems: 'center',
+  },
+  noRecords: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: colors.placeholderBlue
   }
 });
 

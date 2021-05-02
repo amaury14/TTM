@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {
     Alert,
-    Button,
-    Image,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
@@ -14,32 +12,31 @@ import {
     View
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import RadioGroup from 'react-native-radio-buttons-group';
 import Mybutton from '../components/Mybutton';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
+import radioConfig from '../../config/radioGroup';
 
 var db = SQLite.openDatabase('TDM.db');
 
 const RegisterOperation = ({navigation}) => {
+  let radioButtonsData = radioConfig;
+
   let [pairCoin, setPairCoin] = useState('');
   let [investment, setInvestment] = useState('');
-  let [lowPoint, setLowPoint] = useState('');
-  let [highPoint, setHighPoint] = useState('');
-  let [startPoint, setStartPoint] = useState('');
+  let [lowerLimit, setLowerLimit] = useState('');
+  let [upperLimit, setUpperLimit] = useState('');
   let [grids, setGrids] = useState('');
   let [startDate, setStartDate] = useState(new Date());
   let [stopLoss, setStopLoss] = useState('');
   let [triggerPrice, setTriggerPrice] = useState('');
   let [takeProfit, setTakeProfit] = useState('');
-  // =================
   let [profitPercent, setProfitPercent] = useState('');
   let [notes, setNotes] = useState('');
-  let [psicotrading, setPsicotrading] = useState('');
-  let [closeDate, setCloseDate] = useState(new Date());
-  let [showStartDate, setShowStartDate] = useState(false);
-  let [showCloseDate, setShowCloseDate] = useState(false);
+  let [closeDate, setCloseDate] = useState(null);
+  let [state, setState] = useState(radioButtonsData);
 
   let showAlert = (title, text) => {
     Alert.alert(title, text,
@@ -48,7 +45,8 @@ const RegisterOperation = ({navigation}) => {
     );
   };
   
-  let register_operation = () => {  
+  let register_operation = () => {
+    const stateSelected = state.find(item => item.selected).value;
     if (!pairCoin) {
       showAlert('Advertencia', 'Rellene el Par/Moneda');
       return;
@@ -57,30 +55,19 @@ const RegisterOperation = ({navigation}) => {
       showAlert('Advertencia', 'Rellene la Inversión');
       return;
     }
-
+    if (stateSelected !== '1') {
+      setCloseDate(new Date());
+    }
     db.transaction(function (tx) {
       tx.executeSql(
-        'INSERT INTO table_ops (pairCoin, investment, lowPoint, highPoint, startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, psicotrading, closeDate) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-        [pairCoin, investment, lowPoint, highPoint, startPoint, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, psicotrading, closeDate],
+        'INSERT INTO table_ops (pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+        [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected],
         (tx, results) => {
           console.log('register operation', results.rowsAffected);
           navigation.navigate('DashboardScreen');
         },
       );
     });
-  };
-
-  const showDatepicker = (type, action) => {
-      switch (type) {
-          case 'startDate': {
-              setShowStartDate(action);
-              break;
-          }
-          case 'closeDate': {
-              setShowCloseDate(action);
-              break;
-          }
-      }
   };
   
     return (
@@ -130,41 +117,6 @@ const RegisterOperation = ({navigation}) => {
                 </View>
                 <View style={styles.row}>
                   <View style={styles.column}>
-                    <Text style={styles.label}>Low Point</Text>
-                    <TextInput style={styles.input}
-                        value={lowPoint}
-                        underlineColorAndroid={colors.underlineColorAndroid}
-                        placeholder="Low Point"
-                        placeholderTextColor={colors.placeholderBlue}
-                        onChangeText={(lowPoint) => setLowPoint(lowPoint)}
-                        blurOnSubmit={false}                  
-                      />
-                  </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Start Point</Text>
-                    <TextInput style={styles.input}
-                      value={startPoint}
-                      underlineColorAndroid={colors.underlineColorAndroid}
-                      placeholder="Start Point"
-                      placeholderTextColor={colors.placeholderBlue}
-                      onChangeText={(startPoint) => setStartPoint(startPoint)}
-                      blurOnSubmit={false}                  
-                    />
-                  </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>High Point</Text>
-                    <TextInput style={styles.input}
-                      value={highPoint}
-                      underlineColorAndroid={colors.underlineColorAndroid}
-                      placeholder="High Point"
-                      placeholderTextColor={colors.placeholderBlue}
-                      onChangeText={(highPoint) => setHighPoint(highPoint)}
-                      blurOnSubmit={false}                  
-                    />                
-                  </View>
-                </View>
-                <View style={styles.row}>
-                  <View style={styles.column}>
                     <Text style={styles.label}>Stop Loss</Text>
                     <TextInput style={styles.input}
                     value={stopLoss}
@@ -176,7 +128,31 @@ const RegisterOperation = ({navigation}) => {
                     />
                   </View>
                   <View style={styles.column}>
-                    <Text style={styles.label}>Trigger Price</Text>
+                    <Text style={styles.label}>Lower Limit</Text>
+                    <TextInput style={styles.input}
+                        value={lowerLimit}
+                        underlineColorAndroid={colors.underlineColorAndroid}
+                        placeholder="Lower Limit"
+                        placeholderTextColor={colors.placeholderBlue}
+                        onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
+                        blurOnSubmit={false}                  
+                      />
+                  </View>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Upper Limit</Text>
+                    <TextInput style={styles.input}
+                      value={upperLimit}
+                      underlineColorAndroid={colors.underlineColorAndroid}
+                      placeholder="Upper Limit"
+                      placeholderTextColor={colors.placeholderBlue}
+                      onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
+                      blurOnSubmit={false}                  
+                    />
+                  </View>
+                </View>
+                <View style={styles.row}>
+                  <View style={styles.column}>
+                    <Text style={styles.label}>Trigger/Buy Price</Text>
                     <TextInput style={styles.input}
                     value={triggerPrice}
                     underlineColorAndroid={colors.underlineColorAndroid}
@@ -197,8 +173,6 @@ const RegisterOperation = ({navigation}) => {
                     blurOnSubmit={false}
                     />
                   </View>
-                </View>
-                <View style={styles.row}>
                   <View style={styles.column}>
                     <Text style={styles.label}>% de Ganancia</Text>
                     <TextInput style={styles.input}
@@ -210,57 +184,13 @@ const RegisterOperation = ({navigation}) => {
                     blurOnSubmit={false}
                     />
                   </View>
-                  <View style={styles.column}>
-                    <Text style={styles.label}>Psicotrading</Text>
-                    <TextInput style={styles.inputLong}
-                    value={psicotrading}
-                    underlineColorAndroid={colors.underlineColorAndroid}
-                    placeholder="Psicotrading"
-                    placeholderTextColor={colors.placeholderBlue}
-                    onChangeText={(psicotrading) => setPsicotrading(psicotrading)}
-                    blurOnSubmit={false}
-                    />
-                  </View>
                 </View>
                 <View style={styles.row}>
-                  <View style={styles.row2}>
-                    <Text style={styles.label}>Fecha de Inicio</Text>
-                    <Icon style={styles.dateIcon}
-                      reverse
-                      name='event'
-                      type='material'
-                      size={15}
-                      color={colors.placeholderBlue}
-                      onPress={() => showDatepicker('startDate', true)} />
-                    {showStartDate && (
-                        <DateTimePicker
-                        value={new Date(startDate) ?? new Date()}
-                        mode="date"
-                        is24Hour="false"
-                        display="default"
-                        onChange={(event, selectedDate) => { setStartDate(selectedDate); showDatepicker('startDate', false)}}
-                        />
-                    )}
-                  </View>
-                  <View style={styles.row2}>
-                    <Text style={styles.label}>Fecha de Cierre</Text>
-                    <Icon
-                      reverse
-                      name='today'
-                      type='material'
-                      size={15}
-                      color={colors.placeholderBlue}
-                      onPress={() => showDatepicker('closeDate', true)} />
-                    {showCloseDate && (
-                        <DateTimePicker
-                        value={new Date(closeDate) ?? new Date()}
-                        mode={'date'}
-                        is24Hour={false}
-                        display="default"
-                        onChange={(event, selectedDate) => { setCloseDate(selectedDate); showDatepicker('closeDate', false)}}
-                        />
-                    )}
-                  </View>
+                  <RadioGroup 
+                    radioButtons={state} 
+                    onPress={(state) => setState(state)} 
+                    layout='row'
+                  />
                 </View>
                 <View style={styles.row}>
                   <View style={styles.column}>
@@ -268,16 +198,16 @@ const RegisterOperation = ({navigation}) => {
                     <TextInput style={styles.inputNotes}
                     value={notes}
                     underlineColorAndroid={colors.underlineColorAndroid}
-                    placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimeinto del mercado, etc..."
+                    placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.placeholderBlue}
                     onChangeText={(notes) => setNotes(notes)}
                     maxLength={225}
-                    numberOfLines={5}
+                    numberOfLines={8}
                     multiline={true}           
                     />
                   </View>
                 </View>
-                <Mybutton title="Save" customClick={register_operation} />
+                <Mybutton title="Guardar" customClick={register_operation} />
               </KeyboardAvoidingView>
             </ScrollView>  
         </View>
