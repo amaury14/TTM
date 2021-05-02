@@ -1,12 +1,11 @@
 import 'react-native-gesture-handler';
 
 import React from 'react';
-import { Dimensions, StyleSheet, SafeAreaView, StatusBar, Platform, View } from 'react-native';
-import { useDimensions, useDeviceOrientation } from "@react-native-community/hooks";
+import { StyleSheet, SafeAreaView, StatusBar, Platform } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import DashboardScreen from './app/screens/DashboardScreen';
+import BottomTabsScreen from './app/screens/BottomTabScreen';
 import RegisterUser from './app/screens/user/RegisterUser';
 import ViewAllUser from './app/screens/user/ViewAllUser';
 import RegisterOperation from './app/screens/operations/RegisterOperation';
@@ -20,13 +19,14 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <SafeAreaView style={styles.container}>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="DashboardScreen">
+      <Stack.Navigator>
         <Stack.Screen
-          name="DashboardScreen"
-          component={DashboardScreen}
+          name="BottomTabScreen"
+          component={BottomTabsScreen}
           options={{
-            title: 'Dashboard', //Set Header Title
+            title: '', //Set Header Title
             headerStyle: {
               backgroundColor: colors.placeholderBlue, //Set Header color
             },
@@ -78,20 +78,7 @@ export default function App() {
             },
           }}
         />
-        <Stack.Screen
-          name="RegisterOperation"
-          component={RegisterOperation}
-          options={{
-            title: 'Agregar Operación', //Set Header Title
-            headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
-            },
-            headerTintColor: '#fff', //Set Header text color
-            headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
-            },
-          }}
-        />
+        
         <Stack.Screen
           name="UpdateOperation"
           component={UpdateOperation}
@@ -122,13 +109,13 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'orange',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
   },
 });

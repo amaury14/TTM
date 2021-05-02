@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Image, ImageBackground, Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
 import Mybutton from './components/Mybutton';
-import Mytext from './components/Mytext';
 import ViewAllOperation from './operations/ViewAllOperation';
 import * as SQLite from 'expo-sqlite';
 
@@ -45,7 +44,6 @@ const DashboardScreen = ({navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
       <View style={styles.body}>
           <Mybutton
             title="Register User"
@@ -66,7 +64,6 @@ const DashboardScreen = ({navigation}) => {
           <View style={styles.splitter}></View>
           <ViewAllOperation></ViewAllOperation>
       </View>
-    </SafeAreaView>
   );
 };
 
@@ -77,7 +74,7 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: 'white',
+      backgroundColor: 'white'
     },
     splitter: {
       margin: 10,
