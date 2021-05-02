@@ -15,11 +15,15 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.amaurychong.tdm",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.amaurychong.tdm",
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/icon2.png",
         "backgroundColor": "#FFFFFF"
       }
     },

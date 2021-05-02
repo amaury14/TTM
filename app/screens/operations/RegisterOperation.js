@@ -35,7 +35,7 @@ const RegisterOperation = ({navigation}) => {
   let [profitPercent, setProfitPercent] = useState('');
   let [notes, setNotes] = useState('');
   let [closeDate, setCloseDate] = useState(null);
-  let [state, setState] = useState(radioButtonsData);
+  let [radioButtons, setRadioButtons] = useState(radioButtonsData);
 
   let showAlert = (title, text) => {
     Alert.alert(title, text,
@@ -45,7 +45,7 @@ const RegisterOperation = ({navigation}) => {
   };
   
   let register_operation = () => {
-    const stateSelected = state.find(item => item.selected).value;
+    const stateSelected = radioButtons.find(item => item.selected).value;
     if (!pairCoin) {
       showAlert('Advertencia', 'Rellene el Par/Moneda');
       return;
@@ -57,6 +57,7 @@ const RegisterOperation = ({navigation}) => {
     if (stateSelected !== '1') {
       setCloseDate(new Date());
     }
+
     db.transaction(function (tx) {
       tx.executeSql(
         'INSERT INTO table_ops (pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
@@ -194,8 +195,8 @@ const RegisterOperation = ({navigation}) => {
                 </View>
                 <View style={styles.row}>
                   <RadioGroup 
-                    radioButtons={state} 
-                    onPress={(state) => setState(state)} 
+                    radioButtons={radioButtons} 
+                    onPress={(radioButtons) => setRadioButtons(radioButtons)} 
                     layout='row'
                   />
                 </View>
