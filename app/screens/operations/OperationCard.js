@@ -63,7 +63,6 @@ const OperationCard = (props) => {
                 key={item.op_id}
                 style={styles.card}>
                     <View style={styles.column1}>
-                        {/* <Text style={styles.pair}>{item.pairCoin}</Text> */}
                         {getIcon(item.pairCoin)}
                         <Text style={styles.investment}>{item.investment} USDT</Text>        
                     </View>
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     },
     coinSplitter: {
         fontWeight: 'bold',
-        fontSize: 23
+        fontSize: 25
     },
     column1: {
         flexDirection: 'column',
@@ -151,8 +150,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     tinyLogo: {
-        width: 23,
-        height: 23,
+        width: 28,
+        height: 28,
     },
     row: {
         flexDirection: 'row',

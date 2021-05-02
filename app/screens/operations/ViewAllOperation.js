@@ -15,7 +15,7 @@ const ViewAllOperation = () => {
 
   let updateData = () => {
     db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM table_ops', [], (tx, results) => {
+      tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
         var temp = [];
         if (results.rows.length > 0) {
           for (let i = 0; i < results.rows.length; ++i) {
