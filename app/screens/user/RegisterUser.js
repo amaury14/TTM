@@ -74,7 +74,7 @@ const RegisterUser = ({navigation}) => {
               placeholder="Enter Address"
               placeholderTextColor={colors.mainColor}
               maxLength={225}
-              numberOfLines={5}
+              numberOfLines={3}
               multiline={true}
               onChangeText={(userAddress) => setUserAddress(userAddress)}
               blurOnSubmit={false}                  

@@ -10,6 +10,7 @@ import colors from '../config/colors';
 var db = SQLite.openDatabase('TDM.db');
 
 const DashboardScreen = ({navigation}) => {
+  let user = null;
   useEffect(() => {
     db.transaction(function (txn) {
         txn.executeSql(
@@ -42,6 +43,13 @@ const DashboardScreen = ({navigation}) => {
         },
       );
     });
+    db.transaction((tx) => {
+      tx.executeSql('SELECT * FROM table_user', [], (tx, results) => {
+        if (results.rows.length > 0) {
+          user = results.rows.item(0);
+        }
+      });
+    });
   }, []);
 
   return (
@@ -56,7 +64,7 @@ const DashboardScreen = ({navigation}) => {
             />
             <TDMButtom
               title="Update User"
-              customClick={() => navigation.navigate('UpdateUser')}
+              customClick={() => navigation.navigate('UpdateUser', { user_id: user?.user_id })}
             />
             <TDMButtom
               title="View All Users"

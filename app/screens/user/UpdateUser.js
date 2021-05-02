@@ -1,23 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   ScrollView,
   KeyboardAvoidingView,
   Alert,
   SafeAreaView,
-  Text,
+  StyleSheet,
+  TextInput
 } from 'react-native';
-import Mytextinput from '../components/Mytextinput';
 import TDMButtom from '../components/TDMButtom';
 import * as SQLite from 'expo-sqlite';
 
+import colors from '../../config/colors';
+
 var db = SQLite.openDatabase('TDM.db');
 
-const UpdateUser = ({navigation}) => {
-  let [inputUserId, setInputUserId] = useState('');
+const UpdateUser = ({ route, navigation }) => {
+  let { user_id } = route.params;
+
   let [userName, setUserName] = useState('');
   let [userMail, setUserMail] = useState('');
   let [userAddress, setUserAddress] = useState('');
+
+  let showAlert = (title, text) => {
+    Alert.alert(title, text,
+      [{ text: 'Aceptar' }],
+      {cancelable: false},
+    );
+  };
 
   let updateAllStates = (name, mail, address) => {
     setUserName(name);
@@ -25,12 +35,11 @@ const UpdateUser = ({navigation}) => {
     setUserAddress(address);
   };
 
-  let searchUser = () => {
-    console.log(inputUserId);
+  useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
         'SELECT * FROM table_user where user_id = ?',
-        [inputUserId],
+        [user_id],
         (tx, results) => {
           var len = results.rows.length;
           if (len > 0) {
@@ -43,31 +52,26 @@ const UpdateUser = ({navigation}) => {
         },
       );
     });
-  };
-  let updateUser = () => {
-    console.log(inputUserId, userName, userMail, userAddress);
+  }, []);
 
-    if (!inputUserId) {
-      alert('Please fill User id');
-      return;
-    }
+  let updateUser = () => {
     if (!userName) {
-      alert('Please fill name');
+      showAlert('Advertencia', 'Rellene el Nombre de Usuario');
       return;
     }
     if (!userMail) {
-      alert('Please fill Mail');
+      showAlert('Advertencia', 'Rellene el Correo');
       return;
     }
     if (!userAddress) {
-      alert('Please fill Address');
+      showAlert('Advertencia', 'Rellene la Dirección');
       return;
     }
 
     db.transaction((tx) => {
       tx.executeSql(
         'UPDATE table_user set user_name=?, user_mail=? , user_address=? where user_id=?',
-        [userName, userMail, userAddress, inputUserId],
+        [userName, userMail, userAddress, user_id],
         (tx, results) => {
           console.log('Results', results.rowsAffected);
           navigation.navigate('DashboardScreen');
@@ -84,36 +88,34 @@ const UpdateUser = ({navigation}) => {
             <KeyboardAvoidingView
               behavior="padding"
               style={{flex: 1, justifyContent: 'space-between'}}>
-              <Mytextinput
-                placeholder="Enter User Id"
-                style={{padding: 10}}
-                onChangeText={(inputUserId) => setInputUserId(inputUserId)}
+              <TextInput style={styles.input}
+              value={userName}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Name"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(userName) => setUserName(userName)}
+              blurOnSubmit={false}                  
               />
-              <TDMButtom title="Search User" customClick={searchUser} />
-              <Mytextinput
-                placeholder="Enter Name"
-                value={userName}
-                style={{padding: 10}}
-                onChangeText={(userName) => setUserName(userName)}
+              <TextInput style={styles.input}
+              value={userMail}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Email"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(userMail) => setUserMail(userMail)}
+              blurOnSubmit={false}                  
               />
-              <Mytextinput
-                placeholder="Enter Mail"
-                value={'' + userMail}
-                onChangeText={(userMail) => setUserMail(userMail)}
-                maxLength={10}
-                style={{padding: 10}}
-                keyboardType="numeric"
+              <TextInput style={styles.inputNotes}
+              value={userAddress}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Address"
+              placeholderTextColor={colors.mainColor}
+              maxLength={225}
+              numberOfLines={3}
+              multiline={true}
+              onChangeText={(userAddress) => setUserAddress(userAddress)}
+              blurOnSubmit={false}                  
               />
-              <Mytextinput
-                value={userAddress}
-                placeholder="Enter Address"
-                onChangeText={(userAddress) => setUserAddress(userAddress)}
-                maxLength={225}
-                numberOfLines={5}
-                multiline={true}
-                style={{textAlignVertical: 'top', padding: 10}}
-              />
-              <TDMButtom title="Update User" customClick={updateUser} />
+              <TDMButtom title="Guardar" customClick={updateUser} />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
@@ -121,5 +123,27 @@ const UpdateUser = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    borderRadius: 8,
+    borderColor: colors.gray,
+    borderWidth: 1.5,
+    padding: 5,
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 10,
+  },
+  inputNotes: {
+    borderRadius: 8,
+    borderColor: colors.gray,
+    borderWidth: 1.5,
+    padding: 5,
+    textAlignVertical: 'top',
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 10,
+  },
+});
 
 export default UpdateUser;
