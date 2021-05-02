@@ -78,12 +78,12 @@ const OperationCard = (props) => {
                         <Icon
                         name='edit'
                         type='feather'
-                        color={colors.placeholderBlue}
+                        color={colors.mainColor}
                         onPress={props.updateClick} />
                         <Icon
                         name='trash-2'
                         type='feather'
-                        color={colors.placeholderBlue}
+                        color={colors.mainColor}
                         onPress={props.deleteClick} />                        
                     </View>                
             </View>)}
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     label: {
-        color: colors.placeholderBlue,
+        color: colors.mainColor,
         fontWeight: '900',
         fontSize: 14,
     },

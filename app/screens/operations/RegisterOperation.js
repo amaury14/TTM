@@ -11,7 +11,6 @@ import {
     TextInput,
     View
 } from 'react-native';
-import { Icon } from 'react-native-elements';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Mybutton from '../components/Mybutton';
 import * as SQLite from 'expo-sqlite';
@@ -87,7 +86,7 @@ const RegisterOperation = ({navigation}) => {
                       value={pairCoin}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
-                      placeholderTextColor={colors.placeholderBlue}
+                      placeholderTextColor={colors.mainColor}
                       onChangeText={(pairCoin) => setPairCoin(pairCoin)}
                       blurOnSubmit={false}                  
                     />
@@ -98,7 +97,7 @@ const RegisterOperation = ({navigation}) => {
                       value={investment}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
-                      placeholderTextColor={colors.placeholderBlue}
+                      placeholderTextColor={colors.mainColor}
                       onChangeText={(investment) => setInvestment(investment)}
                       blurOnSubmit={false}                  
                     />
@@ -109,7 +108,7 @@ const RegisterOperation = ({navigation}) => {
                     value={grids}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(grids) => setGrids(grids)}
                     blurOnSubmit={false}                  
                     /> 
@@ -122,7 +121,7 @@ const RegisterOperation = ({navigation}) => {
                     value={stopLoss}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(stopLoss) => setStopLoss(stopLoss)}
                     blurOnSubmit={false}                  
                     />
@@ -133,7 +132,7 @@ const RegisterOperation = ({navigation}) => {
                         value={lowerLimit}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
-                        placeholderTextColor={colors.placeholderBlue}
+                        placeholderTextColor={colors.mainColor}
                         onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
                         blurOnSubmit={false}                  
                       />
@@ -144,7 +143,7 @@ const RegisterOperation = ({navigation}) => {
                       value={upperLimit}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
-                      placeholderTextColor={colors.placeholderBlue}
+                      placeholderTextColor={colors.mainColor}
                       onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
                       blurOnSubmit={false}                  
                     />
@@ -157,7 +156,7 @@ const RegisterOperation = ({navigation}) => {
                     value={triggerPrice}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(triggerPrice) => setTriggerPrice(triggerPrice)}
                     blurOnSubmit={false}                  
                     />
@@ -168,7 +167,7 @@ const RegisterOperation = ({navigation}) => {
                     value={takeProfit}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(takeProfit) => setTakeProfit(takeProfit)}
                     blurOnSubmit={false}
                     />
@@ -179,7 +178,7 @@ const RegisterOperation = ({navigation}) => {
                     value={profitPercent}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(profitPercent) => setProfitPercent(profitPercent)}
                     blurOnSubmit={false}
                     />
@@ -199,7 +198,7 @@ const RegisterOperation = ({navigation}) => {
                     value={notes}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
-                    placeholderTextColor={colors.placeholderBlue}
+                    placeholderTextColor={colors.mainColor}
                     onChangeText={(notes) => setNotes(notes)}
                     maxLength={225}
                     numberOfLines={8}
@@ -252,7 +251,7 @@ const styles = StyleSheet.create({
     },
     label: {
       fontSize: 12,
-      color: colors.placeholderBlue,
+      color: colors.mainColor,
       fontWeight: 'bold',
     },
     image: {

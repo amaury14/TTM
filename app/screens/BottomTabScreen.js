@@ -2,12 +2,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import RegisterOperation from './operations/RegisterOperation';
-import ViewAllUser from './user/ViewAllUser';
 import DashboardScreen from './DashboardScreen';
-import RegisterUser from './user/RegisterUser';
-import UpdateUser from './user/UpdateUser';
-import UpdateOperation from './operations/UpdateOperation';
-import ViewAllOperation from './operations/ViewAllOperation';
+import MyTabBar from './components/MyTabBar';
 
 import colors from '../config/colors';
 
@@ -16,14 +12,14 @@ const Tab = createBottomTabNavigator();
 function BottomTabsScreen() {
   return (
     <SafeAreaView style={styles.container}>
-        <Tab.Navigator>
+        <Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
             <Tab.Screen
                 name="DashboardScreen"
                 component={DashboardScreen}
                 options={{
                     title: 'Dashboard', //Set Header Title
                     headerStyle: {
-                    backgroundColor: colors.placeholderBlue, //Set Header color
+                    backgroundColor: colors.mainColor, //Set Header color
                     },
                     headerTintColor: '#fff', //Set Header text color
                     headerTitleStyle: {
@@ -37,7 +33,7 @@ function BottomTabsScreen() {
                 options={{
                     title: 'Agregar Operación', //Set Header Title
                     headerStyle: {
-                    backgroundColor: colors.placeholderBlue, //Set Header color
+                    backgroundColor: colors.mainColor, //Set Header color
                     },
                     headerTintColor: '#fff', //Set Header text color
                     headerTitleStyle: {

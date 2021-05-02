@@ -47,7 +47,7 @@ const DashboardScreen = ({navigation}) => {
   return (
       <View style={styles.body}>
           <LinearGradient
-          colors={[colors.placeholderBlue, 'transparent', 'transparent']}
+          colors={[colors.mainColor, 'transparent', 'transparent']}
           style={styles.background}
           >
             <Mybutton
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     body: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: 'white'
+      backgroundColor: 'white',
     },
     splitter: {
       margin: 10,

@@ -2,8 +2,8 @@ import colors from './colors';
 
 export default [
     {
-      color: colors.placeholderBlue,
-      labelStyle: { color: colors.placeholderBlue },
+      color: colors.mainColor,
+      labelStyle: { color: colors.mainColor },
       id: '1',
       label: 'Abierta',
       selected: true,
@@ -11,16 +11,16 @@ export default [
       value: '1'
     },
     {
-      color: colors.placeholderBlue,
-      labelStyle: { color: colors.placeholderBlue },
+      color: colors.mainColor,
+      labelStyle: { color: colors.mainColor },
       id: '2',
       label: 'Cerrada',
       size: 20,
       value: '2'
     },
     {
-      color: colors.placeholderBlue,
-      labelStyle: { color: colors.placeholderBlue },
+      color: colors.mainColor,
+      labelStyle: { color: colors.mainColor },
       id: '3',
       label: 'Cancelada',
       size: 20,

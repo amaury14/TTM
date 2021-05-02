@@ -4,7 +4,7 @@ export default {
     black: "#000",
     white: "#fff",
     gray: "#94b5c0",
-    placeholderBlue: "#126e82",
+    mainColor: "#126e82",
     underlineColorAndroid: "transparent",
     header1: "#f4511e",
     value: "#132c33",

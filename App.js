@@ -28,7 +28,7 @@ export default function App() {
           options={{
             title: '', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -42,7 +42,7 @@ export default function App() {
           options={{
             title: 'Agregar Usuario', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -56,7 +56,7 @@ export default function App() {
           options={{
             title: 'Modificar Usuario', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -70,7 +70,7 @@ export default function App() {
           options={{
             title: 'Usuarios', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -85,7 +85,7 @@ export default function App() {
           options={{
             title: 'Modificar Operación', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {
@@ -99,7 +99,7 @@ export default function App() {
           options={{
             title: 'Operaciones', //Set Header Title
             headerStyle: {
-              backgroundColor: colors.placeholderBlue, //Set Header color
+              backgroundColor: colors.mainColor, //Set Header color
             },
             headerTintColor: '#fff', //Set Header text color
             headerTitleStyle: {

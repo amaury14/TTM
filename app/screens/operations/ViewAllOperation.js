@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   noRecords: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: colors.placeholderBlue
+    color: colors.mainColor
   }
 });
 
