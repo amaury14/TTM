@@ -3,13 +3,14 @@ import {
   View,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
   SafeAreaView,
-  Text,
+  StyleSheet,
+  TextInput,
 } from 'react-native';
-import Mytextinput from '../components/Mytextinput';
 import Mybutton from '../components/Mybutton';
 import * as SQLite from 'expo-sqlite';
+
+import colors from '../../config/colors';
 
 var db = SQLite.openDatabase('TDM.db');
 
@@ -54,26 +55,31 @@ const RegisterUser = ({navigation}) => {
             <KeyboardAvoidingView
               behavior="padding"
               style={{flex: 1, justifyContent: 'space-between'}}>
-              <Mytextinput
-                placeholder="Enter Name"
-                onChangeText={(userName) => setUserName(userName)}
-                style={{padding: 10}}
+              <TextInput style={styles.input}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Name"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(userName) => setUserName(userName)}
+              blurOnSubmit={false}                  
               />
-              <Mytextinput
-                placeholder="Enter Email"
-                onChangeText={(userMail) => setUserMail(userMail)}
-                maxLength={10}
-                style={{padding: 10}}
+              <TextInput style={styles.input}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Email"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(userMail) => setUserMail(userMail)}
+              blurOnSubmit={false}                  
               />
-              <Mytextinput
-                placeholder="Enter Address"
-                onChangeText={(userAddress) => setUserAddress(userAddress)}
-                maxLength={225}
-                numberOfLines={5}
-                multiline={true}
-                style={{textAlignVertical: 'top', padding: 10}}
+              <TextInput style={styles.inputNotes}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="Enter Address"
+              placeholderTextColor={colors.mainColor}
+              maxLength={225}
+              numberOfLines={5}
+              multiline={true}
+              onChangeText={(userAddress) => setUserAddress(userAddress)}
+              blurOnSubmit={false}                  
               />
-              <Mybutton title="Submit" customClick={register_user} />
+              <Mybutton title="Guardar" customClick={register_user} />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
@@ -81,5 +87,27 @@ const RegisterUser = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    borderRadius: 8,
+    borderColor: colors.gray,
+    borderWidth: 1.5,
+    padding: 5,
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 10,
+  },
+  inputNotes: {
+    borderRadius: 8,
+    borderColor: colors.gray,
+    borderWidth: 1.5,
+    padding: 5,
+    textAlignVertical: 'top',
+    marginLeft: 35,
+    marginRight: 35,
+    marginTop: 10,
+  },
+});
 
 export default RegisterUser;

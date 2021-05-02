@@ -301,6 +301,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.black,
         flex: 1,
     }
-})
+});
 
 export default RegisterOperation;
