@@ -26,13 +26,13 @@ export default function App() {
           name="BottomTabScreen"
           component={BottomTabsScreen}
           options={{
-            title: '', //Set Header Title
+            title: '',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -40,13 +40,13 @@ export default function App() {
           name="Register"
           component={RegisterUser}
           options={{
-            title: 'Agregar Usuario', //Set Header Title
+            title: 'Agregar Usuario',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -54,13 +54,13 @@ export default function App() {
           name="UpdateUser"
           component={UpdateUser}
           options={{
-            title: 'Modificar Usuario', //Set Header Title
+            title: 'Modificar Usuario',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />        
@@ -68,13 +68,13 @@ export default function App() {
           name="ViewAll"
           component={ViewAllUser}
           options={{
-            title: 'Usuarios', //Set Header Title
+            title: 'Usuarios',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -83,13 +83,13 @@ export default function App() {
           name="UpdateOperation"
           component={UpdateOperation}
           options={{
-            title: 'Modificar Operación', //Set Header Title
+            title: 'Modificar Operación',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />
@@ -97,13 +97,13 @@ export default function App() {
           name="ViewAllOperation"
           component={ViewAllOperation}
           options={{
-            title: 'Operaciones', //Set Header Title
+            title: 'Operaciones',
             headerStyle: {
-              backgroundColor: colors.mainColor, //Set Header color
+              backgroundColor: colors.mainColor,
             },
-            headerTintColor: '#fff', //Set Header text color
+            headerTintColor: '#fff',
             headerTitleStyle: {
-              fontWeight: 'bold', //Set Header text style
+              fontWeight: 'bold',
             },
           }}
         />

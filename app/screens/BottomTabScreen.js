@@ -17,13 +17,13 @@ function BottomTabsScreen() {
                 name="DashboardScreen"
                 component={DashboardScreen}
                 options={{
-                    title: 'Dashboard', //Set Header Title
+                    title: 'Dashboard',
                     headerStyle: {
-                    backgroundColor: colors.mainColor, //Set Header color
+                    backgroundColor: colors.mainColor,
                     },
-                    headerTintColor: '#fff', //Set Header text color
+                    headerTintColor: '#fff',
                     headerTitleStyle: {
-                    fontWeight: 'bold', //Set Header text style
+                    fontWeight: 'bold',
                     },
                 }}
             />
@@ -31,13 +31,13 @@ function BottomTabsScreen() {
                 name="RegisterOperation"
                 component={RegisterOperation}
                 options={{
-                    title: 'Agregar Operación', //Set Header Title
+                    title: 'Agregar Operación',
                     headerStyle: {
-                    backgroundColor: colors.mainColor, //Set Header color
+                    backgroundColor: colors.mainColor,
                     },
-                    headerTintColor: '#fff', //Set Header text color
+                    headerTintColor: '#fff',
                     headerTitleStyle: {
-                    fontWeight: 'bold', //Set Header text style
+                    fontWeight: 'bold',
                     },
                 }}
             />
