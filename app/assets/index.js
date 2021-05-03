@@ -361,6 +361,7 @@ const images = {
         strat: require('./color128/strat.png'),
         stx: require('./color128/stx.png'),
         sub: require('./color128/sub.png'),
+        sushi: require('./color128/sushi.png'),
         sumo: require('./color128/sumo.png'),
         sys: require('./color128/sys.png'),
         taas: require('./color128/taas.png'),

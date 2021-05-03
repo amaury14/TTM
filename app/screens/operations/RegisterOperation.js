@@ -23,18 +23,18 @@ var db = SQLite.openDatabase('TDM.db');
 const RegisterOperation = ({navigation}) => {
   let radioButtonsData = radioConfig;
 
-  let [pairCoin, setPairCoin] = useState('');
-  let [investment, setInvestment] = useState('');
-  let [lowerLimit, setLowerLimit] = useState('');
-  let [upperLimit, setUpperLimit] = useState('');
-  let [grids, setGrids] = useState('');
+  let [pairCoin, setPairCoin] = useState("");
+  let [investment, setInvestment] = useState("");
+  let [lowerLimit, setLowerLimit] = useState("");
+  let [upperLimit, setUpperLimit] = useState("");
+  let [grids, setGrids] = useState("");
   let [startDate, setStartDate] = useState(new Date());
-  let [stopLoss, setStopLoss] = useState('');
-  let [triggerPrice, setTriggerPrice] = useState('');
-  let [takeProfit, setTakeProfit] = useState('');
-  let [profitPercent, setProfitPercent] = useState('');
-  let [notes, setNotes] = useState('');
-  let [closeDate, setCloseDate] = useState(null);
+  let [stopLoss, setStopLoss] = useState("");
+  let [triggerPrice, setTriggerPrice] = useState("");
+  let [takeProfit, setTakeProfit] = useState("");
+  let [profitPercent, setProfitPercent] = useState("");
+  let [notes, setNotes] = useState("");
+  let [closeDate, setCloseDate] = useState(new Date());
   let [radioButtons, setRadioButtons] = useState(radioButtonsData);
 
   let showAlert = (title, text) => {
@@ -46,15 +46,15 @@ const RegisterOperation = ({navigation}) => {
   
   let register_operation = () => {
     const stateSelected = radioButtons.find(item => item.selected).value;
-    if (!pairCoin) {
+    if (pairCoin === "") {
       showAlert('Advertencia', 'Rellene el Par/Moneda');
       return;
     }
-    if (!investment) {
+    if (investment === "") {
       showAlert('Advertencia', 'Rellene la Inversión');
       return;
     }
-    if (stateSelected !== '1') {
+    if (stateSelected !== "1") {
       setCloseDate(new Date());
     }
 
@@ -84,7 +84,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>* Par/Moneda</Text>
                     <TextInput style={styles.input}
-                      value={pairCoin}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
                       placeholderTextColor={colors.mainColor}
@@ -95,7 +94,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>* Inversión</Text>
                     <TextInput style={styles.input}
-                      value={investment}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
@@ -107,7 +105,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Grids (bots)</Text>
                     <TextInput style={styles.input}
-                    value={grids}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
@@ -121,7 +118,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Stop Loss</Text>
                     <TextInput style={styles.input}
-                    value={stopLoss}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
@@ -133,7 +129,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Lower Limit</Text>
                     <TextInput style={styles.input}
-                        value={lowerLimit}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
@@ -145,7 +140,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Upper Limit</Text>
                     <TextInput style={styles.input}
-                      value={upperLimit}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
@@ -159,7 +153,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Trigger/Buy Price</Text>
                     <TextInput style={styles.input}
-                    value={triggerPrice}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
@@ -171,7 +164,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Take Profit</Text>
                     <TextInput style={styles.input}
-                    value={takeProfit}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
                     placeholderTextColor={colors.mainColor}
@@ -183,7 +175,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>% de Ganancia</Text>
                     <TextInput style={styles.input}
-                    value={profitPercent}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
                     placeholderTextColor={colors.mainColor}
@@ -204,7 +195,6 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Apuntes</Text>
                     <TextInput style={styles.inputNotes}
-                    value={notes}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.mainColor}
