@@ -12,6 +12,8 @@ import ViewAllOperation from './app/screens/operations/ViewAllOperation';
 import RegisterUser from './app/screens/user/RegisterUser';
 import UpdateUser from './app/screens/user/UpdateUser';
 import ViewAllUser from './app/screens/user/ViewAllUser';
+import LoadingScreen from './app/screens/LoadingScreen';
+import LoginScreen from './app/screens/LoginScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +22,14 @@ export default function App() {
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
                 <Stack.Navigator>
+                    <Stack.Screen
+                        name="LoadingScreen"
+                        component={LoadingScreen}
+                    />
+                    <Stack.Screen
+                        name="LoginScreen"
+                        component={LoginScreen}
+                    />
                     <Stack.Screen
                         name="BottomTabScreen"
                         component={BottomTabsScreen}
@@ -34,7 +44,7 @@ export default function App() {
                             },
                         }}
                     />
-                    <Stack.Screen
+                    {/* <Stack.Screen
                         name="Register"
                         component={RegisterUser}
                         options={{
@@ -61,7 +71,7 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                         }}
-                    />        
+                    />         */}
                     <Stack.Screen
                         name="ViewAll"
                         component={ViewAllUser}

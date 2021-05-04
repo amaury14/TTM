@@ -24,8 +24,8 @@ const ViewAllUser = () => {
       let users = [];
       await firebase.fireDb.collection('users').onSnapshot(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
-          const { userName, userMail, userAddress, userPhone } = doc.data();
-          users.push({ id: doc.id, userName, userMail, userAddress, userPhone });
+          const { ...data } = doc.data();
+          users.push({ id: doc.id, ...data });
         })
         handlePropChange('users', users);
       });
@@ -49,10 +49,13 @@ const ViewAllUser = () => {
         key={item.id}
         style={{ backgroundColor: 'white', padding: 20 }}>
         <Text>Id: {item.id}</Text>
-        <Text>Nombre: {item.userName}</Text>
-        <Text>Correo: {item.userMail}</Text>
-        <Text># Celular: {item.userPhone}</Text>
-        <Text>Dirección: {item.userAddress}</Text>
+        <Text>Nombre: {item.first_name}</Text>
+        <Text>Apellidos: {item.last_name}</Text>
+        <Text>Correo: {item.gmail}</Text>
+        <Text>Locale: {item.locale}</Text>
+        <Text>Picture URL: {item.profile_picture}</Text>
+        <Text>Registrado: {item.created_at}</Text>
+        <Text>Ultimo login: {item.last_logged_in}</Text>
       </View>
     );
   };

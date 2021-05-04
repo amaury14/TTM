@@ -63,22 +63,26 @@ const DashboardScreen = ({navigation}) => {
           style={styles.background}
           >
             <TDMDashboard></TDMDashboard>
-            <TDMButtom
+            {/* <TDMButtom
               title="Register User"
               customClick={() => navigation.navigate('Register')}
             />
             <TDMButtom
               title="Update User"
               customClick={() => navigation.navigate('UpdateUser', { id: state.user.id })}
-            />
+            /> */}
             <TDMButtom
               title="View All Users"
               customClick={() => navigation.navigate('ViewAll')}
             />
             <TDMButtom
+              title="Salir"
+              customClick={() => firebase.firebase.auth().signOut()}
+            />
+            {/* <TDMButtom
               title="Register Operation"
               customClick={() => navigation.navigate('RegisterOperation')}
-            />
+            /> */}
             <View style={styles.splitter}></View>
             <ViewAllOperation></ViewAllOperation>
           </LinearGradient>
