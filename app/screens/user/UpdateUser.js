@@ -87,7 +87,7 @@ const UpdateUser = (props) => {
     Alert.alert('Advertencia', 'Está seguro de eliminar el usuario?',
       [
         { text: 'Aceptar', onPress: () => deleteUser() },
-        { text: 'Cancelar', onPress: () => console.log('cancelar') }
+        { text: 'Cancelar' }
       ]
     );
   };

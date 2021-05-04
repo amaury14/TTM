@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
@@ -22,7 +23,16 @@ const LoadingScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <ActivityIndicator size={90} color={colors.mainColor} />
+            <LinearGradient
+                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
+                style={styles.background}
+                >
+                <Image
+                style={styles.logo}
+                source={require('../assets/rocket2.png')}
+                />    
+                <ActivityIndicator size={90} color={colors.white} />
+            </LinearGradient>
         </View>
     );
 };
@@ -33,6 +43,22 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: colors.white,
+    },
+    background: {
+        flex: 1,
+        alignItems: 'center',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: '100%',
+        justifyContent: 'center',
+    },
+    logo: {
+        position: 'absolute',
+        top: 50,
+        height: 150,
+        width: 150
     }
 });
 

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import * as Google from 'expo-google-app-auth';
-import { Button } from 'react-native-elements/dist/buttons/Button';
-import TDMButtom from './components/TDMButtom';
+import React from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Image, StyleSheet, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
-import UpdateUser from './user/UpdateUser';
+import TDMButtom from './components/TDMButtom';
 
 const LoginScreen = (props) => {
 
@@ -44,7 +44,6 @@ const LoginScreen = (props) => {
     };
 
     const onSignIn = async (googleUser) => {
-        console.log('Google Auth Response', googleUser);
         // We need to register an Observer on Firebase Auth to make sure auth is initialized.
         var unsubscribe = firebase.firebase.auth().onAuthStateChanged((firebaseUser) => {
             unsubscribe();
@@ -101,17 +100,55 @@ const LoginScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <TDMButtom title="Login con Google" customClick={() => signInWithGoogleAsync()} />
+            <LinearGradient
+            colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
+            style={styles.background}
+            >
+                <Image
+                style={styles.logo}
+                source={require('../assets/rocket2.png')}
+                /> 
+                <View style={styles.row}>
+                    <Icon
+                    size={40}
+                    name='google'
+                    type='fontisto'
+                    color={colors.mainColor} />
+                    <TDMButtom title="Login con Google" customClick={() => signInWithGoogleAsync()} />
+                </View>
+            </LinearGradient>            
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     body: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: colors.white,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: colors.white,
+    },
+    background: {
+        flex: 1,
+        alignItems: 'center',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: '100%',
+        justifyContent: 'center',
+    },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%'
+    },
+    logo: {
+        position: 'absolute',
+        top: 50,
+        height: 150,
+        width: 150
     }
 });
 

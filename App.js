@@ -25,10 +25,12 @@ export default function App() {
                     <Stack.Screen
                         name="LoadingScreen"
                         component={LoadingScreen}
+                        options={{headerShown: false}}
                     />
                     <Stack.Screen
                         name="LoginScreen"
                         component={LoginScreen}
+                        options={{headerShown: false}}
                     />
                     <Stack.Screen
                         name="BottomTabScreen"

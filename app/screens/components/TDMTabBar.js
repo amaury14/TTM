@@ -16,8 +16,8 @@ function TDMTabBar({ state, descriptors, navigation }) {
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
+          options.headerTitle !== undefined
+            ? options.headerTitle
             : options.title !== undefined
             ? options.title
             : route.name;

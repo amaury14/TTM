@@ -70,10 +70,10 @@ const DashboardScreen = ({navigation}) => {
               title="Update User"
               customClick={() => navigation.navigate('UpdateUser', { id: state.user.id })}
             /> */}
-            <TDMButtom
+            {/* <TDMButtom
               title="View All Users"
               customClick={() => navigation.navigate('ViewAll')}
-            />
+            /> */}
             <TDMButtom
               title="Salir"
               customClick={() => firebase.firebase.auth().signOut()}

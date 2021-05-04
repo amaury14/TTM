@@ -50,8 +50,7 @@ const UpdateOperation = (props) => {
 
     const handlePropChange = (name, value) => {
       setState({ ...state, [name]: value });
-      console.log(state.opState);
-    }
+    };
 
     const showAlert = (title, text) => {
       Alert.alert(title, text,

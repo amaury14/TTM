@@ -16,7 +16,7 @@ const ViewAllOperation = () => {
 
   const handlePropChange = (name, value) => {
     setState({ ...state, [name]: value });
-  }
+  };
 
   useEffect(() => {
     fetchOperations();
@@ -34,7 +34,7 @@ const ViewAllOperation = () => {
     try {
       handlePropChange('loading', true);
       let operations = [];
-      await firebase.fireDb.collection('operations').onSnapshot(querySnapshot => {
+      await firebase.fireDb.collection('operations').where("opState", "==", "1").onSnapshot(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
           const { ...data } = doc.data();
           operations.push({ id: doc.id, ...data });
@@ -45,7 +45,7 @@ const ViewAllOperation = () => {
     } catch(error) {
       console.log(error)
     }
-  }
+  };
 
   const deleteOperation = async (id) => {
     handlePropChange('loading', true);
@@ -54,7 +54,7 @@ const ViewAllOperation = () => {
     fetchOperations();
     handlePropChange('loading', false);
     props.navigation.navigate('DashboardScreen');
-  }
+  };
 
   const openConfirmationAlert = (id) => {
     Alert.alert('Advertencia', 'Está seguro de eliminar esta operación?',

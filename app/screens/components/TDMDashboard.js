@@ -1,77 +1,94 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
 
-    let [data, setData] = useState([]);
-    let [negatives, setNegatives] = useState(0);
-    let [positives, setPositives] = useState(0);
-    let [performancePercentReal, setPerformancePercentReal] = useState(0);
-    let [performancePercent, setPerformancePercent] = useState(0);
+    const [state, setState] = useState({
+        operations: [],
+        negatives: 0,
+        positives: 0,
+        performancePercentReal: 0,
+        performancePercent: 0,
+        loading: true
+    });
+
+    // Refreshing data on component focus
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetchOperations();
+        });
+        return unsubscribe;
+    }, [navigation]);
+
+    // Update data on enter to component
+    useEffect(() => {
+        fetchOperations();
+    }, []);
+
+    const handlePropChange = (name, value) => {
+        setState({ ...state, [name]: value });
+    };
 
     const getProfitPercent = (number) => {
         return isNaN(number.toFixed(2)) ? '-' : `${number.toFixed(2)}%`;
-    }
+    };
 
-    // let updateData = () => {
-    //     db.transaction((tx) => {
-    //         tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
-    //             var temp = [];
-    //             let pos = 0;
-    //             let neg = 0;
-    //             let totalPerformance = 0;
-    //             if (results.rows.length > 0) {
-    //                 for (let i = 0; i < results.rows.length; ++i) {
-    //                     temp.push(results.rows.item(i));
-    //                     if (results.rows.item(i).profitPercent !== '') {
-    //                         totalPerformance += parseInt(results.rows.item(i).profitPercent);
-    //                         if (parseInt(results.rows.item(i).profitPercent) > 0) {
-    //                             pos++;
-    //                         } else {
-    //                             neg++;
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //             setData(temp);
-    //             setPositives(pos);
-    //             setNegatives(neg);
-    //             setPerformancePercentReal((totalPerformance/temp?.length));
-    //             setPerformancePercent((totalPerformance/temp?.length)/100);
-    //         });
-    //       });
-    // };
-
-    // Refreshing data on component focus
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //     updateData();
-    //     });
-    //     return unsubscribe;
-    // }, [navigation]);
-
-    // Update data on enter to component
-    // useEffect(() => {
-    //     updateData();
-    // }, []);
+    const fetchOperations = async () => {
+        try {
+          handlePropChange('loading', true);
+          await firebase.fireDb.collection('operations').where("opState", "==", "2").onSnapshot(querySnapshot => {
+            let operations = [];
+            let positives = 0;
+            let negatives = 0;
+            let totalPerformance = 0;
+            querySnapshot.docs.forEach(doc => {
+              const { ...data } = doc.data();
+              operations.push({ id: doc.id, ...data });
+                if (data.profitPercent !== '') {
+                    totalPerformance += parseInt(data.profitPercent);
+                    if (parseInt(data.profitPercent) > 0) {
+                        positives++;
+                    } else {
+                        negatives++;
+                    }
+                }
+            })
+            setState({
+                ...state,
+                operations,
+                positives,
+                negatives,
+                performancePercentReal: (totalPerformance/operations?.length),
+                performancePercent: (totalPerformance/operations?.length)/100
+            });
+          });
+          handlePropChange('loading', false);
+        } catch(error) {
+          console.log(error)
+        }
+    };
 
     return (
         <View>
-            {data && (
-                <View
-                style={styles.card}>
+            {!state.loading &&
+                <View style={styles.loader}>
+                    <ActivityIndicator size="large" color={colors.white} />
+                </View>}
+            {state.operations &&
+                <View style={styles.card}>
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Positivas</Text>
-                            <Text style={styles.valueBig}>{positives}</Text>
+                            <Text style={styles.valueBig}>{state.positives}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Negativas</Text>
-                            <Text style={styles.valueBig}>{negatives}</Text>
+                            <Text style={styles.valueBig}>{state.negatives}</Text>
                         </View>
                         <View style={styles.columnLong}>
                             <Text style={styles.label}>Rango</Text>
@@ -87,16 +104,16 @@ const TDMDashboard = (props) => {
                                 color={colors.mainColor}
                                 height={18}
                                 width={150} /> */}
-                                <Text style={styles.value}>{getProfitPercent(performancePercentReal)}</Text>
+                                <Text style={styles.value}>{getProfitPercent(state.performancePercentReal)}</Text>
                             </View> 
                         </View>
                         <View style={styles.columnLong}>
                             <Text style={styles.label}>Negativas</Text>
-                            <Text style={styles.value}>{negatives}</Text>
+                            <Text style={styles.value}>{state.negatives}</Text>
                         </View>
                     </View>           
                 </View>
-            )}
+            }
         </View>
     );
 };
@@ -166,6 +183,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 30,
     },
+    loader: {
+        marginTop: 20
+    }
 });
 
 

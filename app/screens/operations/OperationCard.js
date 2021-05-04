@@ -9,8 +9,8 @@ const OperationCard = (props) => {
     const item = props.item;
 
     const getProfitPercent = (triggerPrice, takeProfit) => {
-        const amount = parseInt(takeProfit) - parseInt(triggerPrice);
-        const res = (amount * 100) / parseInt(triggerPrice);
+        const amount = parseFloat(takeProfit) - parseFloat(triggerPrice);
+        const res = (amount * 100) / parseFloat(triggerPrice);
         return isNaN(res.toFixed(2)) ? '-' : `${res.toFixed(2)}%`;
     }
 

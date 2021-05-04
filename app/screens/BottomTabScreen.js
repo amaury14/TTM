@@ -31,7 +31,7 @@ function BottomTabsScreen() {
                 name="RegisterOperation"
                 component={RegisterOperation}
                 options={{
-                    title: 'Agregar Operación',
+                    headerTitle: 'Agregar Operación',
                     headerStyle: {
                     backgroundColor: colors.mainColor,
                     },

@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.mainColor,
     color: colors.white,    
     padding: 5,
-    marginTop: 16,
     marginLeft: 35,
     marginRight: 35,
   },
