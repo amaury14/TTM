@@ -1,84 +1,104 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  View,
-  ScrollView,
-  KeyboardAvoidingView,
+  ActivityIndicator,
   Alert,
+  KeyboardAvoidingView,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
-  TextInput
+  TextInput,
+  View,
 } from 'react-native';
-import TDMButtom from '../components/TDMButtom';
-import * as SQLite from 'expo-sqlite';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
+import TDMButtom from '../components/TDMButtom';
 
-var db = SQLite.openDatabase('TDM.db');
+const UpdateUser = (props) => {
+  const { id } = props.route.params;
+  const initialState = {
+    id: '',
+    userName: '',
+    userMail: '',
+    userAddress: '',
+    userPhone: ''
+  };
 
-const UpdateUser = ({ route, navigation }) => {
-  let { user_id } = route.params;
+  const [state, setState] = useState(initialState);
+  const [loading, setLoading] = useState(true);
 
-  let [userName, setUserName] = useState('');
-  let [userMail, setUserMail] = useState('');
-  let [userAddress, setUserAddress] = useState('');
+  useEffect(() => {
+    getUserById(id);
+  }, []);
 
-  let showAlert = (title, text) => {
+  const handlePropChange = (name, value) => {
+    setState({ ...state, [name]: value });
+  }
+
+  const showAlert = (title, text) => {
     Alert.alert(title, text,
       [{ text: 'Aceptar' }],
       {cancelable: false},
     );
   };
 
-  let updateAllStates = (name, mail, address) => {
-    setUserName(name);
-    setUserMail(mail);
-    setUserAddress(address);
+  const getUserById = async (id) => {
+    const dbRef = firebase.fireDb.collection('users').doc(id);
+    const doc = await dbRef.get();
+    const user = doc.data();
+    setState({
+      ...user,
+      id: user.id
+    });
+    setLoading(false);
   };
 
-  useEffect(() => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM table_user where user_id = ?',
-        [user_id],
-        (tx, results) => {
-          var len = results.rows.length;
-          if (len > 0) {
-            let res = results.rows.item(0);
-            updateAllStates(res.user_name, res.user_mail, res.user_address);
-          } else {
-            alert('No user found');
-            updateAllStates('', '', '');
-          }
-        },
-      );
-    });
-  }, []);
-
-  let updateUser = () => {
-    if (!userName) {
-      showAlert('Advertencia', 'Rellene el Nombre de Usuario');
+  const updateUser = async () => {
+    if (state.userName === '') {
+      showAlert('Advertencia', 'Rellene el Nombre de usuario');
       return;
     }
-    if (!userMail) {
+    if (state.userMail === '') {
       showAlert('Advertencia', 'Rellene el Correo');
       return;
     }
-    if (!userAddress) {
-      showAlert('Advertencia', 'Rellene la Dirección');
+    if (state.userPhone === '') {
+      showAlert('Advertencia', 'Rellene el Celular');
       return;
     }
-
-    db.transaction((tx) => {
-      tx.executeSql(
-        'UPDATE table_user set user_name=?, user_mail=? , user_address=? where user_id=?',
-        [userName, userMail, userAddress, user_id],
-        (tx, results) => {
-          console.log('Results', results.rowsAffected);
-          navigation.navigate('DashboardScreen');
-        },
-      );
+    const dbRef = firebase.fireDb.collection('users').doc(id)
+    await dbRef.set({
+      userName: state.userName,
+      userMail: state.userMail,
+      userAddress: state.userAddress,
+      userPhone: state.userPhone,
     });
+    setState(initialState);
+    props.navigation.navigate('DashboardScreen');
   };
+
+  const deleteUser = async () => {
+    const dbRef = firebase.fireDb.collection('users').doc(id)
+    await dbRef.delete();
+    props.navigation.navigate('DashboardScreen');
+  }
+
+  const openConfirmationAlert = () => {
+    Alert.alert('Advertencia', 'Está seguro de eliminar el usuario?',
+      [
+        { text: 'Aceptar', onPress: () => deleteUser() },
+        { text: 'Cancelar', onPress: () => console.log('cancelar') }
+      ]
+    );
+  };
+
+  if (loading) {
+    return (
+      <View>
+        <ActivityIndicator size="large" color={colors.mainColor} />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -89,33 +109,43 @@ const UpdateUser = ({ route, navigation }) => {
               behavior="padding"
               style={{flex: 1, justifyContent: 'space-between'}}>
               <TextInput style={styles.input}
-              value={userName}
+              value={state.userName}
               underlineColorAndroid={colors.underlineColorAndroid}
               placeholder="Enter Name"
               placeholderTextColor={colors.mainColor}
-              onChangeText={(userName) => setUserName(userName)}
+              onChangeText={(value) => handlePropChange('userName', value)}
               blurOnSubmit={false}                  
               />
               <TextInput style={styles.input}
-              value={userMail}
+              value={state.userMail}
               underlineColorAndroid={colors.underlineColorAndroid}
               placeholder="Enter Email"
               placeholderTextColor={colors.mainColor}
-              onChangeText={(userMail) => setUserMail(userMail)}
+              onChangeText={(value) => handlePropChange('userMail', value)}
               blurOnSubmit={false}                  
               />
+              <TextInput style={styles.input}
+              value={state.userPhone}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="# Celular"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(value) => handlePropChange('userPhone', value)}
+              blurOnSubmit={false}
+              keyboardType="numeric"               
+              />
               <TextInput style={styles.inputNotes}
-              value={userAddress}
+              value={state.userAddress}
               underlineColorAndroid={colors.underlineColorAndroid}
               placeholder="Enter Address"
               placeholderTextColor={colors.mainColor}
               maxLength={225}
               numberOfLines={3}
               multiline={true}
-              onChangeText={(userAddress) => setUserAddress(userAddress)}
+              onChangeText={(value) => handlePropChange('userAddress', value)}
               blurOnSubmit={false}                  
               />
-              <TDMButtom title="Guardar" customClick={updateUser} />
+              <TDMButtom title="Guardar" action="save" customClick={() => updateUser()} />
+              <TDMButtom title="Eliminar" action="delete" customClick={() => openConfirmationAlert()} />
             </KeyboardAvoidingView>
           </ScrollView>
         </View>

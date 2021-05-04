@@ -1,59 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, FlatList, Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as SQLite from 'expo-sqlite';
-import OperationCard from './OperationCard';
+import React, { useEffect, useState } from 'react';
+import { Alert, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import colors from '../../config/colors';
+import OperationCard from './OperationCard';
 
-var db = SQLite.openDatabase('TDM.db');
 
 const ViewAllOperation = () => {
   const navigation = useNavigation();
   let [flatListItems, setFlatListItems] = useState([]);
   let [loading, setLoading] = useState(false);
 
-  let updateData = () => {
-    db.transaction((tx) => {
-      tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
-        var temp = [];
-        if (results.rows.length > 0) {
-          for (let i = 0; i < results.rows.length; ++i) {
-            temp.push(results.rows.item(i));
-          }
-        }
-        setFlatListItems(temp);
-      });
-    });
-  };
+  // let updateData = () => {
+  //   db.transaction((tx) => {
+  //     tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
+  //       var temp = [];
+  //       if (results.rows.length > 0) {
+  //         for (let i = 0; i < results.rows.length; ++i) {
+  //           temp.push(results.rows.item(i));
+  //         }
+  //       }
+  //       setFlatListItems(temp);
+  //     });
+  //   });
+  // };
 
   // Refreshing data on component focus
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      updateData();
-    });
-    return unsubscribe;
-  }, [navigation]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     updateData();
+  //   });
+  //   return unsubscribe;
+  // }, [navigation]);
 
-  // Update data on enter to component
-  useEffect(() => {
-    updateData();
-  }, []);
+  // // Update data on enter to component
+  // useEffect(() => {
+  //   updateData();
+  // }, []);
 
-  let deleteOperationAction = (op_id) => {
-    setLoading(true);
-    db.transaction((tx) => {
-      tx.executeSql(
-        'DELETE FROM table_ops where op_id=?',
-        [op_id],
-        (tx, results) => {
-          console.log('delete operation', results.rowsAffected);
-          updateData();
-          setLoading(false)
-        },
-      );
-    });
-  };
+  // let deleteOperationAction = (op_id) => {
+  //   setLoading(true);
+  //   db.transaction((tx) => {
+  //     tx.executeSql(
+  //       'DELETE FROM table_ops where op_id=?',
+  //       [op_id],
+  //       (tx, results) => {
+  //         console.log('delete operation', results.rowsAffected);
+  //         updateData();
+  //         setLoading(false)
+  //       },
+  //     );
+  //   });
+  // };
 
   let deleteOperation = (op_id) => {
     Alert.alert(

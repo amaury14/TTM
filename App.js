@@ -1,19 +1,17 @@
 import 'react-native-gesture-handler';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { StyleSheet, SafeAreaView, StatusBar, Platform } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import BottomTabsScreen from './app/screens/BottomTabScreen';
-import RegisterUser from './app/screens/user/RegisterUser';
-import ViewAllUser from './app/screens/user/ViewAllUser';
-import RegisterOperation from './app/screens/operations/RegisterOperation';
-import ViewAllOperation from './app/screens/operations/ViewAllOperation';
-import UpdateOperation from './app/screens/operations/UpdateOperation';
-import UpdateUser from './app/screens/user/UpdateUser';
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 import colors from './app/config/colors';
+import BottomTabsScreen from './app/screens/BottomTabScreen';
+import UpdateOperation from './app/screens/operations/UpdateOperation';
+import ViewAllOperation from './app/screens/operations/ViewAllOperation';
+import RegisterUser from './app/screens/user/RegisterUser';
+import UpdateUser from './app/screens/user/UpdateUser';
+import ViewAllUser from './app/screens/user/ViewAllUser';
 
 const Stack = createStackNavigator();
 

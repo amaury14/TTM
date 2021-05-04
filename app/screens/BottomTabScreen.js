@@ -1,11 +1,11 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import RegisterOperation from './operations/RegisterOperation';
-import DashboardScreen from './DashboardScreen';
-import TDMTabBar from './components/TDMTabBar';
 
 import colors from '../config/colors';
+import TDMTabBar from './components/TDMTabBar';
+import DashboardScreen from './DashboardScreen';
+import RegisterOperation from './operations/RegisterOperation';
 
 const Tab = createBottomTabNavigator();
 

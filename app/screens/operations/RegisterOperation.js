@@ -1,41 +1,45 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
-import TDMButtom from '../components/TDMButtom';
-import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
+import TDMButtom from '../components/TDMButtom';
 
-var db = SQLite.openDatabase('TDM.db');
 
 const RegisterOperation = ({navigation}) => {
   let radioButtonsData = radioConfig;
 
-  let [pairCoin, setPairCoin] = useState("");
-  let [investment, setInvestment] = useState("");
-  let [lowerLimit, setLowerLimit] = useState("");
-  let [upperLimit, setUpperLimit] = useState("");
-  let [grids, setGrids] = useState("");
-  let [startDate, setStartDate] = useState(new Date());
-  let [stopLoss, setStopLoss] = useState("");
-  let [triggerPrice, setTriggerPrice] = useState("");
-  let [takeProfit, setTakeProfit] = useState("");
-  let [profitPercent, setProfitPercent] = useState("");
-  let [notes, setNotes] = useState("");
-  let [closeDate, setCloseDate] = useState(new Date());
-  let [radioButtons, setRadioButtons] = useState(radioButtonsData);
+  const [state, setState] = useState({
+    pairCoin: '',
+    investment: '',
+    lowerLimit: '',
+    upperLimit: '',
+    grids: '',
+    startDate: new Date(),
+    stopLoss: '',
+    triggerPrice: '',
+    takeProfit: '',
+    profitPercent: '',
+    notes: '',
+    closeDate: null,
+    opState: radioButtonsData,
+  });
+
+  const handleTextChange = (name, value) => {
+    setState({ ...state, [name]: value });
+  }
 
   let showAlert = (title, text) => {
     Alert.alert(title, text,
@@ -58,16 +62,16 @@ const RegisterOperation = ({navigation}) => {
       setCloseDate(new Date());
     }
 
-    db.transaction(function (tx) {
-      tx.executeSql(
-        'INSERT INTO table_ops (pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-        [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected],
-        (tx, results) => {
-          console.log('register operation', results.rowsAffected);
-          navigation.navigate('DashboardScreen');
-        },
-      );
-    });
+    // db.transaction(function (tx) {
+    //   tx.executeSql(
+    //     'INSERT INTO table_ops (pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
+    //     [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected],
+    //     (tx, results) => {
+    //       console.log('register operation', results.rowsAffected);
+    //       navigation.navigate('DashboardScreen');
+    //     },
+    //   );
+    // });
   };
   
     return (
@@ -87,7 +91,7 @@ const RegisterOperation = ({navigation}) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(pairCoin) => setPairCoin(pairCoin)}
+                      onChangeText={(value) => handleTextChange('pairCoin', value)}
                       blurOnSubmit={false}                  
                     />
                   </View>
@@ -97,7 +101,7 @@ const RegisterOperation = ({navigation}) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(investment) => setInvestment(investment)}
+                      onChangeText={(value) => handleTextChange('investment', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -108,7 +112,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(grids) => setGrids(grids)}
+                    onChangeText={(value) => handleTextChange('grids', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     /> 
@@ -121,7 +125,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(stopLoss) => setStopLoss(stopLoss)}
+                    onChangeText={(value) => handleTextChange('stopLoss', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -132,7 +136,7 @@ const RegisterOperation = ({navigation}) => {
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
-                        onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
+                        onChangeText={(value) => handleTextChange('lowerLimit', value)}
                         blurOnSubmit={false}
                         keyboardType="numeric"
                       />
@@ -143,7 +147,7 @@ const RegisterOperation = ({navigation}) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
+                      onChangeText={(value) => handleTextChange('upperLimit', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -156,7 +160,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(triggerPrice) => setTriggerPrice(triggerPrice)}
+                    onChangeText={(value) => handleTextChange('triggerPrice', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -167,7 +171,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(takeProfit) => setTakeProfit(takeProfit)}
+                    onChangeText={(value) => handleTextChange('takeProfit', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -178,7 +182,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(profitPercent) => setProfitPercent(profitPercent)}
+                    onChangeText={(value) => handleTextChange('profitPercent', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -187,7 +191,7 @@ const RegisterOperation = ({navigation}) => {
                 <View style={styles.row}>
                   <RadioGroup 
                     radioButtons={radioButtons} 
-                    onPress={(radioButtons) => setRadioButtons(radioButtons)} 
+                    onPress={(value) => handleTextChange('opState', value)} 
                     layout='row'
                   />
                 </View>
@@ -198,7 +202,7 @@ const RegisterOperation = ({navigation}) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(notes) => setNotes(notes)}
+                    onChangeText={(value) => handleTextChange('notes', value)}
                     maxLength={225}
                     numberOfLines={8}
                     multiline={true}           

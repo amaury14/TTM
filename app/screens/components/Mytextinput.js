@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput} from 'react-native';
+import { TextInput, View } from 'react-native';
 
 const Mytextinput = (props) => {
   return (

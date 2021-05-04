@@ -1,48 +1,67 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
-  View,
-  ScrollView,
+  ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   TextInput,
+  View,
 } from 'react-native';
-import TDMButtom from '../components/TDMButtom';
-import * as SQLite from 'expo-sqlite';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
+import TDMButtom from '../components/TDMButtom';
 
-var db = SQLite.openDatabase('TDM.db');
+const RegisterUser = (props) => {
 
-const RegisterUser = ({navigation}) => {
-  let [userName, setUserName] = useState('');
-  let [userMail, setUserMail] = useState('');
-  let [userAddress, setUserAddress] = useState('');
+  const [state, setState] = useState({
+    userName: '',
+    userMail: '',
+    userAddress: '',
+    userPhone: '',
+    loading: false
+  });
 
-  let register_user = () => {
-    if (!userName) {
-      alert('Please fill name');
+  const handlePropChange = (name, value) => {
+    setState({ ...state, [name]: value });
+  }
+
+  const showAlert = (title, text) => {
+    Alert.alert(title, text,
+      [{ text: 'Aceptar' }],
+      {cancelable: false},
+    );
+  };
+
+  const fireNewUser = async () => {
+    if (state.userName === '') {
+      showAlert('Advertencia', 'Rellene el Nombre de usuario');
       return;
     }
-    if (!userMail) {
-      alert('Please fill Contact Email');
+    if (state.userMail === '') {
+      showAlert('Advertencia', 'Rellene el Correo');
       return;
     }
-    if (!userAddress) {
-      alert('Please fill Address');
+    if (state.userPhone === '') {
+      showAlert('Advertencia', 'Rellene el Celular');
       return;
     }
-
-    db.transaction(function (tx) {
-      tx.executeSql(
-        'INSERT INTO table_user (user_name, user_mail, user_address) VALUES (?,?,?)',
-        [userName, userMail, userAddress],
-        (tx, results) => {
-          console.log('register user', results.rowsAffected);
-          navigation.navigate('DashboardScreen');
-        },
-      );
-    });
+    
+    try {
+      handlePropChange('loading', true);
+      await firebase.fireDb.collection('users').add({
+        userName: state.userName,
+        userMail: state.userMail,
+        userPhone: state.userPhone,
+        userAddress: state.userAddress
+      });
+      handlePropChange('loading', false);
+      props.navigation.navigate('DashboardScreen');
+    } catch(error) {
+      console.log(error)
+    }
   };
 
   return (
@@ -55,29 +74,40 @@ const RegisterUser = ({navigation}) => {
               style={{flex: 1, justifyContent: 'space-between'}}>
               <TextInput style={styles.input}
               underlineColorAndroid={colors.underlineColorAndroid}
-              placeholder="Enter Name"
+              placeholder="Usuario"
               placeholderTextColor={colors.mainColor}
-              onChangeText={(userName) => setUserName(userName)}
+              onChangeText={(value) => handlePropChange('userName', value)}
               blurOnSubmit={false}                  
               />
               <TextInput style={styles.input}
               underlineColorAndroid={colors.underlineColorAndroid}
-              placeholder="Enter Email"
+              placeholder="Email"
               placeholderTextColor={colors.mainColor}
-              onChangeText={(userMail) => setUserMail(userMail)}
+              onChangeText={(value) => handlePropChange('userMail', value)}
               blurOnSubmit={false}                  
+              />
+              <TextInput style={styles.input}
+              underlineColorAndroid={colors.underlineColorAndroid}
+              placeholder="# Celular"
+              placeholderTextColor={colors.mainColor}
+              onChangeText={(value) => handlePropChange('userPhone', value)}
+              blurOnSubmit={false}
+              keyboardType="numeric"                 
               />
               <TextInput style={styles.inputNotes}
               underlineColorAndroid={colors.underlineColorAndroid}
-              placeholder="Enter Address"
+              placeholder="Address"
               placeholderTextColor={colors.mainColor}
               maxLength={225}
               numberOfLines={3}
               multiline={true}
-              onChangeText={(userAddress) => setUserAddress(userAddress)}
+              onChangeText={(value) => handlePropChange('userAddress', value)}
               blurOnSubmit={false}                  
               />
-              <TDMButtom title="Guardar" customClick={register_user} />
+              <TDMButtom title="Guardar" customClick={() => fireNewUser()} />
+              {state.loading && <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colors.mainColor} />
+              </View>}
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
@@ -106,6 +136,9 @@ const styles = StyleSheet.create({
     marginRight: 35,
     marginTop: 10,
   },
+  loader: {
+    marginTop: 20
+  }
 });
 
 export default RegisterUser;

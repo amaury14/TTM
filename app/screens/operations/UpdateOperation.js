@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
-import TDMButtom from '../components/TDMButtom';
-import * as SQLite from 'expo-sqlite';
 
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
+import TDMButtom from '../components/TDMButtom';
 
-var db = SQLite.openDatabase('TDM.db');
 
 const UpdateOperation = ({ route, navigation }) => {
-    let { op_id } = route.params;
+    let { id } = route.params;
     let radioButtonsData = radioConfig;
 
-    let [pairCoin, setPairCoin] = useState('');
-    let [investment, setInvestment] = useState('');
-    let [lowerLimit, setLowerLimit] = useState('');
-    let [upperLimit, setUpperLimit] = useState('');
-    let [grids, setGrids] = useState('');
-    let [startDate, setStartDate] = useState(new Date());
-    let [stopLoss, setStopLoss] = useState('');
-    let [triggerPrice, setTriggerPrice] = useState('');
-    let [takeProfit, setTakeProfit] = useState('');
-    let [profitPercent, setProfitPercent] = useState('');
-    let [notes, setNotes] = useState('');
-    let [closeDate, setCloseDate] = useState(null);
-    let [state, setState] = useState(radioButtonsData);
+    const [state, setState] = useState({
+      pairCoin: '',
+      investment: '',
+      lowerLimit: '',
+      upperLimit: '',
+      grids: '',
+      startDate: new Date(),
+      stopLoss: '',
+      triggerPrice: '',
+      takeProfit: '',
+      profitPercent: '',
+      notes: '',
+      closeDate: new Date(),
+      opState: radioButtonsData,
+    });
+
+    const handleTextChange = (name, value) => {
+      setState({ ...state, [name]: value });
+    }
 
     let showAlert = (title, text) => {
       Alert.alert(title, text,
@@ -47,49 +51,49 @@ const UpdateOperation = ({ route, navigation }) => {
 
     let updateAllStates = (pairCoin, investment, lowerLimit, upperLimit,
        grids, startDate, stopLoss, triggerPrice, takeProfit,
-       profitPercent, notes, closeDate, state) => {
-      setPairCoin(pairCoin);
-      setInvestment(investment);
-      setLowerLimit(lowerLimit);
-      setUpperLimit(upperLimit);
-      setGrids(grids);
-      setStartDate(startDate);
-      setStopLoss(stopLoss);
-      setTriggerPrice(triggerPrice);
-      setTakeProfit(takeProfit);
-      setProfitPercent(profitPercent);
-      setNotes(notes);
-      setCloseDate(closeDate);
-      const opIndex = radioButtonsData.findIndex(item => item.value === state);
-      let newRadioButtonsData = [...radioButtonsData];
-      radioButtonsData.forEach((element, index) => {
-        newRadioButtonsData[index] = {
-          ...newRadioButtonsData[index],
-          selected: index === opIndex ? true : false
-        };
-      });
-      setState(newRadioButtonsData);
+       profitPercent, notes, closeDate, opState) => {
+        handleTextChange('pairCoin', pairCoin);
+        handleTextChange('investment', investment);
+        handleTextChange('lowerLimit', lowerLimit);
+        handleTextChange('upperLimit', upperLimit);
+        handleTextChange('grids', grids);
+        handleTextChange('startDate', startDate);
+        handleTextChange('stopLoss', stopLoss);
+        handleTextChange('triggerPrice', triggerPrice);
+        handleTextChange('takeProfit', takeProfit);
+        handleTextChange('profitPercent', profitPercent);
+        handleTextChange('notes', notes);
+        handleTextChange('closeDate', closeDate);
+        const opIndex = radioButtonsData.findIndex(item => item.value === opState);
+        let newRadioButtonsData = [...radioButtonsData];
+        radioButtonsData.forEach((element, index) => {
+          newRadioButtonsData[index] = {
+            ...newRadioButtonsData[index],
+            selected: index === opIndex ? true : false
+          };
+        });
+        handleTextChange('opState', newRadioButtonsData);
     };
 
-    useEffect(() => {
-      db.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * FROM table_ops where op_id = ?',
-          [op_id],
-          (tx, results) => {
-            var len = results.rows.length;
-            if (len > 0) {
-              let res = results.rows.item(0);
-              updateAllStates(res.pairCoin, res.investment, res.lowerLimit, res.upperLimit,
-                res.grids, res.startDate, res.stopLoss, res.triggerPrice, res.takeProfit,
-                res.profitPercent, res.notes, res.closeDate, res.state);
-            } else {
-              updateAllStates('', '', '', '', '', '', '', '', '', '', '', '', '');
-            }
-          },
-        );
-      });
-    }, []);
+    // useEffect(() => {
+    //   db.transaction((tx) => {
+    //     tx.executeSql(
+    //       'SELECT * FROM table_ops where op_id = ?',
+    //       [op_id],
+    //       (tx, results) => {
+    //         var len = results.rows.length;
+    //         if (len > 0) {
+    //           let res = results.rows.item(0);
+    //           updateAllStates(res.pairCoin, res.investment, res.lowerLimit, res.upperLimit,
+    //             res.grids, res.startDate, res.stopLoss, res.triggerPrice, res.takeProfit,
+    //             res.profitPercent, res.notes, res.closeDate, res.opState);
+    //         } else {
+    //           updateAllStates('', '', '', '', '', '', '', '', '', '', '', '', '');
+    //         }
+    //       },
+    //     );
+    //   });
+    // }, []);
   
     let update_operation = () => {
       const stateSelected = state.find(item => item.selected).value;
@@ -104,16 +108,16 @@ const UpdateOperation = ({ route, navigation }) => {
       if (stateSelected !== '1') {
         setCloseDate(new Date());
       }
-      db.transaction(function (tx) {
-        tx.executeSql(
-          'UPDATE table_ops set pairCoin=?, investment=?, lowerLimit=?, upperLimit=?, grids=?, startDate=?, stopLoss=?, triggerPrice=?, takeProfit=?, profitPercent=?, notes=?, closeDate=?, state=? where op_id=?',
-          [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected, op_id],
-          (tx, results) => {
-            console.log('update operation', results.rowsAffected);
-            navigation.navigate('DashboardScreen'); 
-          },
-        );
-      });
+      // db.transaction(function (tx) {
+      //   tx.executeSql(
+      //     'UPDATE table_ops set pairCoin=?, investment=?, lowerLimit=?, upperLimit=?, grids=?, startDate=?, stopLoss=?, triggerPrice=?, takeProfit=?, profitPercent=?, notes=?, closeDate=?, state=? where op_id=?',
+      //     [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected, op_id],
+      //     (tx, results) => {
+      //       console.log('update operation', results.rowsAffected);
+      //       navigation.navigate('DashboardScreen'); 
+      //     },
+      //   );
+      // });
     };
   
     return (
@@ -131,22 +135,22 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>* Par/Moneda</Text>
                     <TextInput style={styles.input}
-                      value={pairCoin}
+                      value={state.pairCoin}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(pairCoin) => setPairCoin(pairCoin)}
+                      onChangeText={(value) => handleTextChange('pairCoin', value)}
                       blurOnSubmit={false}                  
                     />
                   </View>
                   <View style={styles.column}>
                     <Text style={styles.label}>* Inversión</Text>
                     <TextInput style={styles.input}
-                      value={investment}
+                      value={state.investment}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(investment) => setInvestment(investment)}
+                      onChangeText={(value) => handleTextChange('investment', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -154,11 +158,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Grids (bots)</Text>
                     <TextInput style={styles.input}
-                    value={grids}
+                    value={state.grids}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(grids) => setGrids(grids)}
+                    onChangeText={(value) => handleTextChange('grids', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     /> 
@@ -168,11 +172,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Stop Loss</Text>
                     <TextInput style={styles.input}
-                    value={stopLoss}
+                    value={state.stopLoss}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(stopLoss) => setStopLoss(stopLoss)}
+                    onChangeText={(value) => handleTextChange('stopLoss', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -180,11 +184,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Lower Limit</Text>
                     <TextInput style={styles.input}
-                        value={lowerLimit}
+                        value={state.lowerLimit}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
-                        onChangeText={(lowerLimit) => setLowerLimit(lowerLimit)}
+                        onChangeText={(value) => handleTextChange('lowerLimit', value)}
                         blurOnSubmit={false}
                         keyboardType="numeric"
                       />
@@ -192,11 +196,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Upper Limit</Text>
                     <TextInput style={styles.input}
-                      value={upperLimit}
+                      value={state.upperLimit}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(upperLimit) => setUpperLimit(upperLimit)}
+                      onChangeText={(value) => handleTextChange('upperLimit', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -206,11 +210,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Trigger/Buy Price</Text>
                     <TextInput style={styles.input}
-                    value={triggerPrice}
+                    value={state.triggerPrice}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(triggerPrice) => setTriggerPrice(triggerPrice)}
+                    onChangeText={(value) => handleTextChange('triggerPrice', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -218,11 +222,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Take Profit</Text>
                     <TextInput style={styles.input}
-                    value={takeProfit}
+                    value={state.takeProfit}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(takeProfit) => setTakeProfit(takeProfit)}
+                    onChangeText={(value) => handleTextChange('takeProfit', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -230,11 +234,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>% de Ganancia</Text>
                     <TextInput style={styles.input}
-                    value={profitPercent}
+                    value={state.profitPercent}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(profitPercent) => setProfitPercent(profitPercent)}
+                    onChangeText={(value) => handleTextChange('profitPercent', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -242,8 +246,8 @@ const UpdateOperation = ({ route, navigation }) => {
                 </View>
                 <View style={styles.row}>
                   <RadioGroup 
-                    radioButtons={state} 
-                    onPress={(state) => setState(state)} 
+                    radioButtons={state.opState} 
+                    onPress={(value) => handleTextChange('opState', value)} 
                     layout='row'
                   />
                 </View>
@@ -251,11 +255,11 @@ const UpdateOperation = ({ route, navigation }) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Apuntes</Text>
                     <TextInput style={styles.inputNotes}
-                    value={notes}
+                    value={state.notes}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(notes) => setNotes(notes)}
+                    onChangeText={(value) => handleTextChange('notes', value)}
                     maxLength={225}
                     numberOfLines={8}
                     multiline={true}           

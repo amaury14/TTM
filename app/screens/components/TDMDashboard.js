@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
-import ProgressBar from 'react-native-progress/Bar';
-import * as SQLite from 'expo-sqlite';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 import colors from '../../config/colors';
-import images from '../../assets/index';
-
-var db = SQLite.openDatabase('TDM.db');
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
@@ -23,47 +17,47 @@ const TDMDashboard = (props) => {
         return isNaN(number.toFixed(2)) ? '-' : `${number.toFixed(2)}%`;
     }
 
-    let updateData = () => {
-        db.transaction((tx) => {
-            tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
-                var temp = [];
-                let pos = 0;
-                let neg = 0;
-                let totalPerformance = 0;
-                if (results.rows.length > 0) {
-                    for (let i = 0; i < results.rows.length; ++i) {
-                        temp.push(results.rows.item(i));
-                        if (results.rows.item(i).profitPercent !== '') {
-                            totalPerformance += parseInt(results.rows.item(i).profitPercent);
-                            if (parseInt(results.rows.item(i).profitPercent) > 0) {
-                                pos++;
-                            } else {
-                                neg++;
-                            }
-                        }
-                    }
-                }
-                setData(temp);
-                setPositives(pos);
-                setNegatives(neg);
-                setPerformancePercentReal((totalPerformance/temp?.length));
-                setPerformancePercent((totalPerformance/temp?.length)/100);
-            });
-          });
-    };
+    // let updateData = () => {
+    //     db.transaction((tx) => {
+    //         tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
+    //             var temp = [];
+    //             let pos = 0;
+    //             let neg = 0;
+    //             let totalPerformance = 0;
+    //             if (results.rows.length > 0) {
+    //                 for (let i = 0; i < results.rows.length; ++i) {
+    //                     temp.push(results.rows.item(i));
+    //                     if (results.rows.item(i).profitPercent !== '') {
+    //                         totalPerformance += parseInt(results.rows.item(i).profitPercent);
+    //                         if (parseInt(results.rows.item(i).profitPercent) > 0) {
+    //                             pos++;
+    //                         } else {
+    //                             neg++;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //             setData(temp);
+    //             setPositives(pos);
+    //             setNegatives(neg);
+    //             setPerformancePercentReal((totalPerformance/temp?.length));
+    //             setPerformancePercent((totalPerformance/temp?.length)/100);
+    //         });
+    //       });
+    // };
 
     // Refreshing data on component focus
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-        updateData();
-        });
-        return unsubscribe;
-    }, [navigation]);
+    // useEffect(() => {
+    //     const unsubscribe = navigation.addListener('focus', () => {
+    //     updateData();
+    //     });
+    //     return unsubscribe;
+    // }, [navigation]);
 
     // Update data on enter to component
-    useEffect(() => {
-        updateData();
-    }, []);
+    // useEffect(() => {
+    //     updateData();
+    // }, []);
 
     return (
         <View>
@@ -87,12 +81,12 @@ const TDMDashboard = (props) => {
                         <View style={styles.columnLong}>
                             <Text style={styles.label}>% Performance Profit</Text>
                             <View style={styles.row2}>
-                                <ProgressBar
+                                {/* <ProgressBar
                                 borderRadius={12}
                                 progress={performancePercent}
                                 color={colors.mainColor}
                                 height={18}
-                                width={150} />
+                                width={150} /> */}
                                 <Text style={styles.value}>{getProfitPercent(performancePercentReal)}</Text>
                             </View> 
                         </View>
