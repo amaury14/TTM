@@ -7,13 +7,11 @@ import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
-import UpdateOperation from './app/screens/operations/UpdateOperation';
-import ViewAllOperation from './app/screens/operations/ViewAllOperation';
-import RegisterUser from './app/screens/user/RegisterUser';
-import UpdateUser from './app/screens/user/UpdateUser';
-import ViewAllUser from './app/screens/user/ViewAllUser';
 import LoadingScreen from './app/screens/LoadingScreen';
 import LoginScreen from './app/screens/LoginScreen';
+import UpdateOperation from './app/screens/operations/UpdateOperation';
+import ViewAllOperation from './app/screens/operations/ViewAllOperation';
+import ViewAllUser from './app/screens/user/ViewAllUser';
 
 const Stack = createStackNavigator();
 
@@ -36,7 +34,8 @@ export default function App() {
                         name="BottomTabScreen"
                         component={BottomTabsScreen}
                         options={{
-                            title: '',
+                            headerTitle: 'TDM',
+                            headerLeft: () => null,
                             headerStyle: {
                                 backgroundColor: colors.mainColor,
                             },
@@ -127,5 +126,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-    },
+    }
 });
