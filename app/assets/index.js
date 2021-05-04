@@ -278,6 +278,7 @@ const images = {
         ok: require('./color128/ok.png'),
         omg: require('./color128/omg.png'),
         omni: require('./color128/omni.png'),
+        one: require('./color128/one.png'),
         ong: require('./color128/ong.png'),
         ont: require('./color128/ont.png'),
         oot: require('./color128/oot.png'),

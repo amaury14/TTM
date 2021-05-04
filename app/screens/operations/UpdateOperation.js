@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -13,16 +14,17 @@ import {
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TDMButtom from '../components/TDMButtom';
 
 
-const UpdateOperation = ({ route, navigation }) => {
-    let { id } = route.params;
+const UpdateOperation = (props) => {
+    const { id } = props.route.params;
     let radioButtonsData = radioConfig;
 
-    const [state, setState] = useState({
+    const initialState = {
       pairCoin: '',
       investment: '',
       lowerLimit: '',
@@ -34,100 +36,104 @@ const UpdateOperation = ({ route, navigation }) => {
       takeProfit: '',
       profitPercent: '',
       notes: '',
-      closeDate: new Date(),
-      opState: radioButtonsData,
-    });
+      closeDate: null,
+      opState: radioButtonsData
+    };
 
-    const handleTextChange = (name, value) => {
+    const [state, setState] = useState(initialState);
+    const [loading, setLoading] = useState(true);
+    const [loading2, setLoading2] = useState(false);
+
+    useEffect(() => {
+      getOperationById(id);
+    }, []);
+
+    const handlePropChange = (name, value) => {
       setState({ ...state, [name]: value });
+      console.log(state.opState);
     }
 
-    let showAlert = (title, text) => {
+    const showAlert = (title, text) => {
       Alert.alert(title, text,
         [{ text: 'Aceptar' }],
         {cancelable: false},
       );
     };
 
-    let updateAllStates = (pairCoin, investment, lowerLimit, upperLimit,
-       grids, startDate, stopLoss, triggerPrice, takeProfit,
-       profitPercent, notes, closeDate, opState) => {
-        handleTextChange('pairCoin', pairCoin);
-        handleTextChange('investment', investment);
-        handleTextChange('lowerLimit', lowerLimit);
-        handleTextChange('upperLimit', upperLimit);
-        handleTextChange('grids', grids);
-        handleTextChange('startDate', startDate);
-        handleTextChange('stopLoss', stopLoss);
-        handleTextChange('triggerPrice', triggerPrice);
-        handleTextChange('takeProfit', takeProfit);
-        handleTextChange('profitPercent', profitPercent);
-        handleTextChange('notes', notes);
-        handleTextChange('closeDate', closeDate);
-        const opIndex = radioButtonsData.findIndex(item => item.value === opState);
+    const getOperationById = async (id) => {
+      const dbRef = firebase.fireDb.collection('operations').doc(id);
+      const doc = await dbRef.get();
+      const operation = doc.data();
+      const opIndex = radioButtonsData.findIndex(item => item.value === operation.opState);
         let newRadioButtonsData = [...radioButtonsData];
         radioButtonsData.forEach((element, index) => {
-          newRadioButtonsData[index] = {
-            ...newRadioButtonsData[index],
-            selected: index === opIndex ? true : false
-          };
+            newRadioButtonsData[index] = {
+              ...newRadioButtonsData[index],
+              selected: index === opIndex ? true : false
+            };
         });
-        handleTextChange('opState', newRadioButtonsData);
+      setState({
+        ...operation,
+        id: operation.id,
+        opState: newRadioButtonsData
+      });
+      setLoading(false);
     };
-
-    // useEffect(() => {
-    //   db.transaction((tx) => {
-    //     tx.executeSql(
-    //       'SELECT * FROM table_ops where op_id = ?',
-    //       [op_id],
-    //       (tx, results) => {
-    //         var len = results.rows.length;
-    //         if (len > 0) {
-    //           let res = results.rows.item(0);
-    //           updateAllStates(res.pairCoin, res.investment, res.lowerLimit, res.upperLimit,
-    //             res.grids, res.startDate, res.stopLoss, res.triggerPrice, res.takeProfit,
-    //             res.profitPercent, res.notes, res.closeDate, res.opState);
-    //         } else {
-    //           updateAllStates('', '', '', '', '', '', '', '', '', '', '', '', '');
-    //         }
-    //       },
-    //     );
-    //   });
-    // }, []);
   
-    let update_operation = () => {
-      const stateSelected = state.find(item => item.selected).value;
-      if (!pairCoin) {
+    const updateOperation = async () => {
+      const stateSelected = state.opState.find(item => item.selected).value;
+      if (state.pairCoin === "") {
         showAlert('Advertencia', 'Rellene el Par/Moneda');
         return;
       }
-      if (!investment) {
+      if (state.investment === "") {
         showAlert('Advertencia', 'Rellene la Inversión');
         return;
       }
       if (stateSelected !== '1') {
-        setCloseDate(new Date());
+        handlePropChange('closeDate', new Date());
       }
-      // db.transaction(function (tx) {
-      //   tx.executeSql(
-      //     'UPDATE table_ops set pairCoin=?, investment=?, lowerLimit=?, upperLimit=?, grids=?, startDate=?, stopLoss=?, triggerPrice=?, takeProfit=?, profitPercent=?, notes=?, closeDate=?, state=? where op_id=?',
-      //     [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected, op_id],
-      //     (tx, results) => {
-      //       console.log('update operation', results.rowsAffected);
-      //       navigation.navigate('DashboardScreen'); 
-      //     },
-      //   );
-      // });
+      try {
+        setLoading2(true);
+        const dbRef = firebase.fireDb.collection('operations').doc(id)
+        await dbRef.set({
+          pairCoin: state.pairCoin,
+          investment: state.investment,
+          lowerLimit: state.lowerLimit,
+          upperLimit: state.upperLimit,
+          grids: state.grids,
+          startDate: state.startDate,
+          stopLoss: state.stopLoss,
+          triggerPrice: state.triggerPrice,
+          takeProfit: state.takeProfit,
+          profitPercent: state.profitPercent,
+          notes: state.notes,
+          closeDate: state.closeDate,
+          opState: stateSelected
+        });
+        setState(initialState);
+        setLoading2(false);
+        props.navigation.navigate('DashboardScreen');
+      } catch(error) {
+        console.log(error);
+      }
     };
+
+    if (loading) {
+      return (
+        <View style={styles.flex1}>
+          <ActivityIndicator size="large" color={colors.mainColor} />
+        </View>
+      );
+    }
   
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1, backgroundColor: 'white'}}>
-          <View style={{flex: 1}}>
+      <SafeAreaView style={styles.flex1}>
+        <View style={styles.flex1}>
             <ScrollView keyboardShouldPersistTaps="handled">
               <KeyboardAvoidingView
                 behavior="padding"
-                style={{flex: 1, justifyContent: 'space-between'}}>    
+                style={styles.key}>
                 <View style={styles.row}>
                   <Text style={styles.label}>* Campos requeridos</Text>
                 </View>
@@ -139,7 +145,7 @@ const UpdateOperation = ({ route, navigation }) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('pairCoin', value)}
+                      onChangeText={(value) => handlePropChange('pairCoin', value)}
                       blurOnSubmit={false}                  
                     />
                   </View>
@@ -150,7 +156,7 @@ const UpdateOperation = ({ route, navigation }) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('investment', value)}
+                      onChangeText={(value) => handlePropChange('investment', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -162,7 +168,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('grids', value)}
+                    onChangeText={(value) => handlePropChange('grids', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     /> 
@@ -176,7 +182,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('stopLoss', value)}
+                    onChangeText={(value) => handlePropChange('stopLoss', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -188,7 +194,7 @@ const UpdateOperation = ({ route, navigation }) => {
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
-                        onChangeText={(value) => handleTextChange('lowerLimit', value)}
+                        onChangeText={(value) => handlePropChange('lowerLimit', value)}
                         blurOnSubmit={false}
                         keyboardType="numeric"
                       />
@@ -200,7 +206,7 @@ const UpdateOperation = ({ route, navigation }) => {
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('upperLimit', value)}
+                      onChangeText={(value) => handlePropChange('upperLimit', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -214,7 +220,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('triggerPrice', value)}
+                    onChangeText={(value) => handlePropChange('triggerPrice', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -226,7 +232,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('takeProfit', value)}
+                    onChangeText={(value) => handlePropChange('takeProfit', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -238,7 +244,7 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('profitPercent', value)}
+                    onChangeText={(value) => handlePropChange('profitPercent', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -247,7 +253,7 @@ const UpdateOperation = ({ route, navigation }) => {
                 <View style={styles.row}>
                   <RadioGroup 
                     radioButtons={state.opState} 
-                    onPress={(value) => handleTextChange('opState', value)} 
+                    onPress={(value) => handlePropChange('opState', value)} 
                     layout='row'
                   />
                 </View>
@@ -259,23 +265,33 @@ const UpdateOperation = ({ route, navigation }) => {
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('notes', value)}
+                    onChangeText={(value) => handlePropChange('notes', value)}
                     maxLength={225}
                     numberOfLines={8}
                     multiline={true}           
                     />
                   </View>
                 </View>
-                <TDMButtom title="Guardar" customClick={update_operation} />
+                <TDMButtom title="Guardar" customClick={() => updateOperation()} />
+                {loading2 && <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colors.mainColor} />
+              </View>}
               </KeyboardAvoidingView>
             </ScrollView>
-          </View>          
         </View>
       </SafeAreaView>
     );
-  };
+};
 
 const styles = StyleSheet.create({
+    flex1: {
+      flex: 1,
+      backgroundColor: colors.white
+    },
+    key: {
+      flex: 1,
+      justifyContent: 'space-between'
+    },
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
@@ -361,6 +377,9 @@ const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: colors.black,
         flex: 1,
+    },
+    loader: {
+      marginTop: 20
     }
 })
 

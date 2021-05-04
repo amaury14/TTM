@@ -65,13 +65,13 @@ const RegisterUser = (props) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1, backgroundColor: 'white'}}>
-        <View style={{flex: 1}}>
+    <SafeAreaView style={styles.flex1}>
+      <View style={styles.flex1}>
+        <View style={styles.flex1}>
           <ScrollView keyboardShouldPersistTaps="handled">
             <KeyboardAvoidingView
               behavior="padding"
-              style={{flex: 1, justifyContent: 'space-between'}}>
+              style={styles.key}>
               <TextInput style={styles.input}
               underlineColorAndroid={colors.underlineColorAndroid}
               placeholder="Usuario"
@@ -117,6 +117,14 @@ const RegisterUser = (props) => {
 };
 
 const styles = StyleSheet.create({
+  flex1: {
+    flex: 1,
+    backgroundColor: colors.white
+  },
+  key: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
   input: {
     borderRadius: 8,
     borderColor: colors.gray,

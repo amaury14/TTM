@@ -1,76 +1,71 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { Alert, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import OperationCard from './OperationCard';
 
-
 const ViewAllOperation = () => {
   const navigation = useNavigation();
-  let [flatListItems, setFlatListItems] = useState([]);
-  let [loading, setLoading] = useState(false);
 
-  // let updateData = () => {
-  //   db.transaction((tx) => {
-  //     tx.executeSql('SELECT * FROM table_ops WHERE state = 1', [], (tx, results) => {
-  //       var temp = [];
-  //       if (results.rows.length > 0) {
-  //         for (let i = 0; i < results.rows.length; ++i) {
-  //           temp.push(results.rows.item(i));
-  //         }
-  //       }
-  //       setFlatListItems(temp);
-  //     });
-  //   });
-  // };
+  const [state, setState] = useState({
+    operations: [],
+    loading: true
+  });
+
+  const handlePropChange = (name, value) => {
+    setState({ ...state, [name]: value });
+  }
+
+  useEffect(() => {
+    fetchOperations();
+  }, []);
 
   // Refreshing data on component focus
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     updateData();
-  //   });
-  //   return unsubscribe;
-  // }, [navigation]);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchOperations();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
-  // // Update data on enter to component
-  // useEffect(() => {
-  //   updateData();
-  // }, []);
+  const fetchOperations = async () => {
+    try {
+      handlePropChange('loading', true);
+      let operations = [];
+      await firebase.fireDb.collection('operations').onSnapshot(querySnapshot => {
+        querySnapshot.docs.forEach(doc => {
+          const { ...data } = doc.data();
+          operations.push({ id: doc.id, ...data });
+        })
+        handlePropChange('operations', operations);
+      });
+      handlePropChange('loading', false);
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
-  // let deleteOperationAction = (op_id) => {
-  //   setLoading(true);
-  //   db.transaction((tx) => {
-  //     tx.executeSql(
-  //       'DELETE FROM table_ops where op_id=?',
-  //       [op_id],
-  //       (tx, results) => {
-  //         console.log('delete operation', results.rowsAffected);
-  //         updateData();
-  //         setLoading(false)
-  //       },
-  //     );
-  //   });
-  // };
+  const deleteOperation = async (id) => {
+    handlePropChange('loading', true);
+    const dbRef = firebase.fireDb.collection('operations').doc(id)
+    await dbRef.delete();
+    fetchOperations();
+    handlePropChange('loading', false);
+    props.navigation.navigate('DashboardScreen');
+  }
 
-  let deleteOperation = (op_id) => {
-    Alert.alert(
-      'Advertencia',
-      'Desea realmente eliminar esta operación?',
+  const openConfirmationAlert = (id) => {
+    Alert.alert('Advertencia', 'Está seguro de eliminar esta operación?',
       [
-        {
-          text: 'SI',
-          onPress: () => deleteOperationAction(op_id),
-        },
-        {
-          text: 'NO'
-        },
-      ],
-      {cancelable: true},
+        { text: 'Aceptar', onPress: () => deleteOperation(id) },
+        { text: 'Cancelar' }
+      ]
     );
   };
 
-  let listViewItemSeparator = () => {
+  const listViewItemSeparator = () => {
     return (
       <View
         style={{ height: 0.2, width: '100%' }}
@@ -78,28 +73,33 @@ const ViewAllOperation = () => {
     );
   };
 
-  let listItemView = (item) => {
+  const listItemView = (item) => {
     return (
       <OperationCard
         item={item}
-        deleteClick={() => deleteOperation(item.op_id)}
-        updateClick={() => navigation.navigate('UpdateOperation', { op_id: item.op_id })}
+        deleteClick={() => openConfirmationAlert(item.id)}
+        updateClick={() => navigation.navigate('UpdateOperation', { id: item.id })}
       />
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {!state.loading &&
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color={colors.white} />
+        </View>}
+      {state.loading &&
         <View>
           <FlatList
-            data={flatListItems}
+            data={state.operations}
             ItemSeparatorComponent={listViewItemSeparator}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item }) => listItemView(item)}
-            refreshing={loading}
+            refreshing={state.loading}
             ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
           />
-        </View>
+        </View>}
     </SafeAreaView>
   );
 };
@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     color: colors.mainColor
+  },
+  loader: {
+    marginTop: 20
   }
 });
 

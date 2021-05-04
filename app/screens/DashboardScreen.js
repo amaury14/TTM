@@ -36,10 +36,9 @@ const DashboardScreen = ({navigation}) => {
       let users = [];
       await firebase.fireDb.collection('users').onSnapshot(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
-          const { userName, userMail, userAddress, userPhone } = doc.data();
-          users.push({ id: doc.id, userName, userMail, userAddress, userPhone });
+          const { ...data } = doc.data();
+          users.push({ id: doc.id, ...data });
         })
-        console.log(users);
         handlePropChange('user', users[0]);
       });
       setLoading(false);
@@ -59,7 +58,7 @@ const DashboardScreen = ({navigation}) => {
   return (
       <View style={styles.body}>
           <LinearGradient
-          colors={[colors.mainColor, colors.mainColor, 'transparent']}
+          colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
           style={styles.background}
           >
             <TDMDashboard></TDMDashboard>

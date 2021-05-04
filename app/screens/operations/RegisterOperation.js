@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -13,15 +14,14 @@ import {
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
+import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TDMButtom from '../components/TDMButtom';
 
-
-const RegisterOperation = ({navigation}) => {
+const RegisterOperation = (props) => {
   let radioButtonsData = radioConfig;
-
-  const [state, setState] = useState({
+  const initialState = {
     pairCoin: '',
     investment: '',
     lowerLimit: '',
@@ -35,9 +35,26 @@ const RegisterOperation = ({navigation}) => {
     notes: '',
     closeDate: null,
     opState: radioButtonsData,
+    loading: false
+  };
+
+  const [state, setState] = useState({
+    ...initialState
   });
 
-  const handleTextChange = (name, value) => {
+  useEffect(() => {
+    setState(initialState);
+  }, []);
+  
+  // Refreshing data on component focus
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      setState(initialState);
+    });
+    return unsubscribe;
+  }, [props.navigation]);
+
+  const handlePropChange = (name, value) => {
     setState({ ...state, [name]: value });
   }
 
@@ -48,39 +65,52 @@ const RegisterOperation = ({navigation}) => {
     );
   };
   
-  let register_operation = () => {
-    const stateSelected = radioButtons.find(item => item.selected).value;
-    if (pairCoin === "") {
+  const fireNewOperation = async () => {
+    const stateSelected = state.opState.find(item => item.selected).value;
+    if (state.pairCoin === "") {
       showAlert('Advertencia', 'Rellene el Par/Moneda');
       return;
     }
-    if (investment === "") {
+    if (state.investment === "") {
       showAlert('Advertencia', 'Rellene la Inversión');
       return;
     }
     if (stateSelected !== "1") {
-      setCloseDate(new Date());
+      handlePropChange('closeDate', new Date());
     }
 
-    // db.transaction(function (tx) {
-    //   tx.executeSql(
-    //     'INSERT INTO table_ops (pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, state) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)',
-    //     [pairCoin, investment, lowerLimit, upperLimit, grids, startDate, stopLoss, triggerPrice, takeProfit, profitPercent, notes, closeDate, stateSelected],
-    //     (tx, results) => {
-    //       console.log('register operation', results.rowsAffected);
-    //       navigation.navigate('DashboardScreen');
-    //     },
-    //   );
-    // });
+    try {
+      handlePropChange('loading', true);
+      await firebase.fireDb.collection('operations').add({
+        pairCoin: state.pairCoin,
+        investment: state.investment,
+        lowerLimit: state.lowerLimit,
+        upperLimit: state.upperLimit,
+        grids: state.grids,
+        startDate: state.startDate,
+        stopLoss: state.stopLoss,
+        triggerPrice: state.triggerPrice,
+        takeProfit: state.takeProfit,
+        profitPercent: state.profitPercent,
+        notes: state.notes,
+        closeDate: state.closeDate,
+        opState: stateSelected
+      });
+      setState(initialState);
+      handlePropChange('loading', false);
+      props.navigation.navigate('DashboardScreen');
+    } catch(error) {
+      console.log(error)
+    }
   };
   
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <View style={styles.form}>
+      <SafeAreaView style={styles.flex1}>
+        <View style={styles.flex1}>
             <ScrollView keyboardShouldPersistTaps="handled">
               <KeyboardAvoidingView
                 behavior="padding"
-                style={{flex: 1, justifyContent: 'space-between'}}>
+                style={styles.key}>
                 <View style={styles.row}>
                   <Text style={styles.label}>* Campos requeridos</Text>
                 </View>
@@ -88,20 +118,22 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>* Par/Moneda</Text>
                     <TextInput style={styles.input}
+                      value={state.pairCoin}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Par/Moneda"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('pairCoin', value)}
+                      onChangeText={(value) => handlePropChange('pairCoin', value)}
                       blurOnSubmit={false}                  
                     />
                   </View>
                   <View style={styles.column}>
                     <Text style={styles.label}>* Inversión</Text>
                     <TextInput style={styles.input}
+                      value={state.investment}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Inversión"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('investment', value)}
+                      onChangeText={(value) => handlePropChange('investment', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -109,10 +141,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Grids (bots)</Text>
                     <TextInput style={styles.input}
+                    value={state.grids}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Grids"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('grids', value)}
+                    onChangeText={(value) => handlePropChange('grids', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     /> 
@@ -122,10 +155,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Stop Loss</Text>
                     <TextInput style={styles.input}
+                    value={state.stopLoss}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Stop Loss"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('stopLoss', value)}
+                    onChangeText={(value) => handlePropChange('stopLoss', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -133,10 +167,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Lower Limit</Text>
                     <TextInput style={styles.input}
+                    value={state.lowerLimit}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Lower Limit"
                         placeholderTextColor={colors.mainColor}
-                        onChangeText={(value) => handleTextChange('lowerLimit', value)}
+                        onChangeText={(value) => handlePropChange('lowerLimit', value)}
                         blurOnSubmit={false}
                         keyboardType="numeric"
                       />
@@ -144,10 +179,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Upper Limit</Text>
                     <TextInput style={styles.input}
+                    value={state.upperLimit}
                       underlineColorAndroid={colors.underlineColorAndroid}
                       placeholder="Upper Limit"
                       placeholderTextColor={colors.mainColor}
-                      onChangeText={(value) => handleTextChange('upperLimit', value)}
+                      onChangeText={(value) => handlePropChange('upperLimit', value)}
                       blurOnSubmit={false}
                       keyboardType="numeric"
                     />
@@ -157,10 +193,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Trigger/Buy Price</Text>
                     <TextInput style={styles.input}
+                    value={state.triggerPrice}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Trigger Price"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('triggerPrice', value)}
+                    onChangeText={(value) => handlePropChange('triggerPrice', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -168,10 +205,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Take Profit</Text>
                     <TextInput style={styles.input}
+                    value={state.takeProfit}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Take Profit"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('takeProfit', value)}
+                    onChangeText={(value) => handlePropChange('takeProfit', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -179,10 +217,11 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>% de Ganancia</Text>
                     <TextInput style={styles.input}
+                    value={state.profitPercent}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="% de Ganancia"
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('profitPercent', value)}
+                    onChangeText={(value) => handlePropChange('profitPercent', value)}
                     blurOnSubmit={false}
                     keyboardType="numeric"
                     />
@@ -190,8 +229,8 @@ const RegisterOperation = ({navigation}) => {
                 </View>
                 <View style={styles.row}>
                   <RadioGroup 
-                    radioButtons={radioButtons} 
-                    onPress={(value) => handleTextChange('opState', value)} 
+                    radioButtons={state.opState} 
+                    onPress={(value) => handlePropChange('opState', value)} 
                     layout='row'
                   />
                 </View>
@@ -199,17 +238,21 @@ const RegisterOperation = ({navigation}) => {
                   <View style={styles.column}>
                     <Text style={styles.label}>Apuntes</Text>
                     <TextInput style={styles.inputNotes}
+                    value={state.notes}
                     underlineColorAndroid={colors.underlineColorAndroid}
                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                     placeholderTextColor={colors.mainColor}
-                    onChangeText={(value) => handleTextChange('notes', value)}
+                    onChangeText={(value) => handlePropChange('notes', value)}
                     maxLength={225}
                     numberOfLines={8}
                     multiline={true}           
                     />
                   </View>
                 </View>
-                <TDMButtom title="Guardar" customClick={register_operation} />
+                <TDMButtom title="Guardar" customClick={() => fireNewOperation()} />
+                {state.loading && <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colors.mainColor} />
+              </View>}
               </KeyboardAvoidingView>
             </ScrollView>  
         </View>
@@ -218,6 +261,14 @@ const RegisterOperation = ({navigation}) => {
   };
 
 const styles = StyleSheet.create({
+    flex1: {
+      flex: 1,
+      backgroundColor: colors.white
+    },
+    key: {
+      flex: 1,
+      justifyContent: 'space-between'
+    },
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
@@ -303,6 +354,9 @@ const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: colors.black,
         flex: 1,
+    },
+    loader: {
+      marginTop: 20
     }
 });
 
