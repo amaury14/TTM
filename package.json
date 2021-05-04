@@ -5,7 +5,12 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint *.js **/*.js app/**/*.js database/*.js",
+    "build-android-apk": "expo build:android -t apk",
+    "build-android-bundle": "expo build:android -t app-bundle",
+    "build-ios-simulator": "expo build:ios -t simulator",
+    "build-ios-archive": "expo build:ios -t archive"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.4.7",
@@ -37,7 +42,15 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.25.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-native": "^3.10.0"
   },
   "private": true
 }

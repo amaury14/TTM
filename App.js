@@ -16,104 +16,104 @@ import ViewAllUser from './app/screens/user/ViewAllUser';
 const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="BottomTabScreen"
-          component={BottomTabsScreen}
-          options={{
-            title: '',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="Register"
-          component={RegisterUser}
-          options={{
-            title: 'Agregar Usuario',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="UpdateUser"
-          component={UpdateUser}
-          options={{
-            title: 'Modificar Usuario',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />        
-        <Stack.Screen
-          name="ViewAll"
-          component={ViewAllUser}
-          options={{
-            title: 'Usuarios',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
+    return (
+        <SafeAreaView style={styles.container}>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="BottomTabScreen"
+                        component={BottomTabsScreen}
+                        options={{
+                            title: '',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="Register"
+                        component={RegisterUser}
+                        options={{
+                            title: 'Agregar Usuario',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="UpdateUser"
+                        component={UpdateUser}
+                        options={{
+                            title: 'Modificar Usuario',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />        
+                    <Stack.Screen
+                        name="ViewAll"
+                        component={ViewAllUser}
+                        options={{
+                            title: 'Usuarios',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
         
-        <Stack.Screen
-          name="UpdateOperation"
-          component={UpdateOperation}
-          options={{
-            title: 'Modificar Operación',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="ViewAllOperation"
-          component={ViewAllOperation}
-          options={{
-            title: 'Operaciones',
-            headerStyle: {
-              backgroundColor: colors.mainColor,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-    </SafeAreaView>
-  );
+                    <Stack.Screen
+                        name="UpdateOperation"
+                        component={UpdateOperation}
+                        options={{
+                            title: 'Modificar Operación',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="ViewAllOperation"
+                        component={ViewAllOperation}
+                        options={{
+                            title: 'Operaciones',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
-  },
+    container: {
+        flex: 1,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    },
 });
