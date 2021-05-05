@@ -7,7 +7,6 @@ import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
-import LoadingScreen from './app/screens/LoadingScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
@@ -21,11 +20,6 @@ export default function App() {
             <NavigationContainer>
                 <Stack.Navigator>
                     <Stack.Screen
-                        name="LoadingScreen"
-                        component={LoadingScreen}
-                        options={{headerShown: false}}
-                    />
-                    <Stack.Screen
                         name="LoginScreen"
                         component={LoginScreen}
                         options={{headerShown: false}}
@@ -36,6 +30,34 @@ export default function App() {
                         options={{
                             headerTitle: 'TDM',
                             headerLeft: () => null,
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="UpdateOperation"
+                        component={UpdateOperation}
+                        options={{
+                            title: 'Modificar Operación',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="ViewAllOperation"
+                        component={ViewAllOperation}
+                        options={{
+                            title: 'Operaciones',
                             headerStyle: {
                                 backgroundColor: colors.mainColor,
                             },
@@ -72,7 +94,7 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                         }}
-                    />         */}
+                    />         
                     <Stack.Screen
                         name="ViewAll"
                         component={ViewAllUser}
@@ -86,36 +108,7 @@ export default function App() {
                                 fontWeight: 'bold',
                             },
                         }}
-                    />
-        
-                    <Stack.Screen
-                        name="UpdateOperation"
-                        component={UpdateOperation}
-                        options={{
-                            title: 'Modificar Operación',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="ViewAllOperation"
-                        component={ViewAllOperation}
-                        options={{
-                            title: 'Operaciones',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
+                    />  */}
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaView>

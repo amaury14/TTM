@@ -1,5 +1,5 @@
 import * as Google from 'expo-google-app-auth';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Image, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -10,9 +10,29 @@ import TDMButtom from './components/TDMButtom';
 
 const LoginScreen = (props) => {
 
+    useEffect(() => {
+        checkLogin();
+    }, []);
+
+    const checkLogin = async () => {
+        await firebase.firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                props.navigation.navigate('BottomTabScreen', { user: {
+                    id: user.uid,
+                    gmail: user.email,
+                    profile_picture: user.photoURL,
+                    first_last_name: user.displayName
+                }});
+            } else {
+                props.navigation.navigate('LoginScreen');
+            }
+        });
+    }
+
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result.user.uid)
         await dbRef.set({
+            id: result.user.uid,
             gmail: result.user.email,
             profile_picture: result.additionalUserInfo.profile.picture,
             locale: result.additionalUserInfo.profile.locale,
@@ -64,15 +84,8 @@ const LoginScreen = (props) => {
                         }
                     })
                     .catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-                });
+                        console.log(error);
+                    });
             } else {
                 console.log('User already signed-in Firebase.');
             }

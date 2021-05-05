@@ -4,7 +4,7 @@
     "slug": "TDM",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon2.png",
+    "icon": "./app/assets/rocket2.png",
     "splash": {
       "image": "./app/assets/background.png",
       "resizeMode": "contain",
@@ -23,12 +23,12 @@
       "package": "com.amaurychong.tdm",
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/icon2.png",
+        "foregroundImage": "./app/assets/rocket2.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./app/assets/icon2.png"
+      "favicon": "./app/assets/rocket2.png"
     },
     "description": "Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
   }

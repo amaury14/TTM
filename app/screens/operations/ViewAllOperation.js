@@ -6,8 +6,9 @@ import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import OperationCard from './OperationCard';
 
-const ViewAllOperation = () => {
+const ViewAllOperation = (props) => {
   const navigation = useNavigation();
+  const user = props.user;
 
   const [state, setState] = useState({
     operations: [],
@@ -34,7 +35,10 @@ const ViewAllOperation = () => {
     try {
       handlePropChange('loading', true);
       let operations = [];
-      await firebase.fireDb.collection('operations').where("opState", "==", "1").onSnapshot(querySnapshot => {
+      await firebase.fireDb.collection('operations')
+        .where("opState", "==", "1")
+        .where("userId", "==", user.id)
+        .onSnapshot(querySnapshot => {
         querySnapshot.docs.forEach(doc => {
           const { ...data } = doc.data();
           operations.push({ id: doc.id, ...data });
@@ -78,7 +82,7 @@ const ViewAllOperation = () => {
       <OperationCard
         item={item}
         deleteClick={() => openConfirmationAlert(item.id)}
-        updateClick={() => navigation.navigate('UpdateOperation', { id: item.id })}
+        updateClick={() => navigation.navigate('UpdateOperation', { id: item.id, user })}
       />
     );
   };

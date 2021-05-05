@@ -20,6 +20,8 @@ import radioConfig from '../../config/radioGroup';
 import TDMButtom from '../components/TDMButtom';
 
 const RegisterOperation = (props) => {
+  const user = props.route.params.user;
+
   let radioButtonsData = radioConfig;
   const initialState = {
     pairCoin: '',
@@ -94,7 +96,8 @@ const RegisterOperation = (props) => {
         profitPercent: state.profitPercent,
         notes: state.notes,
         closeDate: state.closeDate,
-        opState: stateSelected
+        opState: stateSelected,
+        userId: user.id
       });
       setState(initialState);
       handlePropChange('loading', false);

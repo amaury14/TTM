@@ -21,8 +21,8 @@ import TDMButtom from '../components/TDMButtom';
 
 
 const UpdateOperation = (props) => {
-    const { id } = props.route.params;
-    let radioButtonsData = radioConfig;
+    const { id, user } = props.route.params;
+    const radioButtonsData = radioConfig;
 
     const initialState = {
       pairCoin: '',
@@ -108,7 +108,8 @@ const UpdateOperation = (props) => {
           profitPercent: state.profitPercent,
           notes: state.notes,
           closeDate: state.closeDate,
-          opState: stateSelected
+          opState: stateSelected,
+          userId: user.id
         });
         setState(initialState);
         setLoading2(false);

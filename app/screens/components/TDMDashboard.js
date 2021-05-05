@@ -7,6 +7,7 @@ import colors from '../../config/colors';
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
+    const user = props.user;
 
     const [state, setState] = useState({
         operations: [],
@@ -41,7 +42,10 @@ const TDMDashboard = (props) => {
     const fetchOperations = async () => {
         try {
           handlePropChange('loading', true);
-          await firebase.fireDb.collection('operations').where("opState", "==", "2").onSnapshot(querySnapshot => {
+          await firebase.fireDb.collection('operations')
+            .where("opState", "==", "2")
+            .where("userId", "==", user.id)
+            .onSnapshot(querySnapshot => {
             let operations = [];
             let positives = 0;
             let negatives = 0;

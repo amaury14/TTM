@@ -9,13 +9,14 @@ import RegisterOperation from './operations/RegisterOperation';
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabsScreen() {
+function BottomTabsScreen(props) {
   return (
     <SafeAreaView style={styles.container}>
         <Tab.Navigator tabBar={props => <TDMTabBar {...props} />}>
             <Tab.Screen
                 name="DashboardScreen"
                 component={DashboardScreen}
+                initialParams={{ user: props.route.params.user }}
                 options={{
                     title: 'Dashboard',
                     headerStyle: {
@@ -30,6 +31,7 @@ function BottomTabsScreen() {
             <Tab.Screen
                 name="RegisterOperation"
                 component={RegisterOperation}
+                initialParams={{ user: props.route.params.user }}
                 options={{
                     headerTitle: 'Agregar Operación',
                     headerStyle: {
