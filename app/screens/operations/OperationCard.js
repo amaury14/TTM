@@ -22,8 +22,8 @@ const OperationCard = (props) => {
                 <View style={styles.row}>
                     {!!image1 &&
                     <Image
-                    style={styles.tinyLogo}
-                    source={images.logos[pieces[0]]}
+                        style={styles.tinyLogo}
+                        source={images.logos[pieces[0]]}
                     />}
                     {!image1 &&
                     <Text style={styles.pair}>{pieces[0].toUpperCase()}</Text>}
@@ -36,8 +36,8 @@ const OperationCard = (props) => {
                 <View style={styles.row}>
                     {!!image1 &&
                     <Image
-                    style={styles.tinyLogo}
-                    source={images.logos[pieces[0]]}
+                        style={styles.tinyLogo}
+                        source={images.logos[pieces[0]]}
                     />}
                     {!image1 &&
                     <Text style={styles.pair}>{pieces[0].toUpperCase()}</Text>}
@@ -46,8 +46,8 @@ const OperationCard = (props) => {
 
                     {!!image2 &&
                     <Image
-                    style={styles.tinyLogo}
-                    source={images.logos[pieces[1]]}
+                        style={styles.tinyLogo}
+                        source={images.logos[pieces[1]]}
                     />}
                     {!image2 &&
                     <Text style={styles.pair}>{pieces[1].toUpperCase()}</Text>}
@@ -60,11 +60,11 @@ const OperationCard = (props) => {
         <View>
             {item && (
                 <View
-                key={item.op_id}
-                style={styles.card}>
+                    key={item.op_id}
+                    style={styles.card}>
                     <View style={styles.column1}>
                         {getIcon(item.pairCoin)}
-                        <Text style={styles.investment}>{item.investment} USDT</Text>        
+                        <Text style={styles.investment}>{item.investment} USDT</Text>
                     </View>
                     <View style={styles.column2}>
                         <Text style={styles.label}>Rango de Precios</Text>
@@ -76,17 +76,17 @@ const OperationCard = (props) => {
                     </View>
                     <View style={styles.column4}>
                         <Icon
-                        name='edit'
-                        type='feather'
-                        color={colors.mainColor}
-                        onPress={props.updateClick} />
+                            name='edit'
+                            type='feather'
+                            color={colors.mainColor}
+                            onPress={props.updateClick} />
                         <Icon
-                        name='trash-2'
-                        type='feather'
-                        color={colors.red}
-                        onPress={props.deleteClick} />                        
-                    </View>                
-            </View>)}
+                            name='trash-2'
+                            type='feather'
+                            color={colors.red}
+                            onPress={props.deleteClick} />
+                    </View>
+                </View>)}
         </View>
     );
 };
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
         elevation: 11,
     },
     coinSplitter: {
-        fontWeight: 'bold',
-        fontSize: 25
+        fontSize: 25,
+        fontWeight: 'bold'
     },
     column1: {
         flexDirection: 'column',
@@ -122,46 +122,46 @@ const styles = StyleSheet.create({
     },
     column2: {
         flexDirection: 'column',
-        width: 120,
         marginTop: 1,
+        width: 120,
     },
     column3: {
         flexDirection: 'column',
-        width: 125,
         marginTop: 1,
+        width: 125,
     },
     column4: {
         flexDirection: 'column',
         width: 25,
     },
-    pair: {
-        color: colors.black,
-        fontWeight: 'bold',
-        fontSize: 15.5,
-    },
     investment: {
         color: colors.investment,
-        fontWeight: 'bold',
         fontSize: 15,
+        fontWeight: 'bold',
     },
     label: {
         color: colors.mainColor,
-        fontWeight: '900',
         fontSize: 14,
+        fontWeight: '900',
     },
-    tinyLogo: {
-        width: 28,
-        height: 28,
+    pair: {
+        color: colors.black,
+        fontSize: 15.5,
+        fontWeight: 'bold',
     },
     row: {
+        alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center',
+    },
+    tinyLogo: {
+        height: 28,
+        width: 28,
     },
     value: {
         color: colors.value,
-        fontWeight: 'bold',
         fontSize: 15,
+        fontWeight: 'bold',
     },
 });
 

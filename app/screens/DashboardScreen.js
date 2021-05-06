@@ -7,59 +7,59 @@ import TDMDashboard from './components/TDMDashboard';
 import ViewAllOperation from './operations/ViewAllOperation';
 
 const DashboardScreen = (props) => {
-  const user = props.route.params.user;
+    const user = props.route.params.user;
 
-  useEffect(
-    () =>
-      props.navigation.addListener("beforeRemove", (e) => {
-        // Prevent default behavior of leaving the screen
-        e.preventDefault();
-      }),
-    []
-  );
+    useEffect(
+        () =>
+            props.navigation.addListener("beforeRemove", (e) => {
+                // Prevent default behavior of leaving the screen
+                e.preventDefault();
+            }),
+        []
+    );
 
-  return (
-    <View style={styles.body}>
-      <LinearGradient
-        colors={[
-          colors.mainColor,
-          colors.mainColor,
-          colors.mainColor,
-          colors.white,
-          colors.white,
-        ]}
-        style={styles.background}
-      >
-        <TDMDashboard user={user} />
-        <View style={styles.splitter} />
-        <ViewAllOperation user={user} />
-      </LinearGradient>
-    </View>
-  );
+    return (
+        <View style={styles.body}>
+            <LinearGradient
+                colors={[
+                    colors.mainColor,
+                    colors.mainColor,
+                    colors.mainColor,
+                    colors.white,
+                    colors.white,
+                ]}
+                style={styles.background}
+            >
+                <TDMDashboard user={user} />
+                <View style={styles.splitter} />
+                <ViewAllOperation user={user} />
+            </LinearGradient>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  background: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: "100%",
-  },
-  container: {
-    flex: 1,
-  },
-  body: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: colors.white,
-  },
-  splitter: {
-    margin: 10,
-    backgroundColor: colors.white,
-    height: 1,
-    width: 370,
-  },
+    background: {
+        height: "100%",
+        left: 0,
+        position: "absolute",
+        right: 0,
+        top: 0,
+    },
+    body: {
+        backgroundColor: colors.white,
+        flex: 1,
+        justifyContent: "center",
+    },
+    container: {
+        flex: 1,
+    },
+    splitter: {
+        backgroundColor: colors.white,
+        height: 1,
+        margin: 10,
+        width: 370,
+    },
 });
 
 export default DashboardScreen;

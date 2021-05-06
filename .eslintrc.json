@@ -19,7 +19,9 @@
         "react-native"
     ],
     "rules": {
-        "no-unused-vars": "off",
+        "no-unused-vars": 2,
+        "no-trailing-spaces": 2,
+        "no-console": 2,
         "react-native/no-unused-styles": 2,
         "react-native/split-platform-components": 2,
         "react-native/no-inline-styles": 2,

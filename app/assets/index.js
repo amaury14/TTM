@@ -451,5 +451,5 @@ const images = {
         zrx: require('./color128/zrx.png'),
     }
 };
-  
+
 export default images;

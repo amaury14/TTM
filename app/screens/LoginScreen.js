@@ -72,7 +72,7 @@ const LoginScreen = (props) => {
                 // Build Firebase credential with the Google ID token.
                 var credential = firebase.firebase.auth.GoogleAuthProvider.credential(
                     googleUser.idToken, googleUser.accessToken);
-        
+
                 // Sign in with credential from the Google user.
                 firebase.firebase
                     .auth().signInWithCredential(credential)
@@ -106,7 +106,7 @@ const LoginScreen = (props) => {
                 iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
                 scopes: ['profile', 'email'],
             });
-        
+
             if (result.type === 'success') {
                 onSignIn(result);
                 return result.accessToken;
@@ -114,61 +114,61 @@ const LoginScreen = (props) => {
                 return { cancelled: true };
             }
         } catch (e) {
-          return { error: true };
+            return { error: true };
         }
     };
 
     return (
         <View style={styles.body}>
             <LinearGradient
-            colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
-            style={styles.background}
+                colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
+                style={styles.background}
             >
                 <Image
-                style={styles.logo}
-                source={require('../assets/rocket2.png')}
-                /> 
+                    style={styles.logo}
+                    source={require('../assets/rocket2.png')}
+                />
                 <View style={styles.row}>
                     <Icon
-                    size={40}
-                    name='google'
-                    type='fontisto'
-                    color={colors.mainColor} />
+                        size={40}
+                        name='google'
+                        type='fontisto'
+                        color={colors.mainColor} />
                     <TDMButtom title="Login con Google" customClick={() => signInWithGoogleAsync()} />
                 </View>
-            </LinearGradient>            
+            </LinearGradient>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    body: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.white,
-    },
     background: {
-        flex: 1,
         alignItems: 'center',
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
+        flex: 1,
         height: '100%',
         justifyContent: 'center',
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
     },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+    body: {
         alignItems: 'center',
-        width: '100%'
+        backgroundColor: colors.white,
+        flex: 1,
+        justifyContent: 'center',
     },
     logo: {
+        height: 150,
         position: 'absolute',
         top: 50,
-        height: 150,
         width: 150
+    },
+    row: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%'
     }
 });
 

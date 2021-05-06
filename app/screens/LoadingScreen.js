@@ -26,11 +26,11 @@ const LoadingScreen = (props) => {
             <LinearGradient
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
-                >
+            >
                 <Image
-                style={styles.logo}
-                source={require('../assets/rocket2.png')}
-                />    
+                    style={styles.logo}
+                    source={require('../assets/rocket2.png')}
+                />
                 <ActivityIndicator size={90} color={colors.white} />
             </LinearGradient>
         </View>
@@ -38,26 +38,26 @@ const LoadingScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-    body: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: colors.white,
-    },
     background: {
-        flex: 1,
         alignItems: 'center',
-        position: 'absolute',
+        flex: 1,
+        height: '100%',
+        justifyContent: 'center',
         left: 0,
+        position: 'absolute',
         right: 0,
         top: 0,
-        height: '100%',
+    },
+    body: {
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        flex: 1,
         justifyContent: 'center',
     },
     logo: {
+        height: 150,
         position: 'absolute',
         top: 50,
-        height: 150,
         width: 150
     }
 });
