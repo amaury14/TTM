@@ -83,7 +83,7 @@ const OperationCard = (props) => {
                         <Icon
                         name='trash-2'
                         type='feather'
-                        color={colors.mainColor}
+                        color={colors.red}
                         onPress={props.deleteClick} />                        
                     </View>                
             </View>)}

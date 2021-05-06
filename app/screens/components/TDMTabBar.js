@@ -12,7 +12,7 @@ function TDMTabBar({ state, descriptors, navigation }) {
   }
 
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={styles.container}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
@@ -69,7 +69,7 @@ function TDMTabBar({ state, descriptors, navigation }) {
             name={getIcon(route.name)}
             size={40}
             type='feather'
-            color={isFocused ? colors.mainColor : colors.gray } />
+            color={ isFocused ? colors.mainColor : colors.gray } />
             <Text style={{
                 color: isFocused ? colors.mainColor : colors.gray
             }}>
@@ -89,6 +89,9 @@ const styles = StyleSheet.create({
         borderTopColor: colors.gray,
         backgroundColor: colors.white,
         padding: 5,
+    },
+    container: {
+      flexDirection: 'row'
     }
 });
 

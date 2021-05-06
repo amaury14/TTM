@@ -17,7 +17,7 @@ const LoginScreen = (props) => {
     const checkLogin = async () => {
         await firebase.firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                props.navigation.navigate('BottomTabScreen', { user: {
+                props.navigation.navigate('BottomTabsScreen', { user: {
                     id: user.uid,
                     gmail: user.email,
                     profile_picture: user.photoURL,
@@ -54,7 +54,7 @@ const LoginScreen = (props) => {
             var providerData = firebaseUser.providerData;
             for (var i = 0; i < providerData.length; i++) {
                 if (providerData[i].providerId === firebase.firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-                    providerData[i].uid === googleUser.getBasicProfile().getId()) {
+                    providerData[i].uid === googleUser.user.id) {
                     // We don't need to reauth the Firebase connection.
                     return true;
                 }

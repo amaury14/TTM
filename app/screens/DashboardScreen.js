@@ -1,15 +1,29 @@
-import { LinearGradient } from "expo-linear-gradient";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
+import { Alert, BackHandler, StyleSheet, View } from 'react-native';
 
-import firebase from "../../database/firebase";
-import colors from "../config/colors";
-import TDMButtom from "./components/TDMButtom";
-import TDMDashboard from "./components/TDMDashboard";
-import ViewAllOperation from "./operations/ViewAllOperation";
+import colors from '../config/colors';
+import TDMDashboard from './components/TDMDashboard';
+import ViewAllOperation from './operations/ViewAllOperation';
 
 const DashboardScreen = (props) => {
   const user = props.route.params.user;
+
+  const handleBackButton = () => {
+    Alert.alert('Advertencia', 'Está seguro de salir de la aplicación?',
+      [
+        { text: 'Cancelar' },
+        { text: 'Aceptar', onPress: () => BackHandler.exitApp() }
+      ],
+      { cancelable: false }
+    );
+    return true;
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => backHandler.remove();
+  }, []);
   
   return (
     <View style={styles.body}>
@@ -24,28 +38,8 @@ const DashboardScreen = (props) => {
         style={styles.background}
       >
         <TDMDashboard user={user} />
-        {/* <TDMButtom
-              title="Register User"
-              customClick={() => navigation.navigate('Register')}
-            />
-            <TDMButtom
-              title="Update User"
-              customClick={() => navigation.navigate('UpdateUser', { id: state.user.id })}
-            /> */}
-        {/* <TDMButtom
-              title="View All Users"
-              customClick={() => navigation.navigate('ViewAll')}
-            /> */}
-        <TDMButtom
-          title="Salir"
-          customClick={() => firebase.firebase.auth().signOut()}
-        />
-        {/* <TDMButtom
-              title="Register Operation"
-              customClick={() => navigation.navigate('RegisterOperation')}
-            /> */}
-        <View style={styles.splitter}></View>
-        <ViewAllOperation user={user}/>
+        <View style={styles.splitter} />
+        <ViewAllOperation user={user} />
       </LinearGradient>
     </View>
   );
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
   },
   splitter: {
     margin: 10,
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     height: 1,
     width: 370,
   },

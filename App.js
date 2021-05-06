@@ -10,7 +10,6 @@ import BottomTabsScreen from './app/screens/BottomTabScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
-import ViewAllUser from './app/screens/user/ViewAllUser';
 
 const Stack = createStackNavigator();
 
@@ -25,10 +24,10 @@ export default function App() {
                         options={{headerShown: false}}
                     />
                     <Stack.Screen
-                        name="BottomTabScreen"
+                        name="BottomTabsScreen"
                         component={BottomTabsScreen}
                         options={{
-                            headerTitle: 'TDM',
+                            headerTitle: 'To The Moon',
                             headerLeft: () => null,
                             headerStyle: {
                                 backgroundColor: colors.mainColor,

@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     closeIcon: {
       width: 50,
       height: 50,
-      backgroundColor: colors.primary,
+      backgroundColor: colors.red,
       position: "absolute",
       top: 40,
       left: 30,

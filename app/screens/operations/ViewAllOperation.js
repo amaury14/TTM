@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   noRecords: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: colors.mainColor
+    color: colors.white
   },
   loader: {
     marginTop: 20
