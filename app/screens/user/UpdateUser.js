@@ -33,7 +33,7 @@ const UpdateUser = (props) => {
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
-    }
+    };
 
     const showAlert = (title, text) => {
         Alert.alert(title, text,
@@ -66,7 +66,7 @@ const UpdateUser = (props) => {
             showAlert('Advertencia', 'Rellene el Celular');
             return;
         }
-        const dbRef = firebase.fireDb.collection('users').doc(id)
+        const dbRef = firebase.fireDb.collection('users').doc(id);
         await dbRef.set({
             userName: state.userName,
             userMail: state.userMail,
@@ -78,10 +78,10 @@ const UpdateUser = (props) => {
     };
 
     const deleteUser = async () => {
-        const dbRef = firebase.fireDb.collection('users').doc(id)
+        const dbRef = firebase.fireDb.collection('users').doc(id);
         await dbRef.delete();
         props.navigation.navigate('DashboardScreen');
-    }
+    };
 
     const openConfirmationAlert = () => {
         Alert.alert('Advertencia', 'Está seguro de eliminar el usuario?',

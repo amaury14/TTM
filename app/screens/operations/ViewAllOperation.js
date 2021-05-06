@@ -51,18 +51,18 @@ const ViewAllOperation = (props) => {
                     querySnapshot.docs.forEach(doc => {
                         const { ...data } = doc.data();
                         operations.push({ id: doc.id, ...data });
-                    })
+                    });
                     handlePropChange('operations', operations);
                 });
             handlePropChange('loading', false);
         } catch(error) {
-            console.log(error)
+            console.log(error);
         }
     };
 
     const deleteOperation = async (id) => {
         handlePropChange('loading', true);
-        const dbRef = firebase.fireDb.collection('operations').doc(id)
+        const dbRef = firebase.fireDb.collection('operations').doc(id);
         await dbRef.delete();
         fetchOperations();
         handlePropChange('loading', false);

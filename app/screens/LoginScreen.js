@@ -27,7 +27,7 @@ const LoginScreen = (props) => {
                 props.navigation.navigate('LoginScreen');
             }
         });
-    }
+    };
 
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);

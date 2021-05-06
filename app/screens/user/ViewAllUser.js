@@ -12,10 +12,10 @@ const ViewAllUser = () => {
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
-    }
+    };
 
     useEffect(() => {
-        fetchUsers()
+        fetchUsers();
     }, []);
 
     const fetchUsers = async () => {
@@ -26,14 +26,14 @@ const ViewAllUser = () => {
                 querySnapshot.docs.forEach(doc => {
                     const { ...data } = doc.data();
                     users.push({ id: doc.id, ...data });
-                })
+                });
                 handlePropChange('users', users);
             });
             handlePropChange('loading', false);
         } catch(error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     let listViewItemSeparator = () => {
         return (

@@ -12,7 +12,7 @@ const OperationCard = (props) => {
         const amount = parseFloat(takeProfit) - parseFloat(triggerPrice);
         const res = (amount * 100) / parseFloat(triggerPrice);
         return isNaN(res.toFixed(2)) ? '-' : `${res.toFixed(2)}%`;
-    }
+    };
 
     const getIcon = (pair) => {
         const pieces = pair.toString().toLowerCase().split('/');

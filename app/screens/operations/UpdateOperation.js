@@ -94,7 +94,7 @@ const UpdateOperation = (props) => {
         }
         try {
             setLoading2(true);
-            const dbRef = firebase.fireDb.collection('operations').doc(id)
+            const dbRef = firebase.fireDb.collection('operations').doc(id);
             await dbRef.set({
                 pairCoin: state.pairCoin,
                 investment: state.investment,
@@ -381,6 +381,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.black,
         flex: 1,
     }
-})
+});
 
 export default UpdateOperation;

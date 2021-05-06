@@ -26,7 +26,7 @@ const RegisterUser = (props) => {
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
-    }
+    };
 
     const showAlert = (title, text) => {
         Alert.alert(title, text,
@@ -60,7 +60,7 @@ const RegisterUser = (props) => {
             handlePropChange('loading', false);
             props.navigation.navigate('DashboardScreen');
         } catch(error) {
-            console.log(error)
+            console.log(error);
         }
     };
 

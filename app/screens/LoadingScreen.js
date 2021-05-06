@@ -19,7 +19,7 @@ const LoadingScreen = (props) => {
                 props.navigation.navigate('LoginScreen');
             }
         });
-    }
+    };
 
     return (
         <View style={styles.body}>
