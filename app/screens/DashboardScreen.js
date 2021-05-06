@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
-import { Alert, BackHandler, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import colors from '../config/colors';
 import TDMDashboard from './components/TDMDashboard';
@@ -9,22 +9,15 @@ import ViewAllOperation from './operations/ViewAllOperation';
 const DashboardScreen = (props) => {
   const user = props.route.params.user;
 
-  const handleBackButton = () => {
-    Alert.alert('Advertencia', 'Está seguro de salir de la aplicación?',
-      [
-        { text: 'Cancelar' },
-        { text: 'Aceptar', onPress: () => BackHandler.exitApp() }
-      ],
-      { cancelable: false }
-    );
-    return true;
-  };
+  useEffect(
+    () =>
+      props.navigation.addListener("beforeRemove", (e) => {
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+      }),
+    []
+  );
 
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-    return () => backHandler.remove();
-  }, []);
-  
   return (
     <View style={styles.body}>
       <LinearGradient

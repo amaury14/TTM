@@ -1,6 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
@@ -79,11 +88,13 @@ const ViewAllOperation = (props) => {
 
   const listItemView = (item) => {
     return (
-      <OperationCard
-        item={item}
-        deleteClick={() => openConfirmationAlert(item.id)}
-        updateClick={() => navigation.navigate('UpdateOperation', { id: item.id, user })}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate('DetailsOperation', { item, user })}>
+        <OperationCard
+          item={item}
+          deleteClick={() => openConfirmationAlert(item.id)}
+          updateClick={() => navigation.navigate('UpdateOperation', { id: item.id, user })}
+        />
+      </TouchableOpacity>
     );
   };
 

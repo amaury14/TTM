@@ -1,6 +1,6 @@
 import * as Google from 'expo-google-app-auth';
-import React, { useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -86,7 +86,14 @@ const LoginScreen = (props) => {
                     .catch((error) => {
                         console.log(error);
                     });
+                console.log('New User signning-in on Firebase.');
             } else {
+                props.navigation.navigate('BottomTabsScreen', { user: {
+                    id: firebaseUser.uid,
+                    gmail: firebaseUser.email,
+                    profile_picture: firebaseUser.photoURL,
+                    first_last_name: firebaseUser.displayName
+                }});
                 console.log('User already signed-in Firebase.');
             }
         });

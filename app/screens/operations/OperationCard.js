@@ -2,8 +2,8 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
+import images from '../../assets';
 import colors from '../../config/colors';
-import images from '../../assets/index';
 
 const OperationCard = (props) => {
     const item = props.item;
@@ -14,7 +14,7 @@ const OperationCard = (props) => {
         return isNaN(res.toFixed(2)) ? '-' : `${res.toFixed(2)}%`;
     }
 
-    let getIcon = (pair) => {
+    const getIcon = (pair) => {
         const pieces = pair.toString().toLowerCase().split('/');
         if (pieces.length === 1) {
             const image1 = images.logos[pieces[0]];

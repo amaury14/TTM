@@ -10,6 +10,7 @@ import BottomTabsScreen from './app/screens/BottomTabScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
+import DetailsOperation from './app/screens/operations/DetailsOperation';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +58,20 @@ export default function App() {
                         component={ViewAllOperation}
                         options={{
                             title: 'Operaciones',
+                            headerStyle: {
+                                backgroundColor: colors.mainColor,
+                            },
+                            headerTintColor: '#fff',
+                            headerTitleStyle: {
+                                fontWeight: 'bold',
+                            },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="DetailsOperation"
+                        component={DetailsOperation}
+                        options={{
+                            title: 'Detalles',
                             headerStyle: {
                                 backgroundColor: colors.mainColor,
                             },
