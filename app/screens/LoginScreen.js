@@ -30,7 +30,7 @@ const LoginScreen = (props) => {
     }
 
     const addNewUser = async (result) => {
-        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid)
+        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);
         await dbRef.set({
             id: result.user.uid,
             gmail: result.user.email,
@@ -43,7 +43,7 @@ const LoginScreen = (props) => {
     };
 
     const updateUser = async (result) => {
-        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid)
+        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);
         await dbRef.update({
             last_logged_in: Date.now()
         });

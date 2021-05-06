@@ -6,6 +6,7 @@ import colors from "../config/colors";
 import TDMTabBar from "./components/TDMTabBar";
 import DashboardScreen from "./DashboardScreen";
 import RegisterOperation from "./operations/RegisterOperation";
+import SettingsScreen from "./SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +44,21 @@ function BottomTabsScreen(props) {
             },
           }}
         />
+        {/* <Tab.Screen
+          name="SettingsScreen"
+          component={SettingsScreen}
+          initialParams={{ user: props.route.params.user }}
+          options={{
+            headerTitle: "Configuración",
+            headerStyle: {
+              backgroundColor: colors.mainColor,
+            },
+            headerTintColor: "#fff",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        /> */}
       </Tab.Navigator>
     </SafeAreaView>
   );

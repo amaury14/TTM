@@ -51,6 +51,9 @@ function TDMTabBar({ state, descriptors, navigation }) {
                 case 'RegisterOperation': {
                     return 'activity';
                 }
+                case 'SettingsScreen': {
+                    return 'settings';
+                }
             };
         };
 
@@ -67,11 +70,11 @@ function TDMTabBar({ state, descriptors, navigation }) {
           > 
             <Icon
             name={getIcon(route.name)}
-            size={40}
+            size={25}
             type='feather'
-            color={ isFocused ? colors.mainColor : colors.gray } />
+            color={ isFocused ? colors.white : colors.gray } />
             <Text style={{
-                color: isFocused ? colors.mainColor : colors.gray
+                color: isFocused ? colors.white : colors.gray
             }}>
               {label}
             </Text>
@@ -91,7 +94,8 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     container: {
-      flexDirection: 'row'
+      flexDirection: 'row',
+      height: 60
     }
 });
 
