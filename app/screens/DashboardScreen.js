@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import colors from '../config/colors';
@@ -9,13 +9,12 @@ import ViewAllOperation from './operations/ViewAllOperation';
 const DashboardScreen = (props) => {
     const user = props.route.params.user;
 
-    useEffect(
-        () =>
-            props.navigation.addListener("beforeRemove", (e) => {
-                // Prevent default behavior of leaving the screen
-                e.preventDefault();
-            }),
-        []
+    useEffect(() =>
+        props.navigation.addListener("beforeRemove", (e) => {
+            // Prevent default behavior of leaving the screen
+            e.preventDefault();
+        }),
+    []
     );
 
     return (
@@ -50,9 +49,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         flex: 1,
         justifyContent: "center",
-    },
-    container: {
-        flex: 1,
     },
     splitter: {
         backgroundColor: colors.white,

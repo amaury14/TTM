@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-const Mytext = (props) => {
+import colors from '../../config/colors';
+
+const TDMText = (props) => {
     return <Text style={styles.text}>{props.text}</Text>;
 };
 
 const styles = StyleSheet.create({
     text: {
-        color: '#111825',
+        color: colors.darkBlue,
         fontSize: 18,
         marginLeft: 35,
         marginRight: 35,
@@ -15,4 +17,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Mytext;
+export default TDMText;

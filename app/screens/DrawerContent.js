@@ -16,6 +16,7 @@ import { TDMContext } from "../screens/components/context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import firebase from "../../database/firebase";
+import colors from '../config/colors';
 
 export function DrawerContent(props) {
 
@@ -28,35 +29,33 @@ export function DrawerContent(props) {
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.view1}>
             <DrawerContentScrollView {...props}>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
-                        <View style={{ flexDirection: "row", marginTop: 15 }}>
+                        <View style={styles.view2}>
                             <Avatar.Image
                                 source={{
                                     uri: "https://api.adorable.io/avatars/50/abott@adorable.png",
                                 }}
                                 size={50}
                             />
-                            <View style={{ marginLeft: 15, flexDirection: "column" }}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                            <View style={styles.view3}>
+                                <Title style={styles.title}></Title>
+                                <Caption style={styles.caption}></Caption>
                             </View>
                         </View>
 
                         <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>
-                  80
                                 </Paragraph>
-                                <Caption style={styles.caption}>Following</Caption>
+                                <Caption style={styles.caption}></Caption>
                             </View>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>
-                  100
                                 </Paragraph>
-                                <Caption style={styles.caption}>Followers</Caption>
+                                <Caption style={styles.caption}></Caption>
                             </View>
                         </View>
                     </View>
@@ -86,7 +85,7 @@ export function DrawerContent(props) {
                             )}
                             label="Settings"
                             onPress={() => {
-                                console.log("Settings");
+                                // console.log("Settings");
                             }}
                         />
                         <DrawerItem
@@ -95,7 +94,7 @@ export function DrawerContent(props) {
                             )}
                             label="Support"
                             onPress={() => {
-                                console.log("Support");
+                                // console.log("Support");
                             }}
                         />
                     </Drawer.Section>
@@ -132,7 +131,7 @@ export function DrawerContent(props) {
 
 const styles = StyleSheet.create({
     bottomDrawerSection: {
-        borderTopColor: "#f4f4f4",
+        borderTopColor: colors.grayLigth,
         borderTopWidth: 1,
         marginBottom: 15,
     },
@@ -174,4 +173,15 @@ const styles = StyleSheet.create({
     userInfoSection: {
         paddingLeft: 20,
     },
+    view1: {
+        flex: 1
+    },
+    view2: {
+        flexDirection: "row",
+        marginTop: 15
+    },
+    view3: {
+        flexDirection: "column",
+        marginLeft: 15
+    }
 });

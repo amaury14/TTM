@@ -3,10 +3,8 @@ import {
     ActivityIndicator,
     Alert,
     KeyboardAvoidingView,
-    Platform,
     SafeAreaView,
     ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
     TextInput,
@@ -115,7 +113,7 @@ const UpdateOperation = (props) => {
             setLoading2(false);
             props.navigation.navigate('DashboardScreen');
         } catch(error) {
-            console.log(error);
+            // Catch error
         }
     };
 
@@ -284,47 +282,14 @@ const UpdateOperation = (props) => {
 };
 
 const styles = StyleSheet.create({
-    closeIcon: {
-        backgroundColor: colors.red,
-        height: 50,
-        left: 30,
-        position: "absolute",
-        top: 40,
-        width: 50,
-    },
     column: {
         alignItems: 'flex-start',
         flexDirection: 'column',
         justifyContent: 'center'
     },
-    container: {
-        flex: 1,
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-    },
-    dateIcon: {
-        height: 20,
-        width: 20
-    },
-    deleteIcon: {
-        backgroundColor: colors.secondary,
-        height: 50,
-        position: "absolute",
-        right: 30,
-        top: 40,
-        width: 50,
-    },
     flex1: {
         backgroundColor: colors.white,
         flex: 1
-    },
-    form: {
-        backgroundColor: 'white',
-        flex: 1,
-        padding: 15,
-    },
-    image: {
-        height: "100%",
-        width: "100%",
     },
     input: {
         borderColor: colors.gray,
@@ -334,15 +299,6 @@ const styles = StyleSheet.create({
         marginRight: 5,
         padding: 3,
         width: 110,
-    },
-    inputLong: {
-        borderColor: colors.gray,
-        borderRadius: 8,
-        borderWidth: 1.5,
-        height: 30,
-        marginRight: 5,
-        padding: 3,
-        width: 230,
     },
     inputNotes: {
         borderColor: colors.gray,
@@ -371,15 +327,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginBottom: 20,
-    },
-    row2: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-    },
-    viewContainer: {
-        backgroundColor: colors.black,
-        flex: 1,
     }
 });
 

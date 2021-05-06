@@ -60,7 +60,7 @@ const RegisterUser = (props) => {
             handlePropChange('loading', false);
             props.navigation.navigate('DashboardScreen');
         } catch(error) {
-            console.log(error);
+            // Catch error
         }
     };
 

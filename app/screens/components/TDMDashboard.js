@@ -78,7 +78,7 @@ const TDMDashboard = (props) => {
                 });
             handlePropChange("loading", false);
         } catch (error) {
-            console.log(error);
+            // Catch error
         }
     };
 
@@ -186,11 +186,6 @@ const styles = StyleSheet.create({
     loader: {
         marginTop: 20,
     },
-    pair: {
-        color: colors.black,
-        fontSize: 15.5,
-        fontWeight: "bold",
-    },
     row: {
         alignItems: "center",
         flexDirection: "row",
@@ -201,10 +196,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "space-between",
-    },
-    tinyLogo: {
-        height: 28,
-        width: 28,
     },
     value: {
         color: colors.mainColor,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 
@@ -14,7 +14,7 @@ const LoadingScreen = (props) => {
     const checkLogin = async () => {
         await firebase.firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                props.navigation.navigate('BottomTabScreen');
+                props.navigation.navigate('BottomTabsScreen');
             } else {
                 props.navigation.navigate('LoginScreen');
             }

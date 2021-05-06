@@ -1,16 +1,12 @@
 import React from 'react';
-import { TextInput, View } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
-const Mytextinput = (props) => {
+import colors from '../../config/colors';
+
+const TDMTextInput = (props) => {
     return (
         <View
-            style={{
-                marginLeft: 35,
-                marginRight: 35,
-                marginTop: 10,
-                borderColor: '#007FFF',
-                borderWidth: 1,
-            }}>
+            style={styles.view}>
             <TextInput
                 underlineColorAndroid="transparent"
                 placeholder={props.placeholder}
@@ -29,4 +25,14 @@ const Mytextinput = (props) => {
     );
 };
 
-export default Mytextinput;
+const styles = StyleSheet.create({
+    view: {
+        borderColor: colors.blue,
+        borderWidth: 1,
+        marginLeft: 35,
+        marginRight: 35,
+        marginTop: 10,
+    },
+});
+
+export default TDMTextInput;

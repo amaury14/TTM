@@ -101,13 +101,13 @@ const UpdateUser = (props) => {
     }
 
     return (
-        <SafeAreaView style={{flex: 1}}>
-            <View style={{flex: 1, backgroundColor: 'white'}}>
-                <View style={{flex: 1}}>
+        <SafeAreaView style={styles.view1}>
+            <View style={styles.view2}>
+                <View style={styles.view1}>
                     <ScrollView keyboardShouldPersistTaps="handled">
                         <KeyboardAvoidingView
                             behavior="padding"
-                            style={{flex: 1, justifyContent: 'space-between'}}>
+                            style={styles.keyboardView}>
                             <TextInput style={styles.input}
                                 value={state.userName}
                                 underlineColorAndroid={colors.underlineColorAndroid}
@@ -174,6 +174,17 @@ const styles = StyleSheet.create({
         padding: 5,
         textAlignVertical: 'top',
     },
+    keyboardView: {
+        flex: 1,
+        justifyContent: 'space-between'
+    },
+    view1: {
+        flex: 1
+    },
+    view2: {
+        backgroundColor: colors.white,
+        flex: 1
+    }
 });
 
 export default UpdateUser;

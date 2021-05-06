@@ -56,7 +56,7 @@ const ViewAllOperation = (props) => {
                 });
             handlePropChange('loading', false);
         } catch(error) {
-            console.log(error);
+            // Catch error
         }
     };
 
@@ -81,7 +81,7 @@ const ViewAllOperation = (props) => {
     const listViewItemSeparator = () => {
         return (
             <View
-                style={{ height: 0.2, width: '100%' }}
+                style={styles.lisView}
             />
         );
     };
@@ -124,6 +124,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
         justifyContent: 'flex-start',
+    },
+    lisView: {
+        height: 0.2,
+        width: '100%'
     },
     loader: {
         marginTop: 20

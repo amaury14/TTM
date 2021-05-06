@@ -31,14 +31,14 @@ const ViewAllUser = () => {
             });
             handlePropChange('loading', false);
         } catch(error) {
-            console.log(error);
+            // Catch error
         }
     };
 
     let listViewItemSeparator = () => {
         return (
             <View
-                style={{ height: 0.2, width: '100%', backgroundColor: '#808080' }}
+                style={styles.listView}
             />
         );
     };
@@ -47,7 +47,7 @@ const ViewAllUser = () => {
         return (
             <View
                 key={item.id}
-                style={{ backgroundColor: 'white', padding: 20 }}>
+                style={styles.listViewItem}>
                 <Text>Id: {item.id}</Text>
                 <Text>Nombre: {item.first_name}</Text>
                 <Text>Apellidos: {item.last_name}</Text>
@@ -61,9 +61,9 @@ const ViewAllUser = () => {
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <View style={{ flex: 1 }}>
+        <SafeAreaView style={styles.safeArea}>
+            <View style={styles.view1}>
+                <View style={styles.view2}>
                     {state.loading && <View style={styles.loader}>
                         <ActivityIndicator size="large" color={colors.mainColor} />
                     </View>}
@@ -80,8 +80,27 @@ const ViewAllUser = () => {
 };
 
 const styles = StyleSheet.create({
+    listView: {
+        backgroundColor: colors.gray2,
+        height: 0.2,
+        width: '100%'
+    },
+    listViewItem: {
+        backgroundColor: colors.white,
+        padding: 20
+    },
     loader: {
         marginTop: 20
+    },
+    safeArea: {
+        flex: 1
+    },
+    view1: {
+        backgroundColor: colors.white,
+        flex: 1,
+    },
+    view2: {
+        flex: 1
     }
 });
 

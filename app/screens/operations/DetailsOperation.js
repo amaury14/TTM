@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import images from '../../assets';
@@ -133,13 +133,6 @@ const DetailsOperation = (props) => {
 };
 
 const styles = StyleSheet.create({
-    avatar: {
-        borderColor: "#00BFFF",
-        borderRadius: 35,
-        borderWidth: 4,
-        height: 80,
-        width: 80,
-    },
     coinSplitter: {
         fontSize: 45,
         fontWeight: "bold",
@@ -158,34 +151,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    date: {
-        color: "#696969",
-        marginTop: 10,
-    },
     header: {
         alignItems: "center",
         backgroundColor: colors.mainColor,
         padding: 15,
     },
-    headerTitle: {
-        color: "#FFFFFF",
-    },
     label: {
         color: colors.mainColor,
         fontSize: 14,
         fontWeight: "900",
-    },
-    name: {
-        color: "#FFFFFF",
-        fontSize: 22,
-        fontWeight: "600",
-    },
-    name: {
-        alignSelf: "center",
-        color: "#00BFFF",
-        fontSize: 22,
-        fontWeight: "600",
-        marginLeft: 10,
     },
     pair: {
         color: colors.black,
@@ -204,33 +178,11 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontWeight: "600",
     },
-    profile: {
-        flexDirection: "row",
-        marginTop: 20,
-    },
     row: {
         alignItems: "center",
         flexDirection: "row",
         justifyContent: "flex-start",
         marginBottom: 8
-    },
-
-    shareButton: {
-        alignItems: "center",
-        backgroundColor: "#00BFFF",
-        borderRadius: 30,
-        flexDirection: "row",
-        height: 45,
-        justifyContent: "center",
-        marginTop: 10,
-    },
-    shareButtonText: {
-        color: "#FFFFFF",
-        fontSize: 20,
-    },
-    tags: {
-        color: "#00BFFF",
-        marginTop: 10,
     },
     tinyLogo: {
         height: 50,

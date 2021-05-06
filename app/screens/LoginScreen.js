@@ -83,10 +83,10 @@ const LoginScreen = (props) => {
                             updateUser(result);
                         }
                     })
-                    .catch((error) => {
-                        console.log(error);
+                    .catch(() => {
+                        // Catch error
                     });
-                console.log('New User signning-in on Firebase.');
+                // New User signning-in on Firebase.
             } else {
                 props.navigation.navigate('BottomTabsScreen', { user: {
                     id: firebaseUser.uid,
@@ -94,7 +94,7 @@ const LoginScreen = (props) => {
                     profile_picture: firebaseUser.photoURL,
                     first_last_name: firebaseUser.displayName
                 }});
-                console.log('User already signed-in Firebase.');
+                // User already signed-in Firebase.
             }
         });
     };
