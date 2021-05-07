@@ -92,8 +92,8 @@ const FilterOperation = props => {
         ]);
     };
 
-    const updateOnValueChange = (field, value) => {
-        handlePropChange(field, value);
+    const updateOnValueChange = async (field, value) => {
+        await handlePropChange(field, value);
         fetchOperations(state.opState, state.searchString);
     };
 
@@ -144,12 +144,22 @@ const FilterOperation = props => {
                         onChangeText={value => handlePropChange('searchString', value)}
                         blurOnSubmit={false}
                     />
-                    <TouchableOpacity style={styles.button} onPress={props.customClick}>
+                    <TouchableOpacity
+                        style={styles.buttonClear}
+                        onPress={() => handlePropChange('searchString', '')}>
+                        <Icon
+                            name="x-square"
+                            type="feather"
+                            color={colors.black}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonSearch}
+                        onPress={() => fetchOperations(state.opState, state.searchString)}>
                         <Icon
                             name="search"
                             type="feather"
                             color={colors.black}
-                            onPress={() => fetchOperations(state.opState, state.searchString)}
                         />
                     </TouchableOpacity>
                 </View>
@@ -184,14 +194,23 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0
     },
-    button: {
+    buttonClear: {
         alignItems: 'center',
         backgroundColor: colors.red,
         borderRadius: 8,
         color: colors.white,
         marginRight: 5,
         padding: 5,
-        width: 50
+        width: 38
+    },
+    buttonSearch: {
+        alignItems: 'center',
+        backgroundColor: colors.blue,
+        borderRadius: 8,
+        color: colors.white,
+        marginRight: 5,
+        padding: 5,
+        width: 38
     },
     column: {
         alignItems: 'flex-start',
@@ -210,7 +229,7 @@ const styles = StyleSheet.create({
         height: 40,
         marginRight: 5,
         padding: 3,
-        width: 280
+        width: 260
     },
     label: {
         color: colors.black,
