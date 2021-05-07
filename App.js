@@ -2,9 +2,10 @@ import 'react-native-gesture-handler';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
+import firebase from './database/firebase';
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
 import LoginScreen from './app/screens/LoginScreen';
@@ -15,115 +16,103 @@ import ViewAllOperation from './app/screens/operations/ViewAllOperation';
 const Stack = createStackNavigator();
 
 export default function App() {
+    let [state, setState] = useState({
+        isLoggedIn: false,
+        user: null
+    });
+
+    useEffect(
+        () =>
+            firebase.firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    setState({
+                        user: {
+                            id: user.uid,
+                            gmail: user.email,
+                            profile_picture: user.photoURL,
+                            first_last_name: user.displayName
+                        },
+                        isLoggedIn: true
+                    });
+                } else {
+                    setState({
+                        user: null,
+                        isLoggedIn: false
+                    });
+                }
+            }),
+        []
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="LoginScreen"
-                        component={LoginScreen}
-                        options={{headerShown: false}}
-                    />
-                    <Stack.Screen
-                        name="BottomTabsScreen"
-                        component={BottomTabsScreen}
-                        options={{
-                            headerTitle: 'TTM - Diario de Trading',
-                            headerLeft: () => null,
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="UpdateOperation"
-                        component={UpdateOperation}
-                        options={{
-                            title: 'Modificar Operación',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="ViewAllOperation"
-                        component={ViewAllOperation}
-                        options={{
-                            title: 'Operaciones',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="DetailsOperation"
-                        component={DetailsOperation}
-                        options={{
-                            title: 'Detalles',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    {/* <Stack.Screen
-                        name="Register"
-                        component={RegisterUser}
-                        options={{
-                            title: 'Agregar Usuario',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="UpdateUser"
-                        component={UpdateUser}
-                        options={{
-                            title: 'Modificar Usuario',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="ViewAll"
-                        component={ViewAllUser}
-                        options={{
-                            title: 'Usuarios',
-                            headerStyle: {
-                                backgroundColor: colors.mainColor,
-                            },
-                            headerTintColor: '#fff',
-                            headerTitleStyle: {
-                                fontWeight: 'bold',
-                            },
-                        }}
-                    />  */}
-                </Stack.Navigator>
+                {!state.isLoggedIn ? (
+                    <Stack.Navigator>
+                        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+                    </Stack.Navigator>
+                ) : (
+                    <Stack.Navigator>
+                        <Stack.Screen
+                            name="BottomTabsScreen"
+                            component={BottomTabsScreen}
+                            initialParams={{ user: state?.user }}
+                            options={{
+                                headerTitle: 'TTM - Diario de Trading',
+                                headerLeft: () => null,
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: '#fff',
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Stack.Screen
+                            name="UpdateOperation"
+                            component={UpdateOperation}
+                            options={{
+                                title: 'Modificar Operación',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: '#fff',
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Stack.Screen
+                            name="ViewAllOperation"
+                            component={ViewAllOperation}
+                            options={{
+                                title: 'Operaciones',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: '#fff',
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Stack.Screen
+                            name="DetailsOperation"
+                            component={DetailsOperation}
+                            options={{
+                                title: 'Detalles',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: '#fff',
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                    </Stack.Navigator>
+                )}
             </NavigationContainer>
         </SafeAreaView>
     );

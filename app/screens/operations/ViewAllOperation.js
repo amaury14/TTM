@@ -47,8 +47,8 @@ const ViewAllOperation = (props) => {
             await firebase.fireDb.collection('operations')
                 .where('opState', '==', '1')
                 .where('userId', '==', user.id)
-                .onSnapshot(querySnapshot => {
-                    querySnapshot.docs.forEach(doc => {
+                .onSnapshot((querySnapshot) => {
+                    querySnapshot.docs.forEach((doc) => {
                         const { ...data } = doc.data();
                         operations.push({ id: doc.id, ...data });
                     });

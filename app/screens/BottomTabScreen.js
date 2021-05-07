@@ -18,7 +18,7 @@ function BottomTabsScreen(props) {
                 <Tab.Screen
                     name="DashboardScreen"
                     component={DashboardScreen}
-                    initialParams={{ user: props.route.params.user }}
+                    initialParams={{ user: props?.route?.params?.user }}
                     options={{
                         title: 'Dashboard',
                         headerStyle: {
@@ -33,7 +33,7 @@ function BottomTabsScreen(props) {
                 <Tab.Screen
                     name="RegisterOperation"
                     component={RegisterOperation}
-                    initialParams={{ user: props.route.params.user }}
+                    initialParams={{ user: props?.route?.params?.user }}
                     options={{
                         headerTitle: 'Agregar Op',
                         headerStyle: {
@@ -48,7 +48,7 @@ function BottomTabsScreen(props) {
                 <Tab.Screen
                     name="FilterOperation"
                     component={FilterOperation}
-                    initialParams={{ user: props.route.params.user }}
+                    initialParams={{ user: props?.route?.params?.user }}
                     options={{
                         headerTitle: 'Filtrar Ops',
                         headerStyle: {
@@ -63,7 +63,7 @@ function BottomTabsScreen(props) {
                 {/* <Tab.Screen
           name="SettingsScreen"
           component={SettingsScreen}
-          initialParams={{ user: props.route.params.user }}
+          initialParams={{ user: props?.route?.params?.user }}
           options={{
             headerTitle: "Configuración",
             headerStyle: {

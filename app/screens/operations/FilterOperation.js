@@ -22,7 +22,7 @@ import colors from '../../config/colors';
 
 import { getRadioConfigColor } from '../../config/radioGroup';
 
-const FilterOperation = props => {
+const FilterOperation = (props) => {
     const navigation = useNavigation();
     const user = props.route.params.user;
 
@@ -50,7 +50,7 @@ const FilterOperation = props => {
     }, [navigation]);
 
     const fetchOperations = async (opState, searchString) => {
-        const opStateValue = opState.find(item => item.selected).value;
+        const opStateValue = opState.find((item) => item.selected).value;
         try {
             handlePropChange('loading', true);
             let operations = [];
@@ -58,15 +58,15 @@ const FilterOperation = props => {
                 .collection('operations')
                 .where('opState', '==', opStateValue)
                 .where('userId', '==', user.id)
-                .onSnapshot(querySnapshot => {
-                    querySnapshot.docs.forEach(doc => {
+                .onSnapshot((querySnapshot) => {
+                    querySnapshot.docs.forEach((doc) => {
                         const { ...data } = doc.data();
                         operations.push({ id: doc.id, ...data });
                     });
                     if (!!searchString && searchString != '' && searchString?.length > 1) {
                         // Filter by searchString
                         operations = operations
-                            .filter(element =>
+                            .filter((element) =>
                                 element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase()));
                     }
                     handlePropChange('operations', operations);
@@ -77,7 +77,7 @@ const FilterOperation = props => {
         }
     };
 
-    const deleteOperation = async id => {
+    const deleteOperation = async (id) => {
         handlePropChange('loading', true);
         const dbRef = firebase.fireDb.collection('operations').doc(id);
         await dbRef.delete();
@@ -85,7 +85,7 @@ const FilterOperation = props => {
         handlePropChange('loading', false);
     };
 
-    const openConfirmationAlert = id => {
+    const openConfirmationAlert = (id) => {
         Alert.alert('Advertencia', 'Está seguro de eliminar esta operación?', [
             { text: 'Aceptar', onPress: () => deleteOperation(id) },
             { text: 'Cancelar' }
@@ -101,7 +101,7 @@ const FilterOperation = props => {
         return <View style={styles.lisView} />;
     };
 
-    const listItemView = item => {
+    const listItemView = (item) => {
         return (
             <TouchableOpacity onPress={() => navigation.navigate('DetailsOperation', { item, user })}>
                 <OperationCard
@@ -129,7 +129,7 @@ const FilterOperation = props => {
                         <Text style={styles.label}>Estado de la operación:</Text>
                         <RadioGroup
                             radioButtons={state.opState}
-                            onPress={value => updateOnValueChange('opState', value)}
+                            onPress={(value) => updateOnValueChange('opState', value)}
                             layout="row"
                         />
                     </View>
@@ -141,7 +141,7 @@ const FilterOperation = props => {
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Escriba para buscar..."
                         placeholderTextColor={colors.black}
-                        onChangeText={value => handlePropChange('searchString', value)}
+                        onChangeText={(value) => handlePropChange('searchString', value)}
                         blurOnSubmit={false}
                     />
                     <TouchableOpacity

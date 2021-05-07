@@ -1,6 +1,6 @@
 import * as Google from 'expo-google-app-auth';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -8,26 +8,27 @@ import firebase from '../../database/firebase';
 import colors from '../config/colors';
 import TDMButtom from './components/TDMButtom';
 
-const LoginScreen = (props) => {
+const LoginScreen = () => {
 
-    useEffect(() => {
-        checkLogin();
-    }, []);
+    // Commented to see if the new way works
+    // useEffect(() => {
+    //     checkLogin();
+    // }, []);
 
-    const checkLogin = async () => {
-        await firebase.firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                props.navigation.navigate('BottomTabsScreen', { user: {
-                    id: user.uid,
-                    gmail: user.email,
-                    profile_picture: user.photoURL,
-                    first_last_name: user.displayName
-                }});
-            } else {
-                props.navigation.navigate('LoginScreen');
-            }
-        });
-    };
+    // const checkLogin = async () => {
+    //     await firebase.firebase.auth().onAuthStateChanged(function(user) {
+    //         if (user) {
+    //             props.navigation.navigate('BottomTabsScreen', { user: {
+    //                 id: user.uid,
+    //                 gmail: user.email,
+    //                 profile_picture: user.photoURL,
+    //                 first_last_name: user.displayName
+    //             }});
+    //         } else {
+    //             props.navigation.navigate('LoginScreen');
+    //         }
+    //     });
+    // };
 
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);
@@ -88,12 +89,12 @@ const LoginScreen = (props) => {
                     });
                 // New User signning-in on Firebase.
             } else {
-                props.navigation.navigate('BottomTabsScreen', { user: {
-                    id: firebaseUser.uid,
-                    gmail: firebaseUser.email,
-                    profile_picture: firebaseUser.photoURL,
-                    first_last_name: firebaseUser.displayName
-                }});
+                // props.navigation.navigate('BottomTabsScreen', { user: {
+                //     id: firebaseUser.uid,
+                //     gmail: firebaseUser.email,
+                //     profile_picture: firebaseUser.photoURL,
+                //     first_last_name: firebaseUser.displayName
+                // }});
                 // User already signed-in Firebase.
             }
         });

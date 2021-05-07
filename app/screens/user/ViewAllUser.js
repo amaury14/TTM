@@ -22,8 +22,8 @@ const ViewAllUser = () => {
         try {
             handlePropChange('loading', true);
             let users = [];
-            await firebase.fireDb.collection('users').onSnapshot(querySnapshot => {
-                querySnapshot.docs.forEach(doc => {
+            await firebase.fireDb.collection('users').onSnapshot((querySnapshot) => {
+                querySnapshot.docs.forEach((doc) => {
                     const { ...data } = doc.data();
                     users.push({ id: doc.id, ...data });
                 });

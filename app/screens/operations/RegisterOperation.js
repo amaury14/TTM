@@ -65,7 +65,7 @@ const RegisterOperation = (props) => {
     };
 
     const fireNewOperation = async () => {
-        const stateSelected = state.opState.find(item => item.selected).value;
+        const stateSelected = state.opState.find((item) => item.selected).value;
         if (state.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;

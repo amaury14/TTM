@@ -61,7 +61,7 @@ const UpdateOperation = (props) => {
         const dbRef = firebase.fireDb.collection('operations').doc(id);
         const doc = await dbRef.get();
         const operation = doc.data();
-        const opIndex = radioButtonsData.findIndex(item => item.value === operation.opState);
+        const opIndex = radioButtonsData.findIndex((item) => item.value === operation.opState);
         let newRadioButtonsData = [...radioButtonsData];
         radioButtonsData.forEach((element, index) => {
             newRadioButtonsData[index] = {
@@ -78,7 +78,7 @@ const UpdateOperation = (props) => {
     };
 
     const updateOperation = async () => {
-        const stateSelected = state.opState.find(item => item.selected).value;
+        const stateSelected = state.opState.find((item) => item.selected).value;
         if (state.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;

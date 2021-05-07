@@ -76,21 +76,21 @@ const OperationCard = (props) => {
                     </View>
                     <View style={styles.column4}>
                         <TouchableOpacity
-                        style={styles.button}
-                        onPress={props.updateClick}>
+                            style={styles.button}
+                            onPress={props.updateClick}>
                             <Icon
-                            name='edit'
-                            type='feather'
-                            color={colors.mainColor}
+                                name='edit'
+                                type='feather'
+                                color={colors.mainColor}
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                        style={styles.button}
-                        onPress={props.deleteClick}>
+                            style={styles.button}
+                            onPress={props.deleteClick}>
                             <Icon
-                            name='trash-2'
-                            type='feather'
-                            color={colors.red}
+                                name='trash-2'
+                                type='feather'
+                                color={colors.red}
                             />
                         </TouchableOpacity>
                     </View>
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
         width: 125,
     },
     column4: {
-        flexDirection: 'column',
         alignItems: 'center',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         width: 25,
     },
