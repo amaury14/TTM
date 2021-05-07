@@ -1,4 +1,13 @@
 const images = {
+    ranks: {
+        prey: require('./prey.png'),
+        junior: require('./junior.png'),
+        semisenior: require('./semi-senior.png'),
+        senior: require('./senior.png'),
+        advanced: require('./advanced.png'),
+        professional: require('./professional.png'),
+        master: require('./master.png')
+    },
     logos: {
         '0xbtc': require('./color128/0xbtc.png'),
         '$pac': require('./color128/$pac.png'),

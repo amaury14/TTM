@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import firebase from '../../../database/firebase';
+import images from '../../assets';
 import colors from '../../config/colors';
 
 const TDMDashboard = (props) => {
@@ -98,13 +99,11 @@ const TDMDashboard = (props) => {
                     <View style={styles.corner}>
                         <TouchableOpacity
                             style={styles.button}
-                            onPress={() => {signOut();}}>
-                            <Icon
-                                name="power"
-                                type="feather"
-                                size={30}
-                                color={colors.red}
-                            />
+                            onPress={() => {
+                                signOut();
+                            }}
+                        >
+                            <Icon name="power" type="feather" size={30} color={colors.red} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.row2}>
@@ -123,8 +122,9 @@ const TDMDashboard = (props) => {
                             <Text style={styles.label}>Negativas</Text>
                             <Text style={styles.valueBigRed}>{state.negatives}</Text>
                         </View>
-                        <View style={styles.columnLong}>
-                            <Text style={styles.label}>Rango</Text>
+                        <View style={styles.columnRank}>
+                            <Image style={styles.logo} source={images.ranks.master} />
+                            <Text style={styles.rankLabel}>Semi Senior</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
@@ -133,10 +133,6 @@ const TDMDashboard = (props) => {
                             <View style={styles.row2}>
                                 <Text style={styles.value}>{getProfitPercent(state.performancePercentReal)}</Text>
                             </View>
-                        </View>
-                        <View style={styles.columnLong}>
-                            <Text style={styles.label}>Negativas</Text>
-                            <Text style={styles.value}>{state.negatives}</Text>
                         </View>
                     </View>
                 </View>
@@ -183,6 +179,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         width: 150
     },
+    columnRank: {
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginRight: 30,
+        width: 110
+    },
     corner: {
         position: 'absolute',
         right: 4,
@@ -195,6 +198,19 @@ const styles = StyleSheet.create({
     },
     loader: {
         marginTop: 20
+    },
+    logo: {
+        height: 80,
+        position: 'absolute',
+        top: -50,
+        width: 80
+    },
+    rankLabel: {
+        color: colors.white,
+        fontSize: 14,
+        fontWeight: '900',
+        position: 'absolute',
+        top: 30
     },
     row: {
         alignItems: 'center',
