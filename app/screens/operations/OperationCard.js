@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import images from '../../assets';
@@ -75,16 +75,24 @@ const OperationCard = (props) => {
                         <Text style={styles.value}>{getProfitPercent(item.triggerPrice, item.takeProfit)}</Text>
                     </View>
                     <View style={styles.column4}>
-                        <Icon
+                        <TouchableOpacity
+                        style={styles.button}
+                        onPress={props.updateClick}>
+                            <Icon
                             name='edit'
                             type='feather'
                             color={colors.mainColor}
-                            onPress={props.updateClick} />
-                        <Icon
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                        style={styles.button}
+                        onPress={props.deleteClick}>
+                            <Icon
                             name='trash-2'
                             type='feather'
                             color={colors.red}
-                            onPress={props.deleteClick} />
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>)}
         </View>
@@ -92,6 +100,15 @@ const OperationCard = (props) => {
 };
 
 const styles = StyleSheet.create({
+    button: {
+        alignItems: 'center',
+        backgroundColor: colors.gray,
+        borderRadius: 8,
+        color: colors.white,
+        marginRight: 2,
+        padding: 3,
+        width: 30
+    },
     card: {
         flexDirection: 'row',
         flex: 1,
@@ -111,6 +128,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
         elevation: 11,
+        minHeight: 88
     },
     coinSplitter: {
         fontSize: 25,
@@ -132,6 +150,8 @@ const styles = StyleSheet.create({
     },
     column4: {
         flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         width: 25,
     },
     investment: {

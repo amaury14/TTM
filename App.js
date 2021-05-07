@@ -28,7 +28,7 @@ export default function App() {
                         name="BottomTabsScreen"
                         component={BottomTabsScreen}
                         options={{
-                            headerTitle: 'To The Moon',
+                            headerTitle: 'TTM - Diario de Trading',
                             headerLeft: () => null,
                             headerStyle: {
                                 backgroundColor: colors.mainColor,

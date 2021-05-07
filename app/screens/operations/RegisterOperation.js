@@ -243,8 +243,7 @@ const RegisterOperation = (props) => {
                                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                                     placeholderTextColor={colors.mainColor}
                                     onChangeText={(value) => handlePropChange('notes', value)}
-                                    maxLength={225}
-                                    numberOfLines={8}
+                                    numberOfLines={15}
                                     multiline={true}
                                 />
                             </View>
@@ -283,7 +282,7 @@ const styles = StyleSheet.create({
         borderColor: colors.gray,
         borderRadius: 8,
         borderWidth: 1.5,
-        height: 130,
+        height: 180,
         marginRight: 5,
         padding: 5,
         textAlignVertical: 'top',
