@@ -79,11 +79,11 @@ const UpdateOperation = (props) => {
 
     const updateOperation = async () => {
         const stateSelected = state.opState.find(item => item.selected).value;
-        if (state.pairCoin === "") {
+        if (state.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
         }
-        if (state.investment === "") {
+        if (state.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }
@@ -111,7 +111,7 @@ const UpdateOperation = (props) => {
             });
             setState(initialState);
             setLoading2(false);
-            props.navigation.navigate('DashboardScreen');
+            props.navigation.goBack();
         } catch(error) {
             // Catch error
         }

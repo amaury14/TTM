@@ -4,13 +4,14 @@ import { StyleSheet, View } from 'react-native';
 
 import colors from '../config/colors';
 import TDMDashboard from './components/TDMDashboard';
+import TDMSplitter from './components/TDMSplitter';
 import ViewAllOperation from './operations/ViewAllOperation';
 
 const DashboardScreen = (props) => {
     const user = props.route.params.user;
 
     useEffect(() =>
-        props.navigation.addListener("beforeRemove", (e) => {
+        props.navigation.addListener('beforeRemove', (e) => {
             // Prevent default behavior of leaving the screen
             e.preventDefault();
         }),
@@ -30,7 +31,7 @@ const DashboardScreen = (props) => {
                 style={styles.background}
             >
                 <TDMDashboard user={user} />
-                <View style={styles.splitter} />
+                <TDMSplitter />
                 <ViewAllOperation user={user} />
             </LinearGradient>
         </View>
@@ -39,23 +40,17 @@ const DashboardScreen = (props) => {
 
 const styles = StyleSheet.create({
     background: {
-        height: "100%",
+        height: '100%',
         left: 0,
-        position: "absolute",
+        position: 'absolute',
         right: 0,
         top: 0,
     },
     body: {
         backgroundColor: colors.white,
         flex: 1,
-        justifyContent: "center",
-    },
-    splitter: {
-        backgroundColor: colors.white,
-        height: 1,
-        margin: 10,
-        width: 370,
-    },
+        justifyContent: 'center',
+    }
 });
 
 export default DashboardScreen;

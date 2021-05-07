@@ -8,9 +8,9 @@ import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
 import LoginScreen from './app/screens/LoginScreen';
+import DetailsOperation from './app/screens/operations/DetailsOperation';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
-import DetailsOperation from './app/screens/operations/DetailsOperation';
 
 const Stack = createStackNavigator();
 

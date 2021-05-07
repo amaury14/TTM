@@ -1,5 +1,5 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
     useTheme,
     Avatar,
@@ -10,12 +10,12 @@ import {
     Text,
     TouchableRipple,
     Switch,
-} from "react-native-paper";
-import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
-import { TDMContext } from "../screens/components/context";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+} from 'react-native-paper';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { TDMContext } from '../screens/components/context';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import firebase from "../../database/firebase";
+import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
 export function DrawerContent(props) {
@@ -36,7 +36,7 @@ export function DrawerContent(props) {
                         <View style={styles.view2}>
                             <Avatar.Image
                                 source={{
-                                    uri: "https://api.adorable.io/avatars/50/abott@adorable.png",
+                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png',
                                 }}
                                 size={50}
                             />
@@ -67,7 +67,7 @@ export function DrawerContent(props) {
                             )}
                             label="Dashboard"
                             onPress={() => {
-                                props.navigation.navigate("Dashboard");
+                                props.navigation.navigate('Dashboard');
                             }}
                         />
                         <DrawerItem
@@ -76,7 +76,7 @@ export function DrawerContent(props) {
                             )}
                             label="Agregar Operación"
                             onPress={() => {
-                                props.navigation.navigate("RegisterOperation");
+                                props.navigation.navigate('RegisterOperation');
                             }}
                         />
                         <DrawerItem
@@ -146,28 +146,28 @@ const styles = StyleSheet.create({
         marginTop: 15,
     },
     paragraph: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginRight: 3,
     },
     preference: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         paddingHorizontal: 16,
         paddingVertical: 12,
     },
     row: {
-        alignItems: "center",
-        flexDirection: "row",
+        alignItems: 'center',
+        flexDirection: 'row',
         marginTop: 20,
     },
     section: {
-        alignItems: "center",
-        flexDirection: "row",
+        alignItems: 'center',
+        flexDirection: 'row',
         marginRight: 15,
     },
     title: {
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginTop: 3,
     },
     userInfoSection: {
@@ -177,11 +177,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     view2: {
-        flexDirection: "row",
+        flexDirection: 'row',
         marginTop: 15
     },
     view3: {
-        flexDirection: "column",
+        flexDirection: 'column',
         marginLeft: 15
     }
 });

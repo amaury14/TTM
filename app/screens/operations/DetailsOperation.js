@@ -13,7 +13,7 @@ const DetailsOperation = (props) => {
     };
 
     const getIcon = (pair) => {
-        const pieces = pair.toString().toLowerCase().split("/");
+        const pieces = pair.toString().toLowerCase().split('/');
         if (pieces.length === 1) {
             const image1 = images.logos[pieces[0]];
             return (
@@ -135,36 +135,36 @@ const DetailsOperation = (props) => {
 const styles = StyleSheet.create({
     coinSplitter: {
         fontSize: 45,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
     column: {
-        alignItems: "flex-start",
-        flexDirection: "column",
-        justifyContent: "flex-start",
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
         width: 120,
     },
     column2: {
-        alignItems: "flex-start",
-        flexDirection: "column",
-        justifyContent: "flex-start"
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'flex-start'
     },
     container: {
         flex: 1,
     },
     header: {
-        alignItems: "center",
+        alignItems: 'center',
         backgroundColor: colors.mainColor,
         padding: 15,
     },
     label: {
         color: colors.mainColor,
         fontSize: 14,
-        fontWeight: "900",
+        fontWeight: '900',
     },
     pair: {
         color: colors.black,
         fontSize: 15.5,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
     postContent: {
         flex: 1,
@@ -176,12 +176,12 @@ const styles = StyleSheet.create({
     },
     postTitle: {
         fontSize: 26,
-        fontWeight: "600",
+        fontWeight: '600',
     },
     row: {
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "flex-start",
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         marginBottom: 8
     },
     tinyLogo: {

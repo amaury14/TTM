@@ -1,10 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import firebase from "../../../database/firebase";
-import colors from "../../config/colors";
+import firebase from '../../../database/firebase';
+import colors from '../../config/colors';
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
@@ -22,7 +22,7 @@ const TDMDashboard = (props) => {
 
     // Refreshing data on component focus
     useEffect(() => {
-        const unsubscribe = navigation.addListener("focus", () => {
+        const unsubscribe = navigation.addListener('focus', () => {
             fetchOperations();
         });
         return unsubscribe;
@@ -38,16 +38,16 @@ const TDMDashboard = (props) => {
     };
 
     const getProfitPercent = (number) => {
-        return isNaN(number.toFixed(2)) ? "-" : `${number.toFixed(2)}%`;
+        return isNaN(number.toFixed(2)) ? '-' : `${number.toFixed(2)}%`;
     };
 
     const fetchOperations = async () => {
         try {
-            handlePropChange("loading", true);
+            handlePropChange('loading', true);
             await firebase.fireDb
-                .collection("operations")
-                .where("opState", "==", "2")
-                .where("userId", "==", user.id)
+                .collection('operations')
+                .where('opState', '==', '2')
+                .where('userId', '==', user.id)
                 .onSnapshot((querySnapshot) => {
                     let operations = [];
                     let positives = 0;
@@ -57,7 +57,7 @@ const TDMDashboard = (props) => {
                     querySnapshot.docs.forEach((doc) => {
                         const { ...data } = doc.data();
                         operations.push({ id: doc.id, ...data });
-                        if (data.profitPercent !== "") {
+                        if (data.profitPercent !== '') {
                             totalPerformance += parseInt(data.profitPercent);
                             if (parseInt(data.profitPercent) > 0) {
                                 positives++;
@@ -76,7 +76,7 @@ const TDMDashboard = (props) => {
                         performancePercent: totalPerformance / operations?.length / 100,
                     });
                 });
-            handlePropChange("loading", false);
+            handlePropChange('loading', false);
         } catch (error) {
             // Catch error
         }
@@ -165,58 +165,58 @@ const styles = StyleSheet.create({
         width: 380,
     },
     column: {
-        alignItems: "flex-start",
-        flexDirection: "column",
-        justifyContent: "flex-start",
+        alignItems: 'flex-start',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
     },
     columnLong: {
-        flexDirection: "column",
+        flexDirection: 'column',
         width: 150,
     },
     corner: {
-        position: "absolute",
+        position: 'absolute',
         right: 4,
         top: 4,
     },
     label: {
         color: colors.mainColor,
         fontSize: 14,
-        fontWeight: "900",
+        fontWeight: '900',
     },
     loader: {
         marginTop: 20,
     },
     row: {
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginBottom: 20,
     },
     row2: {
-        alignItems: "center",
-        flexDirection: "row",
-        justifyContent: "space-between",
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     value: {
         color: colors.mainColor,
         fontSize: 15,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginLeft: 5,
     },
     valueBigGreen: {
         color: colors.secondary,
         fontSize: 30,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
     valueBigRed: {
         color: colors.red,
         fontSize: 30,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
     valueBigWhite: {
         color: colors.white,
         fontSize: 30,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
 });
 

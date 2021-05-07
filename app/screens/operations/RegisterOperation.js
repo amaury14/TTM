@@ -20,7 +20,6 @@ import TDMButtom from '../components/TDMButtom';
 const RegisterOperation = (props) => {
     const user = props.route.params.user;
 
-    let radioButtonsData = radioConfig;
     const initialState = {
         pairCoin: '',
         investment: '',
@@ -34,7 +33,7 @@ const RegisterOperation = (props) => {
         profitPercent: '',
         notes: '',
         closeDate: null,
-        opState: radioButtonsData,
+        opState: radioConfig,
         loading: false
     };
 
@@ -67,15 +66,15 @@ const RegisterOperation = (props) => {
 
     const fireNewOperation = async () => {
         const stateSelected = state.opState.find(item => item.selected).value;
-        if (state.pairCoin === "") {
+        if (state.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
         }
-        if (state.investment === "") {
+        if (state.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }
-        if (stateSelected !== "1") {
+        if (stateSelected !== '1') {
             handlePropChange('closeDate', new Date());
         }
 

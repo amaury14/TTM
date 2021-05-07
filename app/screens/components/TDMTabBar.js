@@ -54,6 +54,9 @@ function TDMTabBar({ state, descriptors, navigation }) {
                     case 'SettingsScreen': {
                         return 'settings';
                     }
+                    case 'FilterOperation': {
+                        return 'filter';
+                    }
                     }
                 };
 

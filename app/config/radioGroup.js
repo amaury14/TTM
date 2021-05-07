@@ -1,6 +1,6 @@
 import colors from './colors';
 
-export default [
+const radioConfig = [
     {
         color: colors.mainColor,
         labelStyle: { color: colors.mainColor },
@@ -27,3 +27,9 @@ export default [
         value: '3'
     }
 ];
+
+export const getRadioConfigColor = (color) => {
+    return radioConfig.map((item) => ({ ...item, color, labelStyle: { color }}));
+};
+
+export default radioConfig;

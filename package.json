@@ -7,6 +7,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint *.js **/*.js app/**/*.js database/*.js",
+    "lint-fix": "eslint *.js **/*.js app/**/*.js database/*.js --fix",
     "build-android-apk": "expo build:android -t apk",
     "build-android-bundle": "expo build:android -t app-bundle",
     "build-ios-simulator": "expo build:ios -t simulator",

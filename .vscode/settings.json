@@ -1,0 +1,13 @@
+{
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false,
+    "files.insertFinalNewline": true,
+    "[html]": {
+        "editor.formatOnSave": false,
+        "editor.wordWrap": "on",
+        "editor.renderWhitespace": "all"
+    },
+    "html.format.wrapAttributes": "force-expand-multiline",
+    "prettier.trailingComma": "none"
+}

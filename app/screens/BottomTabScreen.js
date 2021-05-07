@@ -1,11 +1,12 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
-import colors from "../config/colors";
-import TDMTabBar from "./components/TDMTabBar";
-import DashboardScreen from "./DashboardScreen";
-import RegisterOperation from "./operations/RegisterOperation";
+import colors from '../config/colors';
+import TDMTabBar from './components/TDMTabBar';
+import DashboardScreen from './DashboardScreen';
+import FilterOperation from './operations/FilterOperation';
+import RegisterOperation from './operations/RegisterOperation';
 // import SettingsScreen from "./SettingsScreen";
 
 const Tab = createBottomTabNavigator();
@@ -19,13 +20,13 @@ function BottomTabsScreen(props) {
                     component={DashboardScreen}
                     initialParams={{ user: props.route.params.user }}
                     options={{
-                        title: "Dashboard",
+                        title: 'Dashboard',
                         headerStyle: {
                             backgroundColor: colors.mainColor,
                         },
-                        headerTintColor: "#fff",
+                        headerTintColor: '#fff',
                         headerTitleStyle: {
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
                         },
                     }}
                 />
@@ -34,13 +35,28 @@ function BottomTabsScreen(props) {
                     component={RegisterOperation}
                     initialParams={{ user: props.route.params.user }}
                     options={{
-                        headerTitle: "Agregar Operación",
+                        headerTitle: 'Agregar Op',
                         headerStyle: {
                             backgroundColor: colors.mainColor,
                         },
-                        headerTintColor: "#fff",
+                        headerTintColor: '#fff',
                         headerTitleStyle: {
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />
+                <Tab.Screen
+                    name="FilterOperation"
+                    component={FilterOperation}
+                    initialParams={{ user: props.route.params.user }}
+                    options={{
+                        headerTitle: 'Filtrar Ops',
+                        headerStyle: {
+                            backgroundColor: colors.mainColor,
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
                         },
                     }}
                 />
