@@ -101,20 +101,20 @@ const ViewAllOperation = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             {!state.loading &&
-        <View style={styles.loader}>
-            <ActivityIndicator size="large" color={colors.white} />
-        </View>}
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colors.white} />
+            </View>}
             {state.loading &&
-        <View>
-            <FlatList
-                data={state.operations}
-                ItemSeparatorComponent={listViewItemSeparator}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => listItemView(item)}
-                refreshing={state.loading}
-                ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
-            />
-        </View>}
+            <View>
+                <FlatList
+                    data={state.operations}
+                    ItemSeparatorComponent={listViewItemSeparator}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => listItemView(item)}
+                    refreshing={state.loading}
+                    ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
+                />
+            </View>}
         </SafeAreaView>
     );
 };

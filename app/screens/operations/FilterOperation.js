@@ -63,7 +63,7 @@ const FilterOperation = props => {
                         const { ...data } = doc.data();
                         operations.push({ id: doc.id, ...data });
                     });
-                    if (searchString != '' && searchString?.length > 1) {
+                    if (!!searchString && searchString != '' && searchString?.length > 1) {
                         // Filter by searchString
                         operations = operations
                             .filter(element =>
@@ -124,55 +124,53 @@ const FilterOperation = props => {
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
-                <View>
-                    <View style={styles.row}>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Estado de la operación:</Text>
-                            <RadioGroup
-                                radioButtons={state.opState}
-                                onPress={value => updateOnValueChange('opState', value)}
-                                layout="row"
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <TextInput
-                            style={styles.input}
-                            value={state.searchString}
-                            underlineColorAndroid={colors.underlineColorAndroid}
-                            placeholder="Escriba para buscar..."
-                            placeholderTextColor={colors.black}
-                            onChangeText={value => handlePropChange('searchString', value)}
-                            blurOnSubmit={false}
+                <View style={styles.row}>
+                    <View style={styles.column}>
+                        <Text style={styles.label}>Estado de la operación:</Text>
+                        <RadioGroup
+                            radioButtons={state.opState}
+                            onPress={value => updateOnValueChange('opState', value)}
+                            layout="row"
                         />
-                        <TouchableOpacity style={styles.button} onPress={props.customClick}>
-                            <Icon
-                                name="search"
-                                type="feather"
-                                color={colors.black}
-                                onPress={() => fetchOperations(state.opState, state.searchString)}
-                            />
-                        </TouchableOpacity>
                     </View>
-                    <TDMSplitter />
-                    {!state.loading && (
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.white} />
-                        </View>
-                    )}
-                    {state.loading && (
-                        <View style={styles.row}>
-                            <FlatList
-                                data={state.operations}
-                                ItemSeparatorComponent={listViewItemSeparator}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) => listItemView(item)}
-                                refreshing={state.loading}
-                                ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
-                            />
-                        </View>
-                    )}
                 </View>
+                <View style={styles.row}>
+                    <TextInput
+                        style={styles.input}
+                        value={state.searchString}
+                        underlineColorAndroid={colors.underlineColorAndroid}
+                        placeholder="Escriba para buscar..."
+                        placeholderTextColor={colors.black}
+                        onChangeText={value => handlePropChange('searchString', value)}
+                        blurOnSubmit={false}
+                    />
+                    <TouchableOpacity style={styles.button} onPress={props.customClick}>
+                        <Icon
+                            name="search"
+                            type="feather"
+                            color={colors.black}
+                            onPress={() => fetchOperations(state.opState, state.searchString)}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <TDMSplitter />
+                {!state.loading && (
+                    <View style={styles.loader}>
+                        <ActivityIndicator size="large" color={colors.white} />
+                    </View>
+                )}
+                {state.loading && (
+                    <View style={styles.row}>
+                        <FlatList
+                            data={state.operations}
+                            ItemSeparatorComponent={listViewItemSeparator}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => listItemView(item)}
+                            refreshing={state.loading}
+                            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
+                        />
+                    </View>
+                )}
             </LinearGradient>
         </SafeAreaView>
     );
