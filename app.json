@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TDM",
-    "slug": "TDM",
+    "name": "TTM",
+    "slug": "TTM",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/rocket2.png",
@@ -30,6 +30,6 @@
     "web": {
       "favicon": "./app/assets/rocket2.png"
     },
-    "description": "Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
+    "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
   }
 }

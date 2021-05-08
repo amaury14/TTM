@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import firebase from '../../../database/firebase';
 import images from '../../assets';
 import colors from '../../config/colors';
+import TDMButtom from './TDMButtom';
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
@@ -18,7 +19,8 @@ const TDMDashboard = (props) => {
         total: 0,
         performancePercentReal: 0,
         performancePercent: 0,
-        loading: true
+        loading: true,
+        modalVisible: false
     });
 
     // Refreshing data on component focus
@@ -117,6 +119,32 @@ const TDMDashboard = (props) => {
 
     return (
         <View>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={state?.modalVisible}
+                onRequestClose={() => handlePropChange('modalVisible', !state?.modalVisible)}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>TTM - To The Moon</Text>
+                        <Text style={styles.modalText}>Diario de Trading</Text>
+                        <Text style={styles.modalText}>Desarrollador: Amaury Chong Rodríguez</Text>
+                        <Text style={styles.modalText}>Contacto:</Text>
+                        <TouchableOpacity
+                            onPress={() => Linking.openURL('mailto:amaurychong@gmail.com')}
+                        >
+                            <Text style={styles.emailLink}>amaurychong@gmail.com</Text>
+                        </TouchableOpacity>
+                        <View style={styles.buttonModal}>
+                            <TDMButtom
+                                title="Cerrar"
+                                customClick={() => handlePropChange('modalVisible', !state?.modalVisible)}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
             {!state?.loading && (
                 <View style={styles.loader}>
                     <ActivityIndicator size="large" color={colors.white} />
@@ -132,6 +160,12 @@ const TDMDashboard = (props) => {
                             }}
                         >
                             <Icon name="power" type="feather" size={30} color={colors.red} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => handlePropChange('modalVisible', true)}
+                        >
+                            <Icon name="info" type="feather" size={30} color={colors.blue} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.row2}>
@@ -151,8 +185,13 @@ const TDMDashboard = (props) => {
                             <Text style={styles.valueBigRed}>{state?.negatives}</Text>
                         </View>
                         <View style={styles.columnRank}>
-                            <Image style={styles.logo} source={getRankByPerformance('icon', state?.performancePercentReal)} />
-                            <Text style={styles.rankLabel}>{getRankByPerformance('label', state?.performancePercentReal)}</Text>
+                            <Image
+                                style={styles.logo}
+                                source={getRankByPerformance('icon', state?.performancePercentReal)}
+                            />
+                            <Text style={styles.rankLabel}>
+                                {getRankByPerformance('label', state?.performancePercentReal)}
+                            </Text>
                         </View>
                     </View>
                     <View style={styles.row}>
@@ -176,8 +215,14 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         color: colors.white,
         marginRight: 2,
+        marginTop: 8,
         padding: 3,
         width: 38
+    },
+    buttonModal: {
+        bottom: 10,
+        position: 'absolute',
+        right: 0
     },
     card: {
         backgroundColor: colors.white,
@@ -197,6 +242,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
         width: 380
+    },
+    centeredView: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 22
     },
     column: {
         alignItems: 'flex-start',
@@ -219,6 +270,12 @@ const styles = StyleSheet.create({
         right: 4,
         top: 4
     },
+    emailLink: {
+        color: colors.blue,
+        fontStyle: 'italic',
+        fontWeight: 'bold',
+        textDecorationLine: 'underline'
+    },
     label: {
         color: colors.mainColor,
         fontSize: 14,
@@ -232,6 +289,27 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: -50,
         width: 105
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center'
+    },
+    modalView: {
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        elevation: 5,
+        height: 280,
+        margin: 20,
+        padding: 10,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        width: 300
     },
     rankLabel: {
         color: colors.mainColor,

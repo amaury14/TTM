@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
-    fabookButton: {
-        backgroundColor: colors.facebookColor
-    },
+    // fabookButton: {
+    //     backgroundColor: colors.facebookColor
+    // },
     googleButton: {
         backgroundColor: colors.googleColor
     },
