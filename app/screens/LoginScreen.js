@@ -1,12 +1,11 @@
 import * as Google from 'expo-google-app-auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
-import TDMButtom from './components/TDMButtom';
 
 const LoginScreen = () => {
     // Commented to see if the new way works
@@ -124,16 +123,29 @@ const LoginScreen = () => {
     };
 
     return (
-        <View style={styles.body}>
+        <View style={styles.container}>
             <LinearGradient
                 colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
                 style={styles.background}
             >
                 <Image style={styles.logo} source={require('../assets/rocket2.png')} />
-                <View style={styles.row}>
-                    <Icon size={40} name="google" type="fontisto" color={colors.mainColor} />
-                    <TDMButtom title="Login con Google" customClick={() => signInWithGoogleAsync()} />
-                </View>
+
+                {/* <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
+                    <View style={styles.socialButtonContent}>
+                        <Icon style={styles.icon} name="facebook" type="fontisto" color={colors.white} />
+                        <Text style={styles.loginText}>Continuar con Facebook</Text>
+                    </View>
+                </TouchableOpacity> */}
+
+                <TouchableOpacity
+                    style={[styles.buttonContainer, styles.googleButton]}
+                    onPress={() => signInWithGoogleAsync()}
+                >
+                    <View style={styles.socialButtonContent}>
+                        <Icon style={styles.icon} name="google" type="fontisto" color={colors.white} />
+                        <Text style={styles.loginText}>Continuar con Google</Text>
+                    </View>
+                </TouchableOpacity>
             </LinearGradient>
         </View>
     );
@@ -150,11 +162,33 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0
     },
-    body: {
+    buttonContainer: {
         alignItems: 'center',
-        backgroundColor: colors.white,
+        borderRadius: 30,
+        flexDirection: 'row',
+        height: 45,
+        justifyContent: 'center',
+        marginBottom: 20,
+        width: 250
+    },
+    container: {
+        alignItems: 'center',
         flex: 1,
         justifyContent: 'center'
+    },
+    fabookButton: {
+        backgroundColor: colors.facebookColor
+    },
+    googleButton: {
+        backgroundColor: colors.googleColor
+    },
+    icon: {
+        height: 30,
+        marginRight: 5,
+        width: 30
+    },
+    loginText: {
+        color: colors.white
     },
     logo: {
         height: 150,
@@ -162,11 +196,10 @@ const styles = StyleSheet.create({
         top: 50,
         width: 150
     },
-    row: {
+    socialButtonContent: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center',
-        width: '100%'
+        justifyContent: 'center'
     }
 });
 

@@ -12,4 +12,6 @@ export default {
     red: '#fc5c65',
     value: '#132c33',
     investment: '#0061a8',
+    facebookColor: '#3b5998',
+    googleColor: '#ff0000'
 };
