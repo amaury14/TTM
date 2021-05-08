@@ -9,7 +9,6 @@ import colors from '../config/colors';
 import TDMButtom from './components/TDMButtom';
 
 const LoginScreen = () => {
-
     // Commented to see if the new way works
     // useEffect(() => {
     //     checkLogin();
@@ -31,20 +30,20 @@ const LoginScreen = () => {
     // };
 
     const addNewUser = async (result) => {
-        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);
+        const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
         await dbRef.set({
-            id: result.user.uid,
-            gmail: result.user.email,
-            profile_picture: result.additionalUserInfo.profile.picture,
-            locale: result.additionalUserInfo.profile.locale,
-            first_name: result.additionalUserInfo.profile.given_name,
-            last_name: result.additionalUserInfo.profile.family_name,
+            id: result?.user?.uid,
+            gmail: result?.user?.email,
+            profile_picture: result?.additionalUserInfo?.profile?.picture,
+            locale: result?.additionalUserInfo?.profile?.locale,
+            first_name: result?.additionalUserInfo?.profile?.given_name,
+            last_name: result?.additionalUserInfo?.profile?.family_name,
             created_at: Date.now()
         });
     };
 
     const updateUser = async (result) => {
-        const dbRef = firebase.fireDb.collection('users').doc(result.user.uid);
+        const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
         await dbRef.update({
             last_logged_in: Date.now()
         });
@@ -52,10 +51,12 @@ const LoginScreen = () => {
 
     const isUserEqual = (googleUser, firebaseUser) => {
         if (firebaseUser) {
-            var providerData = firebaseUser.providerData;
+            var providerData = firebaseUser?.providerData;
             for (var i = 0; i < providerData.length; i++) {
-                if (providerData[i].providerId === firebase.firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-                    providerData[i].uid === googleUser.user.id) {
+                if (
+                    providerData?.[i]?.providerId === firebase.firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+                    providerData?.[i]?.uid === googleUser?.user?.id
+                ) {
                     // We don't need to reauth the Firebase connection.
                     return true;
                 }
@@ -72,13 +73,16 @@ const LoginScreen = () => {
             if (!isUserEqual(googleUser, firebaseUser)) {
                 // Build Firebase credential with the Google ID token.
                 var credential = firebase.firebase.auth.GoogleAuthProvider.credential(
-                    googleUser.idToken, googleUser.accessToken);
+                    googleUser?.idToken,
+                    googleUser?.accessToken
+                );
 
                 // Sign in with credential from the Google user.
                 firebase.firebase
-                    .auth().signInWithCredential(credential)
+                    .auth()
+                    .signInWithCredential(credential)
                     .then((result) => {
-                        if (result.additionalUserInfo.isNewUser) {
+                        if (result?.additionalUserInfo?.isNewUser) {
                             addNewUser(result);
                         } else {
                             updateUser(result);
@@ -105,12 +109,12 @@ const LoginScreen = () => {
             const result = await Google.logInAsync({
                 androidClientId: '150449439362-l1f4ogos63o5bfbpin8hhek756ju0utm.apps.googleusercontent.com',
                 iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
-                scopes: ['profile', 'email'],
+                scopes: ['profile', 'email']
             });
 
             if (result.type === 'success') {
                 onSignIn(result);
-                return result.accessToken;
+                return result?.accessToken;
             } else {
                 return { cancelled: true };
             }
@@ -125,16 +129,9 @@ const LoginScreen = () => {
                 colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
                 style={styles.background}
             >
-                <Image
-                    style={styles.logo}
-                    source={require('../assets/rocket2.png')}
-                />
+                <Image style={styles.logo} source={require('../assets/rocket2.png')} />
                 <View style={styles.row}>
-                    <Icon
-                        size={40}
-                        name='google'
-                        type='fontisto'
-                        color={colors.mainColor} />
+                    <Icon size={40} name="google" type="fontisto" color={colors.mainColor} />
                     <TDMButtom title="Login con Google" customClick={() => signInWithGoogleAsync()} />
                 </View>
             </LinearGradient>
@@ -151,13 +148,13 @@ const styles = StyleSheet.create({
         left: 0,
         position: 'absolute',
         right: 0,
-        top: 0,
+        top: 0
     },
     body: {
         alignItems: 'center',
         backgroundColor: colors.white,
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     logo: {
         height: 150,

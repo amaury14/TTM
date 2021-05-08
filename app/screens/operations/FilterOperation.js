@@ -24,7 +24,7 @@ import { getRadioConfigColor } from '../../config/radioGroup';
 
 const FilterOperation = (props) => {
     const navigation = useNavigation();
-    const user = props.route.params.user;
+    const user = props?.route?.params?.user;
 
     const [state, setState] = useState({
         operations: [],
@@ -38,36 +38,36 @@ const FilterOperation = (props) => {
     };
 
     useEffect(() => {
-        fetchOperations(state.opState, state.searchString);
+        fetchOperations(state?.opState, state?.searchString);
     }, []);
 
     // Refreshing data on component focus
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            fetchOperations(state.opState, state.searchString);
+        const unsubscribe = navigation?.addListener('focus', () => {
+            fetchOperations(state?.opState, state?.searchString);
         });
         return unsubscribe;
     }, [navigation]);
 
     const fetchOperations = async (opState, searchString) => {
-        const opStateValue = opState.find((item) => item.selected).value;
+        const opStateValue = opState?.find((item) => item?.selected)?.value;
         try {
             handlePropChange('loading', true);
             let operations = [];
             await firebase.fireDb
                 .collection('operations')
                 .where('opState', '==', opStateValue)
-                .where('userId', '==', user.id)
+                .where('userId', '==', user?.id)
                 .onSnapshot((querySnapshot) => {
-                    querySnapshot.docs.forEach((doc) => {
-                        const { ...data } = doc.data();
-                        operations.push({ id: doc.id, ...data });
+                    querySnapshot?.docs?.forEach((doc) => {
+                        const { ...data } = doc?.data();
+                        operations?.push({ id: doc?.id, ...data });
                     });
                     if (!!searchString && searchString != '' && searchString?.length > 1) {
                         // Filter by searchString
-                        operations = operations
-                            .filter((element) =>
-                                element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase()));
+                        operations = operations?.filter((element) =>
+                            element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase())
+                        );
                     }
                     handlePropChange('operations', operations);
                 });
@@ -80,8 +80,8 @@ const FilterOperation = (props) => {
     const deleteOperation = async (id) => {
         handlePropChange('loading', true);
         const dbRef = firebase.fireDb.collection('operations').doc(id);
-        await dbRef.delete();
-        fetchOperations(state.opState, state.searchString);
+        await dbRef?.delete();
+        fetchOperations(state?.opState, state?.searchString);
         handlePropChange('loading', false);
     };
 
@@ -94,7 +94,7 @@ const FilterOperation = (props) => {
 
     const updateOnValueChange = async (field, value) => {
         await handlePropChange(field, value);
-        fetchOperations(state.opState, state.searchString);
+        fetchOperations(state?.opState, state?.searchString);
     };
 
     const listViewItemSeparator = () => {
@@ -106,10 +106,10 @@ const FilterOperation = (props) => {
             <TouchableOpacity onPress={() => navigation.navigate('DetailsOperation', { item, user })}>
                 <OperationCard
                     item={item}
-                    deleteClick={() => openConfirmationAlert(item.id)}
+                    deleteClick={() => openConfirmationAlert(item?.id)}
                     updateClick={() =>
                         navigation.navigate('UpdateOperation', {
-                            id: item.id,
+                            id: item?.id,
                             user
                         })
                     }
@@ -128,7 +128,7 @@ const FilterOperation = (props) => {
                     <View style={styles.column}>
                         <Text style={styles.label}>Estado de la operación:</Text>
                         <RadioGroup
-                            radioButtons={state.opState}
+                            radioButtons={state?.opState}
                             onPress={(value) => updateOnValueChange('opState', value)}
                             layout="row"
                         />
@@ -137,46 +137,37 @@ const FilterOperation = (props) => {
                 <View style={styles.row}>
                     <TextInput
                         style={styles.input}
-                        value={state.searchString}
+                        value={state?.searchString}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Escriba para buscar..."
                         placeholderTextColor={colors.black}
                         onChangeText={(value) => handlePropChange('searchString', value)}
                         blurOnSubmit={false}
                     />
-                    <TouchableOpacity
-                        style={styles.buttonClear}
-                        onPress={() => handlePropChange('searchString', '')}>
-                        <Icon
-                            name="x-square"
-                            type="feather"
-                            color={colors.black}
-                        />
+                    <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
+                        <Icon name="x-square" type="feather" color={colors.black} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.buttonSearch}
-                        onPress={() => fetchOperations(state.opState, state.searchString)}>
-                        <Icon
-                            name="search"
-                            type="feather"
-                            color={colors.black}
-                        />
+                        onPress={() => fetchOperations(state?.opState, state?.searchString)}
+                    >
+                        <Icon name="search" type="feather" color={colors.black} />
                     </TouchableOpacity>
                 </View>
                 <TDMSplitter />
-                {!state.loading && (
+                {!state?.loading && (
                     <View style={styles.loader}>
                         <ActivityIndicator size="large" color={colors.white} />
                     </View>
                 )}
-                {state.loading && (
+                {state?.loading && (
                     <View style={styles.row}>
                         <FlatList
-                            data={state.operations}
+                            data={state?.operations}
                             ItemSeparatorComponent={listViewItemSeparator}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) => listItemView(item)}
-                            refreshing={state.loading}
+                            refreshing={state?.loading}
                             ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
                         />
                     </View>

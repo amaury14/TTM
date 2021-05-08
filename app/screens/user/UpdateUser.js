@@ -7,7 +7,7 @@ import {
     ScrollView,
     StyleSheet,
     TextInput,
-    View,
+    View
 } from 'react-native';
 
 import firebase from '../../../database/firebase';
@@ -15,7 +15,7 @@ import colors from '../../config/colors';
 import TDMButtom from '../components/TDMButtom';
 
 const UpdateUser = (props) => {
-    const { id } = props.route.params;
+    const { id } = props?.route?.params;
     const initialState = {
         id: '',
         userName: '',
@@ -36,60 +36,55 @@ const UpdateUser = (props) => {
     };
 
     const showAlert = (title, text) => {
-        Alert.alert(title, text,
-            [{ text: 'Aceptar' }],
-            {cancelable: false},
-        );
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
     };
 
     const getUserById = async (id) => {
         const dbRef = firebase.fireDb.collection('users').doc(id);
-        const doc = await dbRef.get();
-        const user = doc.data();
+        const doc = await dbRef?.get();
+        const user = doc?.data();
         setState({
             ...user,
-            id: user.id
+            id: user?.id
         });
         setLoading(false);
     };
 
     const updateUser = async () => {
-        if (state.userName === '') {
+        if (state?.userName === '') {
             showAlert('Advertencia', 'Rellene el Nombre de usuario');
             return;
         }
-        if (state.userMail === '') {
+        if (state?.userMail === '') {
             showAlert('Advertencia', 'Rellene el Correo');
             return;
         }
-        if (state.userPhone === '') {
+        if (state?.userPhone === '') {
             showAlert('Advertencia', 'Rellene el Celular');
             return;
         }
         const dbRef = firebase.fireDb.collection('users').doc(id);
-        await dbRef.set({
-            userName: state.userName,
-            userMail: state.userMail,
-            userAddress: state.userAddress,
-            userPhone: state.userPhone,
+        await dbRef?.set({
+            userName: state?.userName,
+            userMail: state?.userMail,
+            userAddress: state?.userAddress,
+            userPhone: state?.userPhone
         });
         setState(initialState);
-        props.navigation.navigate('DashboardScreen');
+        props?.navigation?.navigate('DashboardScreen');
     };
 
     const deleteUser = async () => {
         const dbRef = firebase.fireDb.collection('users').doc(id);
-        await dbRef.delete();
-        props.navigation.navigate('DashboardScreen');
+        await dbRef?.delete();
+        props?.navigation?.navigate('DashboardScreen');
     };
 
     const openConfirmationAlert = () => {
-        Alert.alert('Advertencia', 'Está seguro de eliminar el usuario?',
-            [
-                { text: 'Aceptar', onPress: () => deleteUser() },
-                { text: 'Cancelar' }
-            ]
-        );
+        Alert.alert('Advertencia', 'Está seguro de eliminar el usuario?', [
+            { text: 'Aceptar', onPress: () => deleteUser() },
+            { text: 'Cancelar' }
+        ]);
     };
 
     if (loading) {
@@ -105,27 +100,28 @@ const UpdateUser = (props) => {
             <View style={styles.view2}>
                 <View style={styles.view1}>
                     <ScrollView keyboardShouldPersistTaps="handled">
-                        <KeyboardAvoidingView
-                            behavior="padding"
-                            style={styles.keyboardView}>
-                            <TextInput style={styles.input}
-                                value={state.userName}
+                        <KeyboardAvoidingView behavior="padding" style={styles.keyboardView}>
+                            <TextInput
+                                style={styles.input}
+                                value={state?.userName}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Enter Name"
                                 placeholderTextColor={colors.mainColor}
                                 onChangeText={(value) => handlePropChange('userName', value)}
                                 blurOnSubmit={false}
                             />
-                            <TextInput style={styles.input}
-                                value={state.userMail}
+                            <TextInput
+                                style={styles.input}
+                                value={state?.userMail}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Enter Email"
                                 placeholderTextColor={colors.mainColor}
                                 onChangeText={(value) => handlePropChange('userMail', value)}
                                 blurOnSubmit={false}
                             />
-                            <TextInput style={styles.input}
-                                value={state.userPhone}
+                            <TextInput
+                                style={styles.input}
+                                value={state?.userPhone}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="# Celular"
                                 placeholderTextColor={colors.mainColor}
@@ -133,8 +129,9 @@ const UpdateUser = (props) => {
                                 blurOnSubmit={false}
                                 keyboardType="numeric"
                             />
-                            <TextInput style={styles.inputNotes}
-                                value={state.userAddress}
+                            <TextInput
+                                style={styles.inputNotes}
+                                value={state?.userAddress}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Enter Address"
                                 placeholderTextColor={colors.mainColor}
@@ -162,7 +159,7 @@ const styles = StyleSheet.create({
         marginLeft: 35,
         marginRight: 35,
         marginTop: 10,
-        padding: 5,
+        padding: 5
     },
     inputNotes: {
         borderColor: colors.gray,
@@ -172,7 +169,7 @@ const styles = StyleSheet.create({
         marginRight: 35,
         marginTop: 10,
         padding: 5,
-        textAlignVertical: 'top',
+        textAlignVertical: 'top'
     },
     keyboardView: {
         flex: 1,

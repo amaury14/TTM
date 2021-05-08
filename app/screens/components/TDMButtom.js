@@ -5,8 +5,8 @@ import colors from '../../config/colors';
 
 const TDMButtom = (props) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={props.customClick}>
-            <Text style={styles.text}>{props.title}</Text>
+        <TouchableOpacity style={styles.button} onPress={props?.customClick}>
+            <Text style={styles.text}>{props?.title}</Text>
         </TouchableOpacity>
     );
 };
@@ -19,13 +19,13 @@ const styles = StyleSheet.create({
         color: colors.white,
         marginLeft: 35,
         marginRight: 35,
-        padding: 5,
+        padding: 5
     },
     text: {
         color: colors.white,
         fontSize: 20,
-        fontWeight: 'bold',
-    },
+        fontWeight: 'bold'
+    }
 });
 
 export default TDMButtom;

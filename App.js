@@ -27,10 +27,10 @@ export default function App() {
                 if (user) {
                     setState({
                         user: {
-                            id: user.uid,
-                            gmail: user.email,
-                            profile_picture: user.photoURL,
-                            first_last_name: user.displayName
+                            id: user?.uid,
+                            gmail: user?.email,
+                            profile_picture: user?.photoURL,
+                            first_last_name: user?.displayName
                         },
                         isLoggedIn: true
                     });

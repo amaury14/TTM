@@ -9,7 +9,7 @@ import colors from '../../config/colors';
 
 const TDMDashboard = (props) => {
     const navigation = useNavigation();
-    const user = props.user;
+    const user = props?.user;
 
     const [state, setState] = useState({
         operations: [],
@@ -23,7 +23,7 @@ const TDMDashboard = (props) => {
 
     // Refreshing data on component focus
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+        const unsubscribe = navigation?.addListener('focus', () => {
             fetchOperations();
         });
         return unsubscribe;
@@ -39,7 +39,7 @@ const TDMDashboard = (props) => {
     };
 
     const getProfitPercent = (number) => {
-        return isNaN(number.toFixed(2)) ? '-' : `${number.toFixed(2)}%`;
+        return isNaN(number?.toFixed(2)) ? '-' : `${number?.toFixed(2)}%`;
     };
 
     const fetchOperations = async () => {
@@ -48,19 +48,19 @@ const TDMDashboard = (props) => {
             await firebase.fireDb
                 .collection('operations')
                 .where('opState', '==', '2')
-                .where('userId', '==', user.id)
+                .where('userId', '==', user?.id)
                 .onSnapshot((querySnapshot) => {
                     let operations = [];
                     let positives = 0;
                     let negatives = 0;
                     let totalPerformance = 0;
                     let total = querySnapshot?.docs?.length;
-                    querySnapshot.docs.forEach((doc) => {
-                        const { ...data } = doc.data();
-                        operations.push({ id: doc.id, ...data });
-                        if (data.profitPercent !== '') {
-                            totalPerformance += parseInt(data.profitPercent);
-                            if (parseInt(data.profitPercent) > 0) {
+                    querySnapshot?.docs?.forEach((doc) => {
+                        const { ...data } = doc?.data();
+                        operations?.push({ id: doc?.id, ...data });
+                        if (data?.profitPercent !== '') {
+                            totalPerformance += parseInt(data?.profitPercent);
+                            if (parseInt(data?.profitPercent) > 0) {
                                 positives++;
                             } else {
                                 negatives++;
@@ -89,12 +89,12 @@ const TDMDashboard = (props) => {
 
     return (
         <View>
-            {!state.loading && (
+            {!state?.loading && (
                 <View style={styles.loader}>
                     <ActivityIndicator size="large" color={colors.white} />
                 </View>
             )}
-            {state.operations && (
+            {state?.operations && (
                 <View style={styles.card}>
                     <View style={styles.corner}>
                         <TouchableOpacity
@@ -112,15 +112,15 @@ const TDMDashboard = (props) => {
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Total</Text>
-                            <Text style={styles.valueBigWhite}>{state.total}</Text>
+                            <Text style={styles.valueBigWhite}>{state?.total}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Positivas</Text>
-                            <Text style={styles.valueBigGreen}>{state.positives}</Text>
+                            <Text style={styles.valueBigGreen}>{state?.positives}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Negativas</Text>
-                            <Text style={styles.valueBigRed}>{state.negatives}</Text>
+                            <Text style={styles.valueBigRed}>{state?.negatives}</Text>
                         </View>
                         <View style={styles.columnRank}>
                             <Image style={styles.logo} source={images.ranks.master} />
@@ -131,7 +131,7 @@ const TDMDashboard = (props) => {
                         <View style={styles.columnLong}>
                             <Text style={styles.label}>% Rendimiento</Text>
                             <View style={styles.row2}>
-                                <Text style={styles.value}>{getProfitPercent(state.performancePercentReal)}</Text>
+                                <Text style={styles.value}>{getProfitPercent(state?.performancePercentReal)}</Text>
                             </View>
                         </View>
                     </View>

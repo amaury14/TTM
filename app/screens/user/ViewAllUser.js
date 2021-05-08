@@ -23,39 +23,33 @@ const ViewAllUser = () => {
             handlePropChange('loading', true);
             let users = [];
             await firebase.fireDb.collection('users').onSnapshot((querySnapshot) => {
-                querySnapshot.docs.forEach((doc) => {
-                    const { ...data } = doc.data();
-                    users.push({ id: doc.id, ...data });
+                querySnapshot?.docs?.forEach((doc) => {
+                    const { ...data } = doc?.data();
+                    users?.push({ id: doc?.id, ...data });
                 });
                 handlePropChange('users', users);
             });
             handlePropChange('loading', false);
-        } catch(error) {
+        } catch (error) {
             // Catch error
         }
     };
 
     let listViewItemSeparator = () => {
-        return (
-            <View
-                style={styles.listView}
-            />
-        );
+        return <View style={styles.listView} />;
     };
 
     let listItemView = (item) => {
         return (
-            <View
-                key={item.id}
-                style={styles.listViewItem}>
-                <Text>Id: {item.id}</Text>
-                <Text>Nombre: {item.first_name}</Text>
-                <Text>Apellidos: {item.last_name}</Text>
-                <Text>Correo: {item.gmail}</Text>
-                <Text>Locale: {item.locale}</Text>
-                <Text>Picture URL: {item.profile_picture}</Text>
-                <Text>Registrado: {item.created_at}</Text>
-                <Text>Ultimo login: {item.last_logged_in}</Text>
+            <View key={item?.id} style={styles.listViewItem}>
+                <Text>Id: {item?.id}</Text>
+                <Text>Nombre: {item?.first_name}</Text>
+                <Text>Apellidos: {item?.last_name}</Text>
+                <Text>Correo: {item?.gmail}</Text>
+                <Text>Locale: {item?.locale}</Text>
+                <Text>Picture URL: {item?.profile_picture}</Text>
+                <Text>Registrado: {item?.created_at}</Text>
+                <Text>Ultimo login: {item?.last_logged_in}</Text>
             </View>
         );
     };
@@ -64,11 +58,13 @@ const ViewAllUser = () => {
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.view1}>
                 <View style={styles.view2}>
-                    {state.loading && <View style={styles.loader}>
-                        <ActivityIndicator size="large" color={colors.mainColor} />
-                    </View>}
+                    {state.loading && (
+                        <View style={styles.loader}>
+                            <ActivityIndicator size="large" color={colors.mainColor} />
+                        </View>
+                    )}
                     <FlatList
-                        data={state.users}
+                        data={state?.users}
                         ItemSeparatorComponent={listViewItemSeparator}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={({ item }) => listItemView(item)}
@@ -97,7 +93,7 @@ const styles = StyleSheet.create({
     },
     view1: {
         backgroundColor: colors.white,
-        flex: 1,
+        flex: 1
     },
     view2: {
         flex: 1

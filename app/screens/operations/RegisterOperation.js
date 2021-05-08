@@ -18,7 +18,7 @@ import radioConfig from '../../config/radioGroup';
 import TDMButtom from '../components/TDMButtom';
 
 const RegisterOperation = (props) => {
-    const user = props.route.params.user;
+    const user = props?.route?.params?.user;
 
     const initialState = {
         pairCoin: '',
@@ -47,11 +47,11 @@ const RegisterOperation = (props) => {
 
     // Refreshing data on component focus
     useEffect(() => {
-        const unsubscribe = props.navigation.addListener('focus', () => {
+        const unsubscribe = props?.navigation?.addListener('focus', () => {
             setState(initialState);
         });
         return unsubscribe;
-    }, [props.navigation]);
+    }, [props?.navigation]);
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
@@ -65,12 +65,12 @@ const RegisterOperation = (props) => {
     };
 
     const fireNewOperation = async () => {
-        const stateSelected = state.opState.find((item) => item.selected).value;
-        if (state.pairCoin === '') {
+        const stateSelected = state?.opState?.find((item) => item?.selected).value;
+        if (state?.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
         }
-        if (state.investment === '') {
+        if (state?.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }
@@ -81,24 +81,24 @@ const RegisterOperation = (props) => {
         try {
             handlePropChange('loading', true);
             await firebase.fireDb.collection('operations').add({
-                pairCoin: state.pairCoin,
-                investment: state.investment,
-                lowerLimit: state.lowerLimit,
-                upperLimit: state.upperLimit,
-                grids: state.grids,
-                startDate: state.startDate,
-                stopLoss: state.stopLoss,
-                triggerPrice: state.triggerPrice,
-                takeProfit: state.takeProfit,
-                profitPercent: state.profitPercent,
-                notes: state.notes,
-                closeDate: state.closeDate,
+                pairCoin: state?.pairCoin,
+                investment: state?.investment,
+                lowerLimit: state?.lowerLimit,
+                upperLimit: state?.upperLimit,
+                grids: state?.grids,
+                startDate: state?.startDate,
+                stopLoss: state?.stopLoss,
+                triggerPrice: state?.triggerPrice,
+                takeProfit: state?.takeProfit,
+                profitPercent: state?.profitPercent,
+                notes: state?.notes,
+                closeDate: state?.closeDate,
                 opState: stateSelected,
-                userId: user.id
+                userId: user?.id
             });
             setState(initialState);
             handlePropChange('loading', false);
-            props.navigation.navigate('DashboardScreen');
+            props?.navigation?.navigate('DashboardScreen');
         } catch(error) {
             // Catch error
         }
@@ -118,7 +118,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Par/Moneda</Text>
                                 <TextInput style={styles.input}
-                                    value={state.pairCoin}
+                                    value={state?.pairCoin}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Par/Moneda"
                                     placeholderTextColor={colors.mainColor}
@@ -129,7 +129,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Inversión</Text>
                                 <TextInput style={styles.input}
-                                    value={state.investment}
+                                    value={state?.investment}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Inversión"
                                     placeholderTextColor={colors.mainColor}
@@ -141,7 +141,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Grids (bots)</Text>
                                 <TextInput style={styles.input}
-                                    value={state.grids}
+                                    value={state?.grids}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Grids"
                                     placeholderTextColor={colors.mainColor}
@@ -155,7 +155,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Stop Loss</Text>
                                 <TextInput style={styles.input}
-                                    value={state.stopLoss}
+                                    value={state?.stopLoss}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Stop Loss"
                                     placeholderTextColor={colors.mainColor}
@@ -167,7 +167,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Lower Limit</Text>
                                 <TextInput style={styles.input}
-                                    value={state.lowerLimit}
+                                    value={state?.lowerLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Lower Limit"
                                     placeholderTextColor={colors.mainColor}
@@ -179,7 +179,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Upper Limit</Text>
                                 <TextInput style={styles.input}
-                                    value={state.upperLimit}
+                                    value={state?.upperLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Upper Limit"
                                     placeholderTextColor={colors.mainColor}
@@ -193,7 +193,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Trigger/Buy Price</Text>
                                 <TextInput style={styles.input}
-                                    value={state.triggerPrice}
+                                    value={state?.triggerPrice}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Trigger Price"
                                     placeholderTextColor={colors.mainColor}
@@ -205,7 +205,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Take Profit</Text>
                                 <TextInput style={styles.input}
-                                    value={state.takeProfit}
+                                    value={state?.takeProfit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Take Profit"
                                     placeholderTextColor={colors.mainColor}
@@ -217,7 +217,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>% de Ganancia</Text>
                                 <TextInput style={styles.input}
-                                    value={state.profitPercent}
+                                    value={state?.profitPercent}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="% de Ganancia"
                                     placeholderTextColor={colors.mainColor}
@@ -229,7 +229,7 @@ const RegisterOperation = (props) => {
                         </View>
                         <View style={styles.row}>
                             <RadioGroup
-                                radioButtons={state.opState}
+                                radioButtons={state?.opState}
                                 onPress={(value) => handlePropChange('opState', value)}
                                 layout='row'
                             />
@@ -238,7 +238,7 @@ const RegisterOperation = (props) => {
                             <View style={styles.column}>
                                 <Text style={styles.label}>Apuntes</Text>
                                 <TextInput style={styles.inputNotes}
-                                    value={state.notes}
+                                    value={state?.notes}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                                     placeholderTextColor={colors.mainColor}
@@ -249,7 +249,7 @@ const RegisterOperation = (props) => {
                             </View>
                         </View>
                         <TDMButtom title="Guardar" customClick={() => fireNewOperation()} />
-                        {state.loading && <View style={styles.loader}>
+                        {state?.loading && <View style={styles.loader}>
                             <ActivityIndicator size="large" color={colors.mainColor} />
                         </View>}
                     </KeyboardAvoidingView>

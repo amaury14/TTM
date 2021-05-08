@@ -7,7 +7,7 @@ import {
     ScrollView,
     StyleSheet,
     TextInput,
-    View,
+    View
 } from 'react-native';
 
 import firebase from '../../../database/firebase';
@@ -15,7 +15,6 @@ import colors from '../../config/colors';
 import TDMButtom from '../components/TDMButtom';
 
 const RegisterUser = (props) => {
-
     const [state, setState] = useState({
         userName: '',
         userMail: '',
@@ -29,22 +28,19 @@ const RegisterUser = (props) => {
     };
 
     const showAlert = (title, text) => {
-        Alert.alert(title, text,
-            [{ text: 'Aceptar' }],
-            {cancelable: false},
-        );
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
     };
 
     const fireNewUser = async () => {
-        if (state.userName === '') {
+        if (state?.userName === '') {
             showAlert('Advertencia', 'Rellene el Nombre de usuario');
             return;
         }
-        if (state.userMail === '') {
+        if (state?.userMail === '') {
             showAlert('Advertencia', 'Rellene el Correo');
             return;
         }
-        if (state.userPhone === '') {
+        if (state?.userPhone === '') {
             showAlert('Advertencia', 'Rellene el Celular');
             return;
         }
@@ -52,14 +48,14 @@ const RegisterUser = (props) => {
         try {
             handlePropChange('loading', true);
             await firebase.fireDb.collection('users').add({
-                userName: state.userName,
-                userMail: state.userMail,
-                userPhone: state.userPhone,
-                userAddress: state.userAddress
+                userName: state?.userName,
+                userMail: state?.userMail,
+                userPhone: state?.userPhone,
+                userAddress: state?.userAddress
             });
             handlePropChange('loading', false);
-            props.navigation.navigate('DashboardScreen');
-        } catch(error) {
+            props?.navigation?.navigate('DashboardScreen');
+        } catch (error) {
             // Catch error
         }
     };
@@ -69,24 +65,25 @@ const RegisterUser = (props) => {
             <View style={styles.flex1}>
                 <View style={styles.flex1}>
                     <ScrollView keyboardShouldPersistTaps="handled">
-                        <KeyboardAvoidingView
-                            behavior="padding"
-                            style={styles.key}>
-                            <TextInput style={styles.input}
+                        <KeyboardAvoidingView behavior="padding" style={styles.key}>
+                            <TextInput
+                                style={styles.input}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Usuario"
                                 placeholderTextColor={colors.mainColor}
                                 onChangeText={(value) => handlePropChange('userName', value)}
                                 blurOnSubmit={false}
                             />
-                            <TextInput style={styles.input}
+                            <TextInput
+                                style={styles.input}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Email"
                                 placeholderTextColor={colors.mainColor}
                                 onChangeText={(value) => handlePropChange('userMail', value)}
                                 blurOnSubmit={false}
                             />
-                            <TextInput style={styles.input}
+                            <TextInput
+                                style={styles.input}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="# Celular"
                                 placeholderTextColor={colors.mainColor}
@@ -94,7 +91,8 @@ const RegisterUser = (props) => {
                                 blurOnSubmit={false}
                                 keyboardType="numeric"
                             />
-                            <TextInput style={styles.inputNotes}
+                            <TextInput
+                                style={styles.inputNotes}
                                 underlineColorAndroid={colors.underlineColorAndroid}
                                 placeholder="Address"
                                 placeholderTextColor={colors.mainColor}
@@ -105,9 +103,11 @@ const RegisterUser = (props) => {
                                 blurOnSubmit={false}
                             />
                             <TDMButtom title="Guardar" customClick={() => fireNewUser()} />
-                            {state.loading && <View style={styles.loader}>
-                                <ActivityIndicator size="large" color={colors.mainColor} />
-                            </View>}
+                            {state.loading && (
+                                <View style={styles.loader}>
+                                    <ActivityIndicator size="large" color={colors.mainColor} />
+                                </View>
+                            )}
                         </KeyboardAvoidingView>
                     </ScrollView>
                 </View>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         marginLeft: 35,
         marginRight: 35,
         marginTop: 10,
-        padding: 5,
+        padding: 5
     },
     inputNotes: {
         borderColor: colors.gray,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         marginRight: 35,
         marginTop: 10,
         padding: 5,
-        textAlignVertical: 'top',
+        textAlignVertical: 'top'
     },
     key: {
         flex: 1,

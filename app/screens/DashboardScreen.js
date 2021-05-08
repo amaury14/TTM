@@ -8,26 +8,21 @@ import TDMSplitter from './components/TDMSplitter';
 import ViewAllOperation from './operations/ViewAllOperation';
 
 const DashboardScreen = (props) => {
-    const user = props.route.params.user;
+    const user = props?.route?.params?.user;
 
-    useEffect(() =>
-        props.navigation.addListener('beforeRemove', (e) => {
-            // Prevent default behavior of leaving the screen
-            e.preventDefault();
-        }),
-    []
+    useEffect(
+        () =>
+            props.navigation.addListener('beforeRemove', (effect) => {
+                // Prevent default behavior of leaving the screen
+                effect?.preventDefault();
+            }),
+        []
     );
 
     return (
         <View style={styles.body}>
             <LinearGradient
-                colors={[
-                    colors.mainColor,
-                    colors.mainColor,
-                    colors.mainColor,
-                    colors.white,
-                    colors.white,
-                ]}
+                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
                 <TDMDashboard user={user} />
@@ -44,12 +39,12 @@ const styles = StyleSheet.create({
         left: 0,
         position: 'absolute',
         right: 0,
-        top: 0,
+        top: 0
     },
     body: {
         backgroundColor: colors.white,
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center'
     }
 });
 

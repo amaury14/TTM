@@ -8,7 +8,7 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    View,
+    View
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
@@ -17,9 +17,8 @@ import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TDMButtom from '../components/TDMButtom';
 
-
 const UpdateOperation = (props) => {
-    const { id, user } = props.route.params;
+    const { id, user } = props?.route?.params;
     const radioButtonsData = radioConfig;
 
     const initialState = {
@@ -51,19 +50,16 @@ const UpdateOperation = (props) => {
     };
 
     const showAlert = (title, text) => {
-        Alert.alert(title, text,
-            [{ text: 'Aceptar' }],
-            {cancelable: false},
-        );
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
     };
 
     const getOperationById = async (id) => {
         const dbRef = firebase.fireDb.collection('operations').doc(id);
-        const doc = await dbRef.get();
-        const operation = doc.data();
-        const opIndex = radioButtonsData.findIndex((item) => item.value === operation.opState);
+        const doc = await dbRef?.get();
+        const operation = doc?.data();
+        const opIndex = radioButtonsData?.findIndex((item) => item?.value === operation?.opState);
         let newRadioButtonsData = [...radioButtonsData];
-        radioButtonsData.forEach((element, index) => {
+        radioButtonsData?.forEach((element, index) => {
             newRadioButtonsData[index] = {
                 ...newRadioButtonsData[index],
                 selected: index === opIndex ? true : false
@@ -71,19 +67,19 @@ const UpdateOperation = (props) => {
         });
         setState({
             ...operation,
-            id: operation.id,
+            id: operation?.id,
             opState: newRadioButtonsData
         });
         setLoading(false);
     };
 
     const updateOperation = async () => {
-        const stateSelected = state.opState.find((item) => item.selected).value;
-        if (state.pairCoin === '') {
+        const stateSelected = state?.opState?.find((item) => item?.selected)?.value;
+        if (state?.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
         }
-        if (state.investment === '') {
+        if (state?.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }
@@ -93,26 +89,26 @@ const UpdateOperation = (props) => {
         try {
             setLoading2(true);
             const dbRef = firebase.fireDb.collection('operations').doc(id);
-            await dbRef.set({
-                pairCoin: state.pairCoin,
-                investment: state.investment,
-                lowerLimit: state.lowerLimit,
-                upperLimit: state.upperLimit,
-                grids: state.grids,
-                startDate: state.startDate,
-                stopLoss: state.stopLoss,
-                triggerPrice: state.triggerPrice,
-                takeProfit: state.takeProfit,
-                profitPercent: state.profitPercent,
-                notes: state.notes,
-                closeDate: state.closeDate,
+            await dbRef?.set({
+                pairCoin: state?.pairCoin,
+                investment: state?.investment,
+                lowerLimit: state?.lowerLimit,
+                upperLimit: state?.upperLimit,
+                grids: state?.grids,
+                startDate: state?.startDate,
+                stopLoss: state?.stopLoss,
+                triggerPrice: state?.triggerPrice,
+                takeProfit: state?.takeProfit,
+                profitPercent: state?.profitPercent,
+                notes: state?.notes,
+                closeDate: state?.closeDate,
                 opState: stateSelected,
-                userId: user.id
+                userId: user?.id
             });
             setState(initialState);
             setLoading2(false);
-            props.navigation.goBack();
-        } catch(error) {
+            props?.navigation?.goBack();
+        } catch (error) {
             // Catch error
         }
     };
@@ -129,17 +125,16 @@ const UpdateOperation = (props) => {
         <SafeAreaView style={styles.flex1}>
             <View style={styles.flex1}>
                 <ScrollView keyboardShouldPersistTaps="handled">
-                    <KeyboardAvoidingView
-                        behavior="padding"
-                        style={styles.key}>
+                    <KeyboardAvoidingView behavior="padding" style={styles.key}>
                         <View style={styles.row}>
                             <Text style={styles.label}>* Campos requeridos</Text>
                         </View>
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Par/Moneda</Text>
-                                <TextInput style={styles.input}
-                                    value={state.pairCoin}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.pairCoin}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Par/Moneda"
                                     placeholderTextColor={colors.mainColor}
@@ -149,8 +144,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Inversión</Text>
-                                <TextInput style={styles.input}
-                                    value={state.investment}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.investment}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Inversión"
                                     placeholderTextColor={colors.mainColor}
@@ -161,8 +157,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Grids (bots)</Text>
-                                <TextInput style={styles.input}
-                                    value={state.grids}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.grids}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Grids"
                                     placeholderTextColor={colors.mainColor}
@@ -175,8 +172,9 @@ const UpdateOperation = (props) => {
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Stop Loss</Text>
-                                <TextInput style={styles.input}
-                                    value={state.stopLoss}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.stopLoss}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Stop Loss"
                                     placeholderTextColor={colors.mainColor}
@@ -187,8 +185,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Lower Limit</Text>
-                                <TextInput style={styles.input}
-                                    value={state.lowerLimit}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.lowerLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Lower Limit"
                                     placeholderTextColor={colors.mainColor}
@@ -199,8 +198,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Upper Limit</Text>
-                                <TextInput style={styles.input}
-                                    value={state.upperLimit}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.upperLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Upper Limit"
                                     placeholderTextColor={colors.mainColor}
@@ -213,8 +213,9 @@ const UpdateOperation = (props) => {
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Trigger/Buy Price</Text>
-                                <TextInput style={styles.input}
-                                    value={state.triggerPrice}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.triggerPrice}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Trigger Price"
                                     placeholderTextColor={colors.mainColor}
@@ -225,8 +226,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Take Profit</Text>
-                                <TextInput style={styles.input}
-                                    value={state.takeProfit}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.takeProfit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Take Profit"
                                     placeholderTextColor={colors.mainColor}
@@ -237,8 +239,9 @@ const UpdateOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>% de Ganancia</Text>
-                                <TextInput style={styles.input}
-                                    value={state.profitPercent}
+                                <TextInput
+                                    style={styles.input}
+                                    value={state?.profitPercent}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="% de Ganancia"
                                     placeholderTextColor={colors.mainColor}
@@ -250,16 +253,17 @@ const UpdateOperation = (props) => {
                         </View>
                         <View style={styles.row}>
                             <RadioGroup
-                                radioButtons={state.opState}
+                                radioButtons={state?.opState}
                                 onPress={(value) => handlePropChange('opState', value)}
-                                layout='row'
+                                layout="row"
                             />
                         </View>
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Apuntes</Text>
-                                <TextInput style={styles.inputNotes}
-                                    value={state.notes}
+                                <TextInput
+                                    style={styles.inputNotes}
+                                    value={state?.notes}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
                                     placeholderTextColor={colors.mainColor}
@@ -270,9 +274,11 @@ const UpdateOperation = (props) => {
                             </View>
                         </View>
                         <TDMButtom title="Guardar" customClick={() => updateOperation()} />
-                        {loading2 && <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.mainColor} />
-                        </View>}
+                        {loading2 && (
+                            <View style={styles.loader}>
+                                <ActivityIndicator size="large" color={colors.mainColor} />
+                            </View>
+                        )}
                     </KeyboardAvoidingView>
                 </ScrollView>
             </View>
@@ -297,7 +303,7 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 5,
         padding: 3,
-        width: 110,
+        width: 110
     },
     inputNotes: {
         borderColor: colors.gray,
@@ -307,7 +313,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         padding: 5,
         textAlignVertical: 'top',
-        width: 350,
+        width: 350
     },
     key: {
         flex: 1,
@@ -316,7 +322,7 @@ const styles = StyleSheet.create({
     label: {
         color: colors.mainColor,
         fontSize: 12,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     loader: {
         marginTop: 20
@@ -325,7 +331,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 20,
+        marginBottom: 20
     }
 });
 

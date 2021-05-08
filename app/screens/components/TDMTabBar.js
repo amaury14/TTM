@@ -5,41 +5,41 @@ import { Icon } from 'react-native-elements';
 import colors from '../../config/colors';
 
 function TDMTabBar({ state, descriptors, navigation }) {
-    const focusedOptions = descriptors[state.routes[state.index].key].options;
+    const focusedOptions = descriptors?.[state?.routes?.[state.index]?.key]?.options;
 
-    if (focusedOptions.tabBarVisible === false) {
+    if (focusedOptions?.tabBarVisible === false) {
         return null;
     }
 
     return (
         <View style={styles.container}>
-            {state.routes.map((route, index) => {
-                const { options } = descriptors[route.key];
+            {state?.routes?.map((route, index) => {
+                const { options } = descriptors?.[route?.key];
                 const label =
-          options.headerTitle !== undefined
-              ? options.headerTitle
-              : options.title !== undefined
-                  ? options.title
-                  : route.name;
+                    options?.headerTitle !== undefined
+                        ? options?.headerTitle
+                        : options?.title !== undefined
+                            ? options?.title
+                            : route?.name;
 
-                const isFocused = state.index === index;
+                const isFocused = state?.index === index;
 
                 const onPress = () => {
-                    const event = navigation.emit({
+                    const event = navigation?.emit({
                         type: 'tabPress',
-                        target: route.key,
-                        canPreventDefault: true,
+                        target: route?.key,
+                        canPreventDefault: true
                     });
 
-                    if (!isFocused && !event.defaultPrevented) {
-                        navigation.navigate(route.name);
+                    if (!isFocused && !event?.defaultPrevented) {
+                        navigation?.navigate(route?.name);
                     }
                 };
 
                 const onLongPress = () => {
-                    navigation.emit({
+                    navigation?.emit({
                         type: 'tabLongPress',
-                        target: route.key,
+                        target: route?.key
                     });
                 };
 
@@ -62,23 +62,26 @@ function TDMTabBar({ state, descriptors, navigation }) {
 
                 return (
                     <TouchableOpacity
-                        key={route.key}
+                        key={route?.key}
                         accessibilityRole="button"
                         accessibilityState={isFocused ? { selected: true } : {}}
-                        accessibilityLabel={options.tabBarAccessibilityLabel}
-                        testID={options.tabBarTestID}
+                        accessibilityLabel={options?.tabBarAccessibilityLabel}
+                        testID={options?.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
                         style={styles.bottomBar}
                     >
                         <Icon
-                            name={getIcon(route.name)}
+                            name={getIcon(route?.name)}
                             size={25}
-                            type='feather'
-                            color={ isFocused ? colors.white : colors.gray } />
-                        <Text style={{
-                            color: isFocused ? colors.white : colors.gray
-                        }}>
+                            type="feather"
+                            color={isFocused ? colors.white : colors.gray}
+                        />
+                        <Text
+                            style={{
+                                color: isFocused ? colors.white : colors.gray
+                            }}
+                        >
                             {label}
                         </Text>
                     </TouchableOpacity>
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.white,
         borderTopColor: colors.gray,
         flex: 1,
-        padding: 5,
+        padding: 5
     },
     container: {
         flexDirection: 'row',

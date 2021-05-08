@@ -17,7 +17,7 @@ import OperationCard from './OperationCard';
 
 const ViewAllOperation = (props) => {
     const navigation = useNavigation();
-    const user = props.user;
+    const user = props?.user;
 
     const [state, setState] = useState({
         operations: [],
@@ -34,7 +34,7 @@ const ViewAllOperation = (props) => {
 
     // Refreshing data on component focus
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
+        const unsubscribe = navigation?.addListener('focus', () => {
             fetchOperations();
         });
         return unsubscribe;
@@ -44,18 +44,19 @@ const ViewAllOperation = (props) => {
         try {
             handlePropChange('loading', true);
             let operations = [];
-            await firebase.fireDb.collection('operations')
+            await firebase.fireDb
+                .collection('operations')
                 .where('opState', '==', '1')
-                .where('userId', '==', user.id)
+                .where('userId', '==', user?.id)
                 .onSnapshot((querySnapshot) => {
-                    querySnapshot.docs.forEach((doc) => {
-                        const { ...data } = doc.data();
-                        operations.push({ id: doc.id, ...data });
+                    querySnapshot?.docs?.forEach((doc) => {
+                        const { ...data } = doc?.data();
+                        operations?.push({ id: doc?.id, ...data });
                     });
                     handlePropChange('operations', operations);
                 });
             handlePropChange('loading', false);
-        } catch(error) {
+        } catch (error) {
             // Catch error
         }
     };
@@ -63,27 +64,21 @@ const ViewAllOperation = (props) => {
     const deleteOperation = async (id) => {
         handlePropChange('loading', true);
         const dbRef = firebase.fireDb.collection('operations').doc(id);
-        await dbRef.delete();
+        await dbRef?.delete();
         fetchOperations();
         handlePropChange('loading', false);
-        props.navigation.navigate('DashboardScreen');
+        props?.navigation?.navigate('DashboardScreen');
     };
 
     const openConfirmationAlert = (id) => {
-        Alert.alert('Advertencia', 'Está seguro de eliminar esta operación?',
-            [
-                { text: 'Aceptar', onPress: () => deleteOperation(id) },
-                { text: 'Cancelar' }
-            ]
-        );
+        Alert.alert('Advertencia', 'Está seguro de eliminar esta operación?', [
+            { text: 'Aceptar', onPress: () => deleteOperation(id) },
+            { text: 'Cancelar' }
+        ]);
     };
 
     const listViewItemSeparator = () => {
-        return (
-            <View
-                style={styles.lisView}
-            />
-        );
+        return <View style={styles.lisView} />;
     };
 
     const listItemView = (item) => {
@@ -91,8 +86,8 @@ const ViewAllOperation = (props) => {
             <TouchableOpacity onPress={() => navigation.navigate('DetailsOperation', { item, user })}>
                 <OperationCard
                     item={item}
-                    deleteClick={() => openConfirmationAlert(item.id)}
-                    updateClick={() => navigation.navigate('UpdateOperation', { id: item.id, user })}
+                    deleteClick={() => openConfirmationAlert(item?.id)}
+                    updateClick={() => navigation.navigate('UpdateOperation', { id: item?.id, user })}
                 />
             </TouchableOpacity>
         );
@@ -100,21 +95,23 @@ const ViewAllOperation = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {!state.loading &&
-            <View style={styles.loader}>
-                <ActivityIndicator size="large" color={colors.white} />
-            </View>}
-            {state.loading &&
-            <View>
-                <FlatList
-                    data={state.operations}
-                    ItemSeparatorComponent={listViewItemSeparator}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => listItemView(item)}
-                    refreshing={state.loading}
-                    ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
-                />
-            </View>}
+            {!state?.loading && (
+                <View style={styles.loader}>
+                    <ActivityIndicator size="large" color={colors.white} />
+                </View>
+            )}
+            {state?.loading && (
+                <View>
+                    <FlatList
+                        data={state?.operations}
+                        ItemSeparatorComponent={listViewItemSeparator}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => listItemView(item)}
+                        refreshing={state?.loading}
+                        ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
+                    />
+                </View>
+            )}
         </SafeAreaView>
     );
 };
@@ -123,7 +120,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         flex: 1,
-        justifyContent: 'flex-start',
+        justifyContent: 'flex-start'
     },
     lisView: {
         height: 0.2,
