@@ -1,6 +1,6 @@
 const images = {
     ranks: {
-        loser: require('./loser.png'), 
+        loser: require('./loser.png'),
         prey: require('./prey.png'),
         junior: require('./junior.png'),
         semisenior: require('./semi-senior.png'),
