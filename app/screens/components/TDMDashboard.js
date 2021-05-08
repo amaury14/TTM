@@ -42,6 +42,34 @@ const TDMDashboard = (props) => {
         return isNaN(number?.toFixed(2)) ? '-' : `${number?.toFixed(2)}%`;
     };
 
+    const getRankByPerformance = (type, number) => {
+        if (isNaN(number)) {
+            return type === 'label' ? 'Perdedor' : images.ranks.loser;
+        } else {
+            if (number > 0 && number <= 10) {
+                return type === 'label' ? 'Estudiante' : images.ranks.prey;
+            }
+            if (number > 10 && number <= 20) {
+                return type === 'label' ? 'Junior' : images.ranks.junior;
+            }
+            if (number > 20 && number <= 30) {
+                return type === 'label' ? 'Semi Senior' : images.ranks.semisenior;
+            }
+            if (number > 30 && number <= 40) {
+                return type === 'label' ? 'Senior' : images.ranks.senior;
+            }
+            if (number > 40 && number <= 50) {
+                return type === 'label' ? 'Avanzado' : images.ranks.advanced;
+            }
+            if (number > 50 && number <= 70) {
+                return type === 'label' ? 'Profesional' : images.ranks.professional;
+            }
+            if (number > 70) {
+                return type === 'label' ? 'Maestro' : images.ranks.master;
+            }
+        }
+    };
+
     const fetchOperations = async () => {
         try {
             handlePropChange('loading', true);
@@ -123,8 +151,8 @@ const TDMDashboard = (props) => {
                             <Text style={styles.valueBigRed}>{state?.negatives}</Text>
                         </View>
                         <View style={styles.columnRank}>
-                            <Image style={styles.logo} source={images.ranks.master} />
-                            <Text style={styles.rankLabel}>Semi Senior</Text>
+                            <Image style={styles.logo} source={getRankByPerformance('icon', state?.performancePercentReal)} />
+                            <Text style={styles.rankLabel}>{getRankByPerformance('label', state?.performancePercentReal)}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
@@ -183,7 +211,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        marginRight: 30,
+        marginRight: 37,
         width: 110
     },
     corner: {
@@ -200,17 +228,17 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     logo: {
-        height: 80,
+        height: 100,
         position: 'absolute',
         top: -50,
-        width: 80
+        width: 105
     },
     rankLabel: {
-        color: colors.white,
+        color: colors.mainColor,
         fontSize: 14,
         fontWeight: '900',
         position: 'absolute',
-        top: 30
+        top: 50
     },
     row: {
         alignItems: 'center',
@@ -240,7 +268,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     valueBigWhite: {
-        color: colors.white,
+        color: colors.mainColor,
         fontSize: 30,
         fontWeight: 'bold'
     }

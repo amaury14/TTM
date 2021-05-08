@@ -75,11 +75,11 @@ function TDMTabBar({ state, descriptors, navigation }) {
                             name={getIcon(route?.name)}
                             size={25}
                             type="feather"
-                            color={isFocused ? colors.white : colors.gray}
+                            color={isFocused ? colors.mainColor : colors.gray}
                         />
                         <Text
                             style={{
-                                color: isFocused ? colors.white : colors.gray
+                                color: isFocused ? colors.mainColor : colors.gray
                             }}
                         >
                             {label}
