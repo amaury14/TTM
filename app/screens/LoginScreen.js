@@ -106,6 +106,9 @@ const LoginScreen = () => {
     const signInWithGoogleAsync = async () => {
         try {
             const result = await Google.logInAsync({
+                androidStandaloneAppClientId:
+                    '150449439362-e8ocsm95f0nnbddpjva1jp7ma2kuuim9.apps.googleusercontent.com',
+                iosStandaloneAppClientId: '150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com',
                 androidClientId: '150449439362-l1f4ogos63o5bfbpin8hhek756ju0utm.apps.googleusercontent.com',
                 iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
                 scopes: ['profile', 'email']
