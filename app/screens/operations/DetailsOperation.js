@@ -39,6 +39,14 @@ const DetailsOperation = (props) => {
         }
     };
 
+    const getProfitMoney = () => {
+        if (!isNaN(parseFloat(item?.investment)) && !isNaN(parseFloat(item?.profitPercent))) {
+            const res = parseFloat(item?.investment) * (parseFloat(item?.profitPercent) / 100);
+            return isNaN(res?.toFixed(2)) ? '-' : `$${res?.toFixed(2)}`;
+        }
+        return '-';
+    };
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -52,15 +60,15 @@ const DetailsOperation = (props) => {
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Inversión</Text>
-                            <Text style={styles.postTitle}>$ {item?.investment ?? '-'}</Text>
+                            <Text style={styles.postTitle}>${item?.investment ?? '-'}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>% Rendimiento</Text>
                             <Text style={styles.postTitle}>{item?.profitPercent ?? '-'}</Text>
                         </View>
                         <View style={styles.column}>
-                            <Text style={styles.label}>Grillas</Text>
-                            <Text style={styles.postTitle}>{item?.grids ?? '-'}</Text>
+                            <Text style={styles.label}>$ Rendimiento</Text>
+                            <Text style={styles.postTitle}>{getProfitMoney()}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
@@ -91,6 +99,10 @@ const DetailsOperation = (props) => {
                         <View style={styles.column}>
                             <Text style={styles.label}>Take Profit</Text>
                             <Text style={styles.postTitle}>{item?.takeProfit ?? '-'}</Text>
+                        </View>
+                        <View style={styles.column}>
+                            <Text style={styles.label}>Grillas</Text>
+                            <Text style={styles.postTitle}>{item?.grids ?? '-'}</Text>
                         </View>
                     </View>
                     <TDMButtom title="Modificar Operación" customClick={() => editOperation()} />

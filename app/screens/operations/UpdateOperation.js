@@ -107,7 +107,7 @@ const UpdateOperation = (props) => {
             });
             setState(initialState);
             setLoading2(false);
-            props?.navigation?.goBack();
+            props?.navigation?.navigate('DashboardScreen');
         } catch (error) {
             // Catch error
         }

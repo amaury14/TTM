@@ -20,7 +20,8 @@ const TDMDashboard = (props) => {
         performancePercentReal: 0,
         performancePercent: 0,
         loading: true,
-        modalVisible: false
+        modalVisible: false,
+        modalView: 'about'
     });
 
     // Refreshing data on component focus
@@ -72,6 +73,34 @@ const TDMDashboard = (props) => {
         }
     };
 
+    const getRankDescriptionByPerformance = (number) => {
+        if (isNaN(number)) {
+            return 'Comprende rendimiento menor que 0% o inexistente en la operativa.';
+        } else {
+            if (number > 0 && number <= 10) {
+                return 'Comprende rendimiento entre 0% y 10% en la operativa.';
+            }
+            if (number > 10 && number <= 20) {
+                return 'Comprende rendimiento entre 10% y 20% en la operativa.';
+            }
+            if (number > 20 && number <= 30) {
+                return 'Comprende rendimiento entre 20% y 30% en la operativa.';
+            }
+            if (number > 30 && number <= 40) {
+                return 'Comprende rendimiento entre 30% y 40% en la operativa.';
+            }
+            if (number > 40 && number <= 50) {
+                return 'Comprende rendimiento entre 40% y 50% en la operativa.';
+            }
+            if (number > 50 && number <= 70) {
+                return 'Comprende rendimiento entre 50% y 70% en la operativa.';
+            }
+            if (number > 70) {
+                return 'Comprende rendimiento mayor a 70% en la operativa.';
+            }
+        }
+    };
+
     const fetchOperations = async () => {
         try {
             handlePropChange('loading', true);
@@ -117,6 +146,47 @@ const TDMDashboard = (props) => {
         firebase.firebase.auth().signOut();
     };
 
+    const getModalView = () => {
+        switch (state?.modalView) {
+        case 'about': {
+            return (
+                <View>
+                    <Text style={styles.modalText}>TTM - To The Moon</Text>
+                    <Text style={styles.modalText}>Diario de Trading</Text>
+                    <Text style={styles.modalText}>Desarrollador: Amaury Chong Rodríguez</Text>
+                    <Text style={styles.modalText}>Contacto:</Text>
+                    <TouchableOpacity onPress={() => Linking.openURL('mailto:amaurychong@gmail.com')}>
+                        <Text style={styles.emailLink}>amaurychong@gmail.com</Text>
+                    </TouchableOpacity>
+                </View>
+            );
+        }
+        case 'rank': {
+            return (
+                <View>
+                    <Text style={styles.modalText}>
+                            Rango: {getRankByPerformance('label', state?.performancePercentReal)}
+                    </Text>
+                    <Text style={styles.modalText}>
+                            % Rendimiento: {getProfitPercent(state?.performancePercentReal)}
+                    </Text>
+                    <Text style={styles.modalText}>
+                            Descripción: {getRankDescriptionByPerformance(state?.performancePercentReal)}
+                    </Text>
+                </View>
+            );
+        }
+        }
+    };
+
+    const openModal = (modalView, modalVisible) => {
+        setState({
+            ...state,
+            modalView,
+            modalVisible
+        });
+    };
+
     return (
         <View>
             <Modal
@@ -127,15 +197,7 @@ const TDMDashboard = (props) => {
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>TTM - To The Moon</Text>
-                        <Text style={styles.modalText}>Diario de Trading</Text>
-                        <Text style={styles.modalText}>Desarrollador: Amaury Chong Rodríguez</Text>
-                        <Text style={styles.modalText}>Contacto:</Text>
-                        <TouchableOpacity
-                            onPress={() => Linking.openURL('mailto:amaurychong@gmail.com')}
-                        >
-                            <Text style={styles.emailLink}>amaurychong@gmail.com</Text>
-                        </TouchableOpacity>
+                        {getModalView()}
                         <View style={styles.buttonModal}>
                             <TDMButtom
                                 title="Cerrar"
@@ -145,65 +207,59 @@ const TDMDashboard = (props) => {
                     </View>
                 </View>
             </Modal>
-            {!state?.loading && (
-                <View style={styles.loader}>
-                    <ActivityIndicator size="large" color={colors.white} />
-                </View>
-            )}
-            {state?.operations && (
-                <View style={styles.card}>
-                    <View style={styles.corner}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => {
-                                signOut();
-                            }}
-                        >
-                            <Icon name="power" type="feather" size={30} color={colors.red} />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => handlePropChange('modalVisible', true)}
-                        >
-                            <Icon name="info" type="feather" size={30} color={colors.blue} />
-                        </TouchableOpacity>
+            <View style={styles.card}>
+                {!state?.loading && (
+                    <View style={styles.loader}>
+                        <ActivityIndicator size="large" color={colors.white} />
                     </View>
-                    <View style={styles.row2}>
-                        <Text style={styles.label}>Operaciones</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Total</Text>
-                            <Text style={styles.valueBigWhite}>{state?.total}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Positivas</Text>
-                            <Text style={styles.valueBigGreen}>{state?.positives}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Negativas</Text>
-                            <Text style={styles.valueBigRed}>{state?.negatives}</Text>
+                )}
+                {state?.loading && state?.operations && (
+                    <View>
+                        <View style={styles.corner}>
+                            <TouchableOpacity style={styles.button} onPress={() => signOut()}>
+                                <Icon name="power" type="feather" size={30} color={colors.red} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={() => openModal('about', true)}>
+                                <Icon name="info" type="feather" size={30} color={colors.blue} />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.columnRank}>
-                            <Image
-                                style={styles.logo}
-                                source={getRankByPerformance('icon', state?.performancePercentReal)}
-                            />
-                            <Text style={styles.rankLabel}>
+                            <Text style={styles.label}>Rango</Text>
+                            <Text style={styles.value}>
                                 {getRankByPerformance('label', state?.performancePercentReal)}
                             </Text>
                         </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.columnLong}>
-                            <Text style={styles.label}>% Rendimiento</Text>
-                            <View style={styles.row2}>
-                                <Text style={styles.value}>{getProfitPercent(state?.performancePercentReal)}</Text>
+                        <TouchableOpacity style={styles.logo} onPress={() => openModal('rank', true)}>
+                            <Image source={getRankByPerformance('icon', state?.performancePercentReal)} />
+                        </TouchableOpacity>
+                        <View style={styles.row2}>
+                            <Text style={styles.label}>Operaciones</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Total</Text>
+                                <Text style={styles.valueBigWhite}>{state?.total}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Pos(+)</Text>
+                                <Text style={styles.valueBigGreen}>{state?.positives}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Neg(-)</Text>
+                                <Text style={styles.valueBigRed}>{state?.negatives}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.row}>
+                            <View style={styles.columnLong}>
+                                <Text style={styles.label}>% Rendimiento</Text>
+                                <View style={styles.row2}>
+                                    <Text style={styles.value}>{getProfitPercent(state?.performancePercentReal)}</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
-                </View>
-            )}
+                )}
+            </View>
         </View>
     );
 };
@@ -259,26 +315,30 @@ const styles = StyleSheet.create({
         width: 150
     },
     columnRank: {
-        alignItems: 'center',
+        alignItems: 'flex-start',
         flexDirection: 'column',
-        justifyContent: 'center',
-        marginRight: 37,
+        justifyContent: 'flex-start',
+        position: 'absolute',
+        right: 50,
+        top: 0,
         width: 110
     },
     corner: {
         position: 'absolute',
-        right: 4,
-        top: 4
+        right: -5,
+        top: -10
     },
     emailLink: {
         color: colors.blue,
+        fontSize: 20,
         fontStyle: 'italic',
         fontWeight: 'bold',
+        textAlign: 'center',
         textDecorationLine: 'underline'
     },
     label: {
         color: colors.mainColor,
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '900'
     },
     loader: {
@@ -287,10 +347,12 @@ const styles = StyleSheet.create({
     logo: {
         height: 100,
         position: 'absolute',
-        top: -50,
-        width: 105
+        right: 92,
+        top: 30,
+        width: 100
     },
     modalText: {
+        fontSize: 20,
         marginBottom: 15,
         textAlign: 'center'
     },
@@ -311,18 +373,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         width: 300
     },
-    rankLabel: {
-        color: colors.mainColor,
-        fontSize: 14,
-        fontWeight: '900',
-        position: 'absolute',
-        top: 50
-    },
     row: {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20
+        marginBottom: 20,
+        marginRight: 210
     },
     row2: {
         alignItems: 'center',
@@ -331,9 +387,8 @@ const styles = StyleSheet.create({
     },
     value: {
         color: colors.mainColor,
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginLeft: 5
+        fontSize: 18,
+        fontWeight: 'bold'
     },
     valueBigGreen: {
         color: colors.secondary,

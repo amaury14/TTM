@@ -8,10 +8,33 @@ import colors from '../../config/colors';
 const OperationCard = (props) => {
     const item = props?.item;
 
-    const getProfitPercent = (triggerPrice, takeProfit) => {
-        const amount = parseFloat(takeProfit) - parseFloat(triggerPrice);
-        const res = (amount * 100) / parseFloat(triggerPrice);
+    const getProfitPercent = () => {
+        const amount = parseFloat(item?.takeProfit ?? item?.upperLimit) - parseFloat(item?.triggerPrice);
+        const res = (amount * 100) / parseFloat(item?.triggerPrice);
         return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}%`;
+    };
+
+    const getPriceRange = () => {
+        if (item?.lowerLimit && item?.upperLimit) {
+            return (
+                <View>
+                    <Text style={styles.value}>LL: {item?.lowerLimit}</Text>
+                    <Text style={styles.value}>UL: {item?.upperLimit}</Text>
+                </View>
+            );
+        } else if (item?.triggerPrice && item?.takeProfit) {
+            return (
+                <View>
+                    <Text style={styles.value}>SP: {item?.triggerPrice}</Text>
+                    <Text style={styles.value}>TP: {item?.takeProfit}</Text>
+                </View>
+            );
+        }
+        return (
+            <View>
+                <Text style={styles.value}>-</Text>
+            </View>
+        );
     };
 
     const getIcon = (pair) => {
@@ -51,13 +74,11 @@ const OperationCard = (props) => {
                     </View>
                     <View style={styles.column2}>
                         <Text style={styles.label}>Rango de Precios</Text>
-                        <Text style={styles.value}>
-                            {item?.lowerLimit} - {item?.upperLimit}
-                        </Text>
+                        {getPriceRange()}
                     </View>
                     <View style={styles.column3}>
                         <Text style={styles.label}>% Posible Profit</Text>
-                        <Text style={styles.value}>{getProfitPercent(item?.triggerPrice, item?.takeProfit)}</Text>
+                        <Text style={styles.value}>{getProfitPercent()}</Text>
                     </View>
                     <View style={styles.column4}>
                         <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
@@ -110,10 +131,12 @@ const styles = StyleSheet.create({
     },
     column1: {
         flexDirection: 'column',
+        marginRight: 3,
         width: 90
     },
     column2: {
         flexDirection: 'column',
+        marginRight: 2,
         marginTop: 1,
         width: 120
     },

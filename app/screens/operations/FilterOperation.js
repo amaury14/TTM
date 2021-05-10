@@ -6,6 +6,7 @@ import {
     Alert,
     FlatList,
     SafeAreaView,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
@@ -103,7 +104,7 @@ const FilterOperation = (props) => {
 
     const listItemView = (item) => {
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('DetailsOperation', { item, user })}>
+            <TouchableOpacity onLongPress={() => navigation.navigate('DetailsOperation', { item, user })}>
                 <OperationCard
                     item={item}
                     deleteClick={() => openConfirmationAlert(item?.id)}
@@ -155,23 +156,25 @@ const FilterOperation = (props) => {
                     </TouchableOpacity>
                 </View>
                 <TDMSplitter />
-                {!state?.loading && (
-                    <View style={styles.loader}>
-                        <ActivityIndicator size="large" color={colors.white} />
-                    </View>
-                )}
-                {state?.loading && (
-                    <View style={styles.row}>
-                        <FlatList
-                            data={state?.operations}
-                            ItemSeparatorComponent={listViewItemSeparator}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => listItemView(item)}
-                            refreshing={state?.loading}
-                            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
-                        />
-                    </View>
-                )}
+                <ScrollView>
+                    {!state?.loading && (
+                        <View style={styles.loader}>
+                            <ActivityIndicator size="large" color={colors.white} />
+                        </View>
+                    )}
+                    {state?.loading && (
+                        <View style={styles.row}>
+                            <FlatList
+                                data={state?.operations}
+                                ItemSeparatorComponent={listViewItemSeparator}
+                                keyExtractor={(item, index) => index.toString()}
+                                renderItem={({ item }) => listItemView(item)}
+                                refreshing={state?.loading}
+                                ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
+                            />
+                        </View>
+                    )}
+                </ScrollView>
             </LinearGradient>
         </SafeAreaView>
     );

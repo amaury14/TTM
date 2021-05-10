@@ -43,6 +43,7 @@ const images = {
         atom: require('./color128/atom.png'),
         audr: require('./color128/audr.png'),
         auto: require('./color128/auto.png'),
+        axs: require('./color128/axs.png'),
         aywa: require('./color128/aywa.png'),
         bab: require('./color128/bab.png'),
         bal: require('./color128/bal.png'),
