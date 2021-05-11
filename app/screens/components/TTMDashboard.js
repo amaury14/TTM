@@ -46,7 +46,7 @@ const TTMDashboard = (props) => {
     };
 
     const getRankByPerformance = (type, number) => {
-        if (isNaN(number)) {
+        if (isNaN(number) || number <= 0) {
             return type === 'label' ? 'Perdedor' : images.ranks.loser;
         } else {
             if (number > 0 && number <= 10) {
@@ -74,29 +74,29 @@ const TTMDashboard = (props) => {
     };
 
     const getRankDescriptionByPerformance = (number) => {
-        if (isNaN(number)) {
-            return 'Comprende rendimiento menor que 0% o inexistente en la operativa.';
+        if (isNaN(number) || number <= 0) {
+            return 'Comprende rendimiento menor que 0% o inexistente, en la operativa.';
         } else {
             if (number > 0 && number <= 10) {
-                return 'Comprende rendimiento entre 0% y 10% en la operativa.';
+                return 'Comprende rendimiento entre 0% y 10%, en la operativa.';
             }
             if (number > 10 && number <= 20) {
-                return 'Comprende rendimiento entre 10% y 20% en la operativa.';
+                return 'Comprende rendimiento entre 10% y 20%, en la operativa.';
             }
             if (number > 20 && number <= 30) {
-                return 'Comprende rendimiento entre 20% y 30% en la operativa.';
+                return 'Comprende rendimiento entre 20% y 30%, en la operativa.';
             }
             if (number > 30 && number <= 40) {
-                return 'Comprende rendimiento entre 30% y 40% en la operativa.';
+                return 'Comprende rendimiento entre 30% y 40%, en la operativa.';
             }
             if (number > 40 && number <= 50) {
-                return 'Comprende rendimiento entre 40% y 50% en la operativa.';
+                return 'Comprende rendimiento entre 40% y 50%, en la operativa.';
             }
             if (number > 50 && number <= 70) {
-                return 'Comprende rendimiento entre 50% y 70% en la operativa.';
+                return 'Comprende rendimiento entre 50% y 70%, en la operativa.';
             }
             if (number > 70) {
-                return 'Comprende rendimiento mayor a 70% en la operativa.';
+                return 'Comprende rendimiento mayor a 70%, en la operativa.';
             }
         }
     };
@@ -229,11 +229,14 @@ const TTMDashboard = (props) => {
                                 {getRankByPerformance('label', state?.performancePercentReal)}
                             </Text>
                         </View>
-                        <TouchableOpacity style={styles.logo} onPress={() => openModal('rank', true)}>
-                            <Image source={getRankByPerformance('icon', state?.performancePercentReal)} />
+                        <TouchableOpacity style={styles.logoContainer} onPress={() => openModal('rank', true)}>
+                            <Image
+                                style={styles.logo}
+                                source={getRankByPerformance('icon', state?.performancePercentReal)}
+                            />
                         </TouchableOpacity>
                         <View style={styles.row2}>
-                            <Text style={styles.label}>Operaciones</Text>
+                            <Text style={styles.label}>Operaciones Cerradas</Text>
                         </View>
                         <View style={styles.row}>
                             <View style={styles.column}>
@@ -346,9 +349,13 @@ const styles = StyleSheet.create({
     },
     logo: {
         height: 100,
+        width: 100
+    },
+    logoContainer: {
+        height: 100,
         position: 'absolute',
         right: 92,
-        top: 30,
+        top: 45,
         width: 100
     },
     modalText: {

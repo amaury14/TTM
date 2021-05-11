@@ -4,11 +4,11 @@
         "slug": "TTM",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./app/assets/rocket2.png",
+        "icon": "./app/assets/rocket.png",
         "splash": {
             "image": "./app/assets/background.png",
             "resizeMode": "contain",
-            "backgroundColor": "#ffffff"
+            "backgroundColor": "#000"
         },
         "updates": {
             "fallbackToCacheTimeout": 0
@@ -28,7 +28,7 @@
             "package": "com.amaurychong.ttm",
             "versionCode": 1,
             "adaptiveIcon": {
-                "foregroundImage": "./app/assets/rocket2.png",
+                "foregroundImage": "./app/assets/rocket.png",
                 "backgroundColor": "#FFFFFF"
             },
             "config": {
@@ -39,7 +39,7 @@
             }
         },
         "web": {
-            "favicon": "./app/assets/rocket2.png"
+            "favicon": "./app/assets/rocket.png"
         },
         "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
     }

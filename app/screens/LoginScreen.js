@@ -131,7 +131,7 @@ const LoginScreen = () => {
                 colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
                 style={styles.background}
             >
-                <Image style={styles.logo} source={require('../assets/rocket2.png')} />
+                <Image style={styles.logo} source={require('../assets/rocket.png')} />
 
                 {/* <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
                     <View style={styles.socialButtonContent}>

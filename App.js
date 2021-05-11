@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { Image, Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 import firebase from './database/firebase';
 import colors from './app/config/colors';
@@ -59,7 +59,10 @@ export default function App() {
                             initialParams={{ user: state?.user }}
                             options={{
                                 headerTitle: 'TTM - Diario de Trading',
-                                headerLeft: () => null,
+                                // eslint-disable-next-line react/display-name
+                                headerLeft: () => (
+                                    <Image style={styles.logo} source={require('./app/assets/rocket.png')} />
+                                ),
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },
@@ -122,5 +125,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0
+    },
+    logo: {
+        height: 40,
+        marginLeft: 15,
+        width: 40
     }
 });
