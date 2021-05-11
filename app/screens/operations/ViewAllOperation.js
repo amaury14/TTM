@@ -111,7 +111,7 @@ const ViewAllOperation = (props) => {
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item }) => listItemView(item)}
                             refreshing={state?.loading}
-                            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
+                            ListEmptyComponent={<Text style={styles.noRecords}>No hay operaciones abiertas</Text>}
                         />
                     </View>
                 )}

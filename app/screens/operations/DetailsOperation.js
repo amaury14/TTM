@@ -47,6 +47,10 @@ const DetailsOperation = (props) => {
         return '-';
     };
 
+    const getValue = (value) => {
+        return !value || value === '' ? '-' : value;
+    };
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -54,17 +58,17 @@ const DetailsOperation = (props) => {
                 <View style={styles.postContent}>
                     <View style={styles.row}>
                         <View style={styles.column2}>
-                            <Text style={styles.postTitle}>{item?.pairCoin.toUpperCase() ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.pairCoin.toUpperCase())}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Inversión</Text>
-                            <Text style={styles.postTitle}>${item?.investment ?? '-'}</Text>
+                            <Text style={styles.postTitle}>${getValue(item?.investment)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>% Rendimiento</Text>
-                            <Text style={styles.postTitle}>{item?.profitPercent ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.profitPercent)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>$ Rendimiento</Text>
@@ -74,35 +78,35 @@ const DetailsOperation = (props) => {
                     <View style={styles.row}>
                         <View style={styles.column2}>
                             <Text style={styles.label}>Notas</Text>
-                            <Text style={styles.postDescription}>{item?.notes}</Text>
+                            <Text style={styles.postDescription}>{getValue(item?.notes)}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Lower Limit</Text>
-                            <Text style={styles.postTitle}>{item?.lowerLimit ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.lowerLimit)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Trigger Price</Text>
-                            <Text style={styles.postTitle}>{item?.triggerPrice ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.triggerPrice)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Upper Limit</Text>
-                            <Text style={styles.postTitle}>{item?.upperLimit ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.upperLimit)}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Stop Loss</Text>
-                            <Text style={styles.postTitle}>{item?.stopLoss ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.stopLoss)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Take Profit</Text>
-                            <Text style={styles.postTitle}>{item?.takeProfit ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.takeProfit)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>Grillas</Text>
-                            <Text style={styles.postTitle}>{item?.grids ?? '-'}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.grids)}</Text>
                         </View>
                     </View>
                     <TTMButtom title="Modificar Operación" customClick={() => editOperation()} />
