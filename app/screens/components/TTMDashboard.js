@@ -6,9 +6,9 @@ import { Icon } from 'react-native-elements';
 import firebase from '../../../database/firebase';
 import images from '../../assets';
 import colors from '../../config/colors';
-import TDMButtom from './TDMButtom';
+import TTMButtom from './TTMButtom';
 
-const TDMDashboard = (props) => {
+const TTMDashboard = (props) => {
     const navigation = useNavigation();
     const user = props?.user;
 
@@ -199,7 +199,7 @@ const TDMDashboard = (props) => {
                     <View style={styles.modalView}>
                         {getModalView()}
                         <View style={styles.buttonModal}>
-                            <TDMButtom
+                            <TTMButtom
                                 title="Cerrar"
                                 customClick={() => handlePropChange('modalVisible', !state?.modalVisible)}
                             />
@@ -407,4 +407,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TDMDashboard;
+export default TTMDashboard;

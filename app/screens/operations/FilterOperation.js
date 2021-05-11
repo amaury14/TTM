@@ -20,7 +20,7 @@ import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import { getRadioConfigColor } from '../../config/radioGroup';
 import utils from '../../utils/util';
-import TDMSplitter from '../components/TDMSplitter';
+import TTMSplitter from '../components/TTMSplitter';
 import OperationCard from './OperationCard';
 
 const FilterOperation = (props) => {
@@ -159,7 +159,7 @@ const FilterOperation = (props) => {
                         <Icon name="search" type="feather" color={colors.black} />
                     </TouchableOpacity>
                 </View>
-                <TDMSplitter />
+                <TTMSplitter />
                 <ScrollView>
                     {!state?.loading && (
                         <View style={styles.loader}>

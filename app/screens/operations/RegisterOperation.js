@@ -8,14 +8,14 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    View,
+    View
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
-import TDMButtom from '../components/TDMButtom';
+import TTMButtom from '../components/TTMButtom';
 
 const RegisterOperation = (props) => {
     const user = props?.route?.params?.user;
@@ -58,10 +58,7 @@ const RegisterOperation = (props) => {
     };
 
     let showAlert = (title, text) => {
-        Alert.alert(title, text,
-            [{ text: 'Aceptar' }],
-            {cancelable: false},
-        );
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
     };
 
     const fireNewOperation = async () => {
@@ -99,7 +96,7 @@ const RegisterOperation = (props) => {
             setState(initialState);
             handlePropChange('loading', false);
             props?.navigation?.navigate('DashboardScreen');
-        } catch(error) {
+        } catch (error) {
             // Catch error
         }
     };
@@ -108,16 +105,15 @@ const RegisterOperation = (props) => {
         <SafeAreaView style={styles.flex1}>
             <View style={styles.flex1}>
                 <ScrollView keyboardShouldPersistTaps="handled">
-                    <KeyboardAvoidingView
-                        behavior="padding"
-                        style={styles.key}>
+                    <KeyboardAvoidingView behavior="padding" style={styles.key}>
                         <View style={styles.row}>
                             <Text style={styles.label}>* Campos requeridos</Text>
                         </View>
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Par/Moneda</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.pairCoin}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Par/Moneda"
@@ -128,7 +124,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>* Inversión</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.investment}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Inversión"
@@ -140,7 +137,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Grids (bots)</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.grids}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Grids"
@@ -154,7 +152,8 @@ const RegisterOperation = (props) => {
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Stop Loss</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.stopLoss}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Stop Loss"
@@ -166,7 +165,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Lower Limit</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.lowerLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Lower Limit"
@@ -178,7 +178,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Upper Limit</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.upperLimit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Upper Limit"
@@ -192,7 +193,8 @@ const RegisterOperation = (props) => {
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Trigger/Buy Price</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.triggerPrice}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Trigger Price"
@@ -204,7 +206,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Take Profit</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.takeProfit}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Take Profit"
@@ -216,7 +219,8 @@ const RegisterOperation = (props) => {
                             </View>
                             <View style={styles.column}>
                                 <Text style={styles.label}>% de Ganancia</Text>
-                                <TextInput style={styles.input}
+                                <TextInput
+                                    style={styles.input}
                                     value={state?.profitPercent}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="% de Ganancia"
@@ -231,13 +235,14 @@ const RegisterOperation = (props) => {
                             <RadioGroup
                                 radioButtons={state?.opState}
                                 onPress={(value) => handlePropChange('opState', value)}
-                                layout='row'
+                                layout="row"
                             />
                         </View>
                         <View style={styles.row}>
                             <View style={styles.column}>
                                 <Text style={styles.label}>Apuntes</Text>
-                                <TextInput style={styles.inputNotes}
+                                <TextInput
+                                    style={styles.inputNotes}
                                     value={state?.notes}
                                     underlineColorAndroid={colors.underlineColorAndroid}
                                     placeholder="Aquí anote sus apuntes, pensamientos, sentimientos en el trading, movimientos del mercado, etc..."
@@ -248,10 +253,12 @@ const RegisterOperation = (props) => {
                                 />
                             </View>
                         </View>
-                        <TDMButtom title="Guardar" customClick={() => fireNewOperation()} />
-                        {state?.loading && <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.mainColor} />
-                        </View>}
+                        <TTMButtom title="Guardar" customClick={() => fireNewOperation()} />
+                        {state?.loading && (
+                            <View style={styles.loader}>
+                                <ActivityIndicator size="large" color={colors.mainColor} />
+                            </View>
+                        )}
                     </KeyboardAvoidingView>
                 </ScrollView>
             </View>
@@ -276,7 +283,7 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 5,
         padding: 3,
-        width: 110,
+        width: 110
     },
     inputNotes: {
         borderColor: colors.gray,
@@ -286,7 +293,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         padding: 5,
         textAlignVertical: 'top',
-        width: 350,
+        width: 350
     },
     key: {
         flex: 1,
@@ -295,7 +302,7 @@ const styles = StyleSheet.create({
     label: {
         color: colors.mainColor,
         fontSize: 12,
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     },
     loader: {
         marginTop: 20
@@ -304,8 +311,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 20,
-    },
+        marginBottom: 20
+    }
 });
 
 export default RegisterOperation;

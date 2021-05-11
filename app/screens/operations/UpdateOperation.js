@@ -15,7 +15,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
-import TDMButtom from '../components/TDMButtom';
+import TTMButtom from '../components/TTMButtom';
 
 const UpdateOperation = (props) => {
     const { id, user } = props?.route?.params;
@@ -274,7 +274,7 @@ const UpdateOperation = (props) => {
                                 />
                             </View>
                         </View>
-                        <TDMButtom title="Guardar" customClick={() => updateOperation()} />
+                        <TTMButtom title="Guardar" customClick={() => updateOperation()} />
                         {loading2 && (
                             <View style={styles.loader}>
                                 <ActivityIndicator size="large" color={colors.mainColor} />

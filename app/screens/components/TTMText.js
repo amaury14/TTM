@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 
 import colors from '../../config/colors';
 
-const TDMText = (props) => {
+const TTMText = (props) => {
     return <Text style={styles.text}>{props?.text}</Text>;
 };
 
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TDMText;
+export default TTMText;

@@ -3,7 +3,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import images from '../../assets';
 import colors from '../../config/colors';
-import TDMButtom from '../components/TDMButtom';
+import TTMButtom from '../components/TTMButtom';
 
 const DetailsOperation = (props) => {
     const { item, user } = props?.route?.params;
@@ -105,7 +105,7 @@ const DetailsOperation = (props) => {
                             <Text style={styles.postTitle}>{item?.grids ?? '-'}</Text>
                         </View>
                     </View>
-                    <TDMButtom title="Modificar Operación" customClick={() => editOperation()} />
+                    <TTMButtom title="Modificar Operación" customClick={() => editOperation()} />
 
                     {/* <Text style={styles.tags}></Text>
 

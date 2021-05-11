@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from 'react-native';
 
 import colors from '../../config/colors';
 
-const TDMTextInput = (props) => {
+const TTMTextInput = (props) => {
     return (
         <View style={styles.view}>
             <TextInput
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TDMTextInput;
+export default TTMTextInput;

@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const TDMContext = React.createContext();
+export const TTMContext = React.createContext();

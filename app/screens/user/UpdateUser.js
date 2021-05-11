@@ -12,7 +12,7 @@ import {
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
-import TDMButtom from '../components/TDMButtom';
+import TTMButtom from '../components/TTMButtom';
 
 const UpdateUser = (props) => {
     const { id } = props?.route?.params;
@@ -141,8 +141,8 @@ const UpdateUser = (props) => {
                                 onChangeText={(value) => handlePropChange('userAddress', value)}
                                 blurOnSubmit={false}
                             />
-                            <TDMButtom title="Guardar" action="save" customClick={() => updateUser()} />
-                            <TDMButtom title="Eliminar" action="delete" customClick={() => openConfirmationAlert()} />
+                            <TTMButtom title="Guardar" action="save" customClick={() => updateUser()} />
+                            <TTMButtom title="Eliminar" action="delete" customClick={() => openConfirmationAlert()} />
                         </KeyboardAvoidingView>
                     </ScrollView>
                 </View>

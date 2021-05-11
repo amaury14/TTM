@@ -3,7 +3,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 
 import colors from '../config/colors';
-import TDMTabBar from './components/TDMTabBar';
+import TTMTabBar from './components/TTMTabBar';
 import DashboardScreen from './DashboardScreen';
 import FilterOperation from './operations/FilterOperation';
 import RegisterOperation from './operations/RegisterOperation';
@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 function BottomTabsScreen(props) {
     return (
         <SafeAreaView style={styles.container}>
-            <Tab.Navigator tabBar={(props) => <TDMTabBar {...props} />}>
+            <Tab.Navigator tabBar={(props) => <TTMTabBar {...props} />}>
                 <Tab.Screen
                     name="DashboardScreen"
                     component={DashboardScreen}
@@ -22,12 +22,12 @@ function BottomTabsScreen(props) {
                     options={{
                         title: 'Dashboard',
                         headerStyle: {
-                            backgroundColor: colors.mainColor,
+                            backgroundColor: colors.mainColor
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
+                            fontWeight: 'bold'
+                        }
                     }}
                 />
                 <Tab.Screen
@@ -37,12 +37,12 @@ function BottomTabsScreen(props) {
                     options={{
                         headerTitle: 'Agregar Op',
                         headerStyle: {
-                            backgroundColor: colors.mainColor,
+                            backgroundColor: colors.mainColor
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
+                            fontWeight: 'bold'
+                        }
                     }}
                 />
                 <Tab.Screen
@@ -52,12 +52,12 @@ function BottomTabsScreen(props) {
                     options={{
                         headerTitle: 'Filtrar Ops',
                         headerStyle: {
-                            backgroundColor: colors.mainColor,
+                            backgroundColor: colors.mainColor
                         },
                         headerTintColor: '#fff',
                         headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
+                            fontWeight: 'bold'
+                        }
                     }}
                 />
                 {/* <Tab.Screen
@@ -82,8 +82,8 @@ function BottomTabsScreen(props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-    },
+        flex: 1
+    }
 });
 
 export default BottomTabsScreen;

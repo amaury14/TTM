@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import colors from '../../config/colors';
 
-const TDMSplitter = () => {
+const TTMSplitter = () => {
     return <View style={styles.splitter} />;
 };
 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default TDMSplitter;
+export default TTMSplitter;

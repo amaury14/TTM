@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import colors from '../config/colors';
-import TDMDashboard from './components/TDMDashboard';
-import TDMSplitter from './components/TDMSplitter';
+import TTMDashboard from './components/TTMDashboard';
+import TTMSplitter from './components/TTMSplitter';
 import ViewAllOperation from './operations/ViewAllOperation';
 
 const DashboardScreen = (props) => {
@@ -25,8 +25,8 @@ const DashboardScreen = (props) => {
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
-                <TDMDashboard user={user} />
-                <TDMSplitter />
+                <TTMDashboard user={user} />
+                <TTMSplitter />
                 <ViewAllOperation user={user} />
             </LinearGradient>
         </View>

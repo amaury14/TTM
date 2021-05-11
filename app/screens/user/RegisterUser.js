@@ -12,7 +12,7 @@ import {
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
-import TDMButtom from '../components/TDMButtom';
+import TTMButtom from '../components/TTMButtom';
 
 const RegisterUser = (props) => {
     const [state, setState] = useState({
@@ -102,7 +102,7 @@ const RegisterUser = (props) => {
                                 onChangeText={(value) => handlePropChange('userAddress', value)}
                                 blurOnSubmit={false}
                             />
-                            <TDMButtom title="Guardar" customClick={() => fireNewUser()} />
+                            <TTMButtom title="Guardar" customClick={() => fireNewUser()} />
                             {state.loading && (
                                 <View style={styles.loader}>
                                     <ActivityIndicator size="large" color={colors.mainColor} />
