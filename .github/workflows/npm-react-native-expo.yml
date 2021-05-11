@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, lint
+      - name: Npm Install, Lint and Build on Expo
         run: |
           npm install
           npm install --global expo-cli
