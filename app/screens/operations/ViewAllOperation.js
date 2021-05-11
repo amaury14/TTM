@@ -14,6 +14,7 @@ import {
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
+import utils from '../../utils/util';
 import OperationCard from './OperationCard';
 
 const ViewAllOperation = (props) => {
@@ -54,7 +55,7 @@ const ViewAllOperation = (props) => {
                         const { ...data } = doc?.data();
                         operations?.push({ id: doc?.id, ...data });
                     });
-                    handlePropChange('operations', operations);
+                    handlePropChange('operations', utils.sortArray(operations, 'startDate'));
                 });
             handlePropChange('loading', false);
         } catch (error) {

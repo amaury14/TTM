@@ -26,7 +26,7 @@ const RegisterOperation = (props) => {
         lowerLimit: '',
         upperLimit: '',
         grids: '',
-        startDate: new Date(),
+        startDate: new Date().getTime(),
         stopLoss: '',
         triggerPrice: '',
         takeProfit: '',

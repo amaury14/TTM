@@ -14,6 +14,12 @@ const OperationCard = (props) => {
         return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}%`;
     };
 
+    const getDates = () => {
+        const start = item?.startDate ? new Date(item?.startDate)?.toLocaleDateString() : '...';
+        const end = item?.closeDate ? new Date(item?.closeDate)?.toLocaleDateString() : '...';
+        return `${start} - ${end}`;
+    };
+
     const getPriceRange = () => {
         if (item?.lowerLimit && item?.upperLimit) {
             return (
@@ -88,6 +94,9 @@ const OperationCard = (props) => {
                             <Icon name="trash-2" type="feather" color={colors.red} />
                         </TouchableOpacity>
                     </View>
+                    <View style={styles.dates}>
+                        <Text style={styles.investment}>{getDates()}</Text>
+                    </View>
                 </View>
             )}
         </View>
@@ -150,6 +159,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-between',
         width: 25
+    },
+    dates: {
+        left: 12,
+        position: 'absolute',
+        top: 67
     },
     investment: {
         color: colors.investment,

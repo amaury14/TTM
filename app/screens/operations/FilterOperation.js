@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
     Alert,
@@ -15,13 +15,13 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import RadioGroup from 'react-native-radio-buttons-group';
-import OperationCard from './OperationCard';
-import TDMSplitter from '../components/TDMSplitter';
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
-
 import { getRadioConfigColor } from '../../config/radioGroup';
+import utils from '../../utils/util';
+import TDMSplitter from '../components/TDMSplitter';
+import OperationCard from './OperationCard';
 
 const FilterOperation = (props) => {
     const navigation = useNavigation();
@@ -36,6 +36,10 @@ const FilterOperation = (props) => {
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
+    };
+
+    const getFieldByState = (opStateValue) => {
+        return opStateValue === 1 ? 'startDate' : 'closeDate';
     };
 
     useEffect(() => {
@@ -70,7 +74,7 @@ const FilterOperation = (props) => {
                             element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase())
                         );
                     }
-                    handlePropChange('operations', operations);
+                    handlePropChange('operations', utils.sortArray(operations, getFieldByState(opStateValue)));
                 });
             handlePropChange('loading', false);
         } catch (error) {

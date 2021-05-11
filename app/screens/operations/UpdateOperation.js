@@ -27,7 +27,7 @@ const UpdateOperation = (props) => {
         lowerLimit: '',
         upperLimit: '',
         grids: '',
-        startDate: new Date(),
+        startDate: new Date().getTime(),
         stopLoss: '',
         triggerPrice: '',
         takeProfit: '',
@@ -75,6 +75,7 @@ const UpdateOperation = (props) => {
 
     const updateOperation = async () => {
         const stateSelected = state?.opState?.find((item) => item?.selected)?.value;
+        let date = null;
         if (state?.pairCoin === '') {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
@@ -84,7 +85,7 @@ const UpdateOperation = (props) => {
             return;
         }
         if (stateSelected !== '1') {
-            handlePropChange('closeDate', new Date());
+            date = new Date().getTime();
         }
         try {
             setLoading2(true);
@@ -101,7 +102,7 @@ const UpdateOperation = (props) => {
                 takeProfit: state?.takeProfit,
                 profitPercent: state?.profitPercent,
                 notes: state?.notes,
-                closeDate: state?.closeDate,
+                closeDate: date,
                 opState: stateSelected,
                 userId: user?.id
             });

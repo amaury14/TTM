@@ -63,7 +63,7 @@ export default function App() {
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },
-                                headerTintColor: '#fff',
+                                headerTintColor: colors.white,
                                 headerTitleStyle: {
                                     fontWeight: 'bold'
                                 }
@@ -77,7 +77,7 @@ export default function App() {
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },
-                                headerTintColor: '#fff',
+                                headerTintColor: colors.white,
                                 headerTitleStyle: {
                                     fontWeight: 'bold'
                                 }
@@ -91,7 +91,7 @@ export default function App() {
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },
-                                headerTintColor: '#fff',
+                                headerTintColor: colors.white,
                                 headerTitleStyle: {
                                     fontWeight: 'bold'
                                 }
@@ -105,7 +105,7 @@ export default function App() {
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },
-                                headerTintColor: '#fff',
+                                headerTintColor: colors.white,
                                 headerTitleStyle: {
                                     fontWeight: 'bold'
                                 }
