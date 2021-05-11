@@ -20,6 +20,8 @@ jobs:
       - name: npm install, lint
         run: |
           npm install
+          npm install --global expo-cli
           npm run lint --if-present
+          npm run build-android-apk --if-present
         env:
           CI: true
