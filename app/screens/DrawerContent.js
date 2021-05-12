@@ -1,17 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useTheme, Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper';
+import { Avatar, Caption, Drawer, Title } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { TTMContext } from '../screens/components/context';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Icon } from 'react-native-elements';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
 export function DrawerContent(props) {
-    const paperTheme = useTheme();
-
-    const { toggleTheme } = React.useContext(TTMContext);
+    const user = props?.user;
 
     const singOut = () => {
         firebase.firebase.auth().signOut();
@@ -25,59 +22,57 @@ export function DrawerContent(props) {
                         <View style={styles.view2}>
                             <Avatar.Image
                                 source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                                    uri: user?.profile_picture
                                 }}
                                 size={50}
                             />
                             <View style={styles.view3}>
-                                <Title style={styles.title}></Title>
-                                <Caption style={styles.caption}></Caption>
+                                <Title style={styles.title}>{user?.first_last_name}</Title>
+                                <Caption style={styles.caption}>{user?.gmail}</Caption>
                             </View>
                         </View>
 
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}></Paragraph>
                                 <Caption style={styles.caption}></Caption>
                             </View>
+                        </View> */}
+                        {/* <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}></Paragraph>
                                 <Caption style={styles.caption}></Caption>
                             </View>
-                        </View>
+                        </View> */}
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem
-                            icon={({ color, size }) => <Icon name="home-outline" color={color} size={size} />}
+                            icon={({ color, size }) => <Icon name="grid" size={size} type="feather" color={color} />}
                             label="Dashboard"
-                            onPress={() => {
-                                props.navigation.navigate('Dashboard');
-                            }}
+                            onPress={() => props?.navigation?.navigate('DashboardScreen')}
                         />
                         <DrawerItem
-                            icon={({ color, size }) => <Icon name="account-outline" color={color} size={size} />}
+                            icon={({ color, size }) => <Icon name="activity" size={size} type="feather" color={color} />}
                             label="Agregar Operación"
-                            onPress={() => {
-                                props.navigation.navigate('RegisterOperation');
-                            }}
+                            onPress={() => props?.navigation?.navigate('RegisterOperation')}
                         />
                         <DrawerItem
-                            icon={({ color, size }) => <Icon name="settings-outline" color={color} size={size} />}
-                            label="Settings"
-                            onPress={() => {
-                                // console.log("Settings");
-                            }}
+                            icon={({ color, size }) => <Icon name="filter" size={size} type="feather" color={color} />}
+                            label="Filtrar Operación"
+                            onPress={() => props?.navigation?.navigate('FilterOperation')}
                         />
-                        <DrawerItem
-                            icon={({ color, size }) => <Icon name="account-check-outline" color={color} size={size} />}
-                            label="Support"
+                        {/* <DrawerItem
+                            icon={({ color, size }) => (
+                                <Icon name="settings" size={size} type="feather" color={color} />
+                            )}
+                            label="Configuración"
                             onPress={() => {
-                                // console.log("Support");
+                                console.log(props);
                             }}
-                        />
+                        /> */}
                     </Drawer.Section>
-                    <Drawer.Section title="Preferences">
+                    {/* <Drawer.Section title="Preferences">
                         <TouchableRipple
                             onPress={() => {
                                 toggleTheme();
@@ -90,16 +85,14 @@ export function DrawerContent(props) {
                                 </View>
                             </View>
                         </TouchableRipple>
-                    </Drawer.Section>
+                    </Drawer.Section> */}
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
                 <DrawerItem
-                    icon={({ color, size }) => <Icon name="exit-to-app" color={color} size={size} />}
-                    label="Sign Out"
-                    onPress={() => {
-                        singOut();
-                    }}
+                    icon={({ color, size }) => <Icon name="log-out" size={size} type="feather" color={color} />}
+                    label="Cerrar sesión"
+                    onPress={() => singOut()}
                 />
             </Drawer.Section>
         </View>
@@ -122,26 +115,26 @@ const styles = StyleSheet.create({
     drawerSection: {
         marginTop: 15
     },
-    paragraph: {
-        fontWeight: 'bold',
-        marginRight: 3
-    },
-    preference: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 16,
-        paddingVertical: 12
-    },
-    row: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 20
-    },
-    section: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginRight: 15
-    },
+    // paragraph: {
+    //     fontWeight: 'bold',
+    //     marginRight: 3
+    // },
+    // preference: {
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     paddingHorizontal: 16,
+    //     paddingVertical: 12
+    // },
+    // row: {
+    //     alignItems: 'center',
+    //     flexDirection: 'row',
+    //     marginTop: 20
+    // },
+    // section: {
+    //     alignItems: 'center',
+    //     flexDirection: 'row',
+    //     marginRight: 15
+    // },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
