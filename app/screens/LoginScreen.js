@@ -8,25 +8,6 @@ import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
 const LoginScreen = () => {
-    // Commented to see if the new way works
-    // useEffect(() => {
-    //     checkLogin();
-    // }, []);
-
-    // const checkLogin = async () => {
-    //     await firebase.firebase.auth().onAuthStateChanged(function(user) {
-    //         if (user) {
-    //             props.navigation.navigate('BottomTabsScreen', { user: {
-    //                 id: user.uid,
-    //                 gmail: user.email,
-    //                 profile_picture: user.photoURL,
-    //                 first_last_name: user.displayName
-    //             }});
-    //         } else {
-    //             props.navigation.navigate('LoginScreen');
-    //         }
-    //     });
-    // };
 
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
@@ -92,12 +73,6 @@ const LoginScreen = () => {
                     });
                 // New User signning-in on Firebase.
             } else {
-                // props.navigation.navigate('BottomTabsScreen', { user: {
-                //     id: firebaseUser.uid,
-                //     gmail: firebaseUser.email,
-                //     profile_picture: firebaseUser.photoURL,
-                //     first_last_name: firebaseUser.displayName
-                // }});
                 // User already signed-in Firebase.
             }
         });
