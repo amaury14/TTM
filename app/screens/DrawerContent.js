@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Avatar, Caption, Drawer, Title } from 'react-native-paper';
+import { Avatar, Caption, Drawer, Text, Title } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Icon } from 'react-native-elements';
 
@@ -9,6 +9,7 @@ import colors from '../config/colors';
 
 export function DrawerContent(props) {
     const user = props?.user;
+    const pjson = require('../../package.json');
 
     const singOut = () => {
         firebase.firebase.auth().signOut();
@@ -95,6 +96,16 @@ export function DrawerContent(props) {
                     onPress={() => singOut()}
                 />
             </Drawer.Section>
+            <View style={styles.row}>
+                <View style={styles.section}>
+                    <Text style={styles.version}>Versión: {pjson?.version}</Text>
+                </View>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.section}>
+                    <Text style={styles.version}>Todos los derechos reservados.</Text>
+                </View>
+            </View>
         </View>
     );
 }
@@ -102,8 +113,8 @@ export function DrawerContent(props) {
 const styles = StyleSheet.create({
     bottomDrawerSection: {
         borderTopColor: colors.grayLigth,
-        borderTopWidth: 1,
-        marginBottom: 15
+        borderTopWidth: 2,
+        marginBottom: 5
     },
     caption: {
         fontSize: 14,
@@ -125,16 +136,15 @@ const styles = StyleSheet.create({
     //     paddingHorizontal: 16,
     //     paddingVertical: 12
     // },
-    // row: {
-    //     alignItems: 'center',
-    //     flexDirection: 'row',
-    //     marginTop: 20
-    // },
-    // section: {
-    //     alignItems: 'center',
-    //     flexDirection: 'row',
-    //     marginRight: 15
-    // },
+    row: {
+        alignItems: 'center',
+        flexDirection: 'row'
+    },
+    section: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        marginLeft: 20
+    },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
@@ -142,6 +152,11 @@ const styles = StyleSheet.create({
     },
     userInfoSection: {
         paddingLeft: 20
+    },
+    version: {
+        color: colors.gray2,
+        fontSize: 12,
+        marginBottom: 2
     },
     view1: {
         flex: 1
