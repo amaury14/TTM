@@ -117,7 +117,7 @@ const UpdateOperation = (props) => {
     if (loading) {
         return (
             <View style={styles.flex1}>
-                <ActivityIndicator size="large" color={colors.mainColor} />
+                <ActivityIndicator size="large" color={colors.gray2} />
             </View>
         );
     }
@@ -277,7 +277,7 @@ const UpdateOperation = (props) => {
                         <TTMButtom title="Guardar" customClick={() => updateOperation()} />
                         {loading2 && (
                             <View style={styles.loader}>
-                                <ActivityIndicator size="large" color={colors.mainColor} />
+                                <ActivityIndicator size="large" color={colors.gray2} />
                             </View>
                         )}
                     </KeyboardAvoidingView>

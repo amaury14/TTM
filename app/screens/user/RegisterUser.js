@@ -105,7 +105,7 @@ const RegisterUser = (props) => {
                             <TTMButtom title="Guardar" customClick={() => fireNewUser()} />
                             {state.loading && (
                                 <View style={styles.loader}>
-                                    <ActivityIndicator size="large" color={colors.mainColor} />
+                                    <ActivityIndicator size="large" color={colors.gray2} />
                                 </View>
                             )}
                         </KeyboardAvoidingView>

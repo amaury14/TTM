@@ -163,7 +163,7 @@ const FilterOperation = (props) => {
                 <ScrollView>
                     {!state?.loading && (
                         <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.white} />
+                            <ActivityIndicator size="large" color={colors.gray2} />
                         </View>
                     )}
                     {state?.loading && (
