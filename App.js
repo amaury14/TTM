@@ -118,69 +118,6 @@ export default function App() {
                             }}
                         />
                     </Drawer.Navigator>
-                    // <Stack.Navigator>
-                    //     <Stack.Screen
-                    //         name="BottomTabsScreen"
-                    //         component={BottomTabsScreen}
-                    //         initialParams={{ user: state?.user }}
-                    //         options={{
-                    //             headerTitle: 'TTM - Diario de Trading',
-                    //             // eslint-disable-next-line react/display-name
-                    //             headerLeft: () => (
-                    //                 <Image style={styles.logo} source={require('./app/assets/rocket.png')} />
-                    //             ),
-                    //             headerStyle: {
-                    //                 backgroundColor: colors.mainColor
-                    //             },
-                    //             headerTintColor: colors.white,
-                    //             headerTitleStyle: {
-                    //                 fontWeight: 'bold'
-                    //             }
-                    //         }}
-                    //     />
-                    //     <Stack.Screen
-                    //         name="UpdateOperation"
-                    //         component={UpdateOperation}
-                    //         options={{
-                    //             title: 'Modificar Operación',
-                    //             headerStyle: {
-                    //                 backgroundColor: colors.mainColor
-                    //             },
-                    //             headerTintColor: colors.white,
-                    //             headerTitleStyle: {
-                    //                 fontWeight: 'bold'
-                    //             }
-                    //         }}
-                    //     />
-                    //     <Stack.Screen
-                    //         name="ViewAllOperation"
-                    //         component={ViewAllOperation}
-                    //         options={{
-                    //             title: 'Operaciones',
-                    //             headerStyle: {
-                    //                 backgroundColor: colors.mainColor
-                    //             },
-                    //             headerTintColor: colors.white,
-                    //             headerTitleStyle: {
-                    //                 fontWeight: 'bold'
-                    //             }
-                    //         }}
-                    //     />
-                    //     <Stack.Screen
-                    //         name="DetailsOperation"
-                    //         component={DetailsOperation}
-                    //         options={{
-                    //             title: 'Detalles',
-                    //             headerStyle: {
-                    //                 backgroundColor: colors.mainColor
-                    //             },
-                    //             headerTintColor: colors.white,
-                    //             headerTitleStyle: {
-                    //                 fontWeight: 'bold'
-                    //             }
-                    //         }}
-                    //     />
-                    // </Stack.Navigator>
                 )}
             </NavigationContainer>
         </SafeAreaView>
