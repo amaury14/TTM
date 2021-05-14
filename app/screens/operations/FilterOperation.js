@@ -74,7 +74,10 @@ const FilterOperation = (props) => {
                             element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase())
                         );
                     }
-                    handlePropChange('operations', utils.sortArrayDescending(operations, getFieldByState(opStateValue)));
+                    handlePropChange(
+                        'operations',
+                        utils.sortArrayDescending(operations, getFieldByState(opStateValue))
+                    );
                 });
             handlePropChange('loading', false);
         } catch (error) {
@@ -242,6 +245,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     noRecords: {
+        alignSelf: 'center',
         color: colors.white,
         fontSize: 17,
         fontWeight: 'bold'
