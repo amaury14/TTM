@@ -1,4 +1,11 @@
-const sortArray = (array, field) => {
+const sortArrayDescending = (array, field) => {
+    array = array?.sort(function (ele1, ele2) {
+        return ele2?.[field] - ele1?.[field];
+    });
+    return array;
+};
+
+const sortArrayAscending = (array, field) => {
     array = array?.sort(function (ele1, ele2) {
         return ele1?.[field] - ele2?.[field];
     });
@@ -6,5 +13,6 @@ const sortArray = (array, field) => {
 };
 
 export default {
-    sortArray
+    sortArrayDescending,
+    sortArrayAscending
 };

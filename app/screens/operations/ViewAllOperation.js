@@ -55,7 +55,7 @@ const ViewAllOperation = (props) => {
                         const { ...data } = doc?.data();
                         operations?.push({ id: doc?.id, ...data });
                     });
-                    handlePropChange('operations', utils.sortArray(operations, 'startDate'));
+                    handlePropChange('operations', utils.sortArrayDescending(operations, 'startDate'));
                 });
             handlePropChange('loading', false);
         } catch (error) {

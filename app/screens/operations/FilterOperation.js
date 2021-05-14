@@ -74,7 +74,7 @@ const FilterOperation = (props) => {
                             element?.pairCoin?.toLowerCase()?.includes(searchString?.toLowerCase())
                         );
                     }
-                    handlePropChange('operations', utils.sortArray(operations, getFieldByState(opStateValue)));
+                    handlePropChange('operations', utils.sortArrayDescending(operations, getFieldByState(opStateValue)));
                 });
             handlePropChange('loading', false);
         } catch (error) {
