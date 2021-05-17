@@ -108,7 +108,7 @@ export function DrawerContent(props) {
                 </View>
                 <View style={styles.row}>
                     <View style={styles.section}>
-                        <Text style={styles.version}>Todos los derechos reservados.</Text>
+                        <Text style={styles.version}>® Todos los derechos reservados.</Text>
                     </View>
                 </View>
             </View>
