@@ -1,19 +1,20 @@
 import 'react-native-gesture-handler';
 
-import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { Image, Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
-import firebase from './database/firebase';
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
+import CompoundInterestScreen from './app/screens/CompoundInterestScreen';
+import { DrawerContent } from './app/screens/DrawerContent';
 import LoginScreen from './app/screens/LoginScreen';
 import DetailsOperation from './app/screens/operations/DetailsOperation';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
-import { DrawerContent } from './app/screens/DrawerContent';
+import firebase from './database/firebase';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -108,6 +109,20 @@ export default function App() {
                             component={DetailsOperation}
                             options={{
                                 headerTitle: 'Detalles',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: colors.white,
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="CompoundInterestScreen"
+                            component={CompoundInterestScreen}
+                            options={{
+                                headerTitle: 'Interés Compuesto',
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },

@@ -5,7 +5,7 @@ import colors from '../../config/colors';
 
 const TTMButtom = (props) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={props?.customClick}>
+        <TouchableOpacity style={[styles.button, props?.style]} onPress={props?.customClick}>
             <Text style={styles.text}>{props?.title}</Text>
         </TouchableOpacity>
     );
