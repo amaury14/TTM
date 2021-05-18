@@ -80,7 +80,7 @@ const UpdateOperation = (props) => {
             showAlert('Advertencia', 'Rellene el Par/Moneda');
             return;
         }
-        if (state?.investment === '') {
+        if (state?.investment <= 0 || state?.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }

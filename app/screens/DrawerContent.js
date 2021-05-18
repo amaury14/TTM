@@ -73,6 +73,11 @@ export function DrawerContent(props) {
                                 label={() => <Text style={styles.drawerItem}>Calculadora Interés Compuesto</Text>}
                                 onPress={() => props?.navigation?.navigate('CompoundInterestScreen')}
                             />
+                            <DrawerItem
+                                icon={() => <Icon name="bar-chart-2" size={30} type="feather" color={colors.white} />}
+                                label={() => <Text style={styles.drawerItem}>Calculadora de Trading</Text>}
+                                onPress={() => props?.navigation?.navigate('TradingCalculatorScreen')}
+                            />
                             {/* <DrawerItem
                                 icon={() => (
                                     <Icon name="settings" size={size} type="feather" color={color} />

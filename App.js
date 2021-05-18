@@ -14,6 +14,7 @@ import LoginScreen from './app/screens/LoginScreen';
 import DetailsOperation from './app/screens/operations/DetailsOperation';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
+import TradingCalculatorScreen from './app/screens/TradingCalculatorScreen';
 import firebase from './database/firebase';
 
 const Drawer = createDrawerNavigator();
@@ -123,6 +124,20 @@ export default function App() {
                             component={CompoundInterestScreen}
                             options={{
                                 headerTitle: 'Interés Compuesto',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: colors.white,
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="TradingCalculatorScreen"
+                            component={TradingCalculatorScreen}
+                            options={{
+                                headerTitle: 'Calculadora de Trading',
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },

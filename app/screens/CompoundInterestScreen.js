@@ -36,15 +36,15 @@ const CompoundInterestScreen = () => {
     };
 
     const calculateInterest = () => {
-        if (state?.investment === 0 || state?.investment === '') {
+        if (state?.investment <= 0 || state?.investment === '') {
             showAlert('Advertencia', 'Rellene la Inversión');
             return;
         }
-        if (state?.months === 0 || state?.months === '') {
+        if (state?.months <= 0 || state?.months === '') {
             showAlert('Advertencia', 'Rellene los Meses');
             return;
         }
-        if (state?.monthlyRate === 0 || state?.monthlyRate === '') {
+        if (state?.monthlyRate <= 0 || state?.monthlyRate === '') {
             showAlert('Advertencia', 'Rellene el % por Mes');
             return;
         }
