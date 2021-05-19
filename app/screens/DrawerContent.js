@@ -69,6 +69,11 @@ export function DrawerContent(props) {
                                 onPress={() => props?.navigation?.navigate('FilterOperation')}
                             />
                             <DrawerItem
+                                icon={() => <Icon name="file-text" size={30} type="feather" color={colors.white} />}
+                                label={() => <Text style={styles.drawerItem}>Apuntes</Text>}
+                                onPress={() => props?.navigation?.navigate('Notes')}
+                            />
+                            <DrawerItem
                                 icon={() => <Icon name="folder-plus" size={30} type="feather" color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Calculadora de Interés Compuesto</Text>}
                                 onPress={() => props?.navigation?.navigate('CompoundInterestScreen')}
