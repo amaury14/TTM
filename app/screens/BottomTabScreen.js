@@ -8,11 +8,13 @@ import colors from '../config/colors';
 import TTMTabBar from './components/TTMTabBar';
 import DashboardScreen from './DashboardScreen';
 import FilterOperation from './operations/FilterOperation';
+import Notes from './notes/Notes';
 import RegisterOperation from './operations/RegisterOperation';
 // import SettingsScreen from "./SettingsScreen";
 
 const DashboardStack = createStackNavigator();
 const FilterOperationStack = createStackNavigator();
+const NotesStack = createStackNavigator();
 const RegisterOperationStack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
@@ -43,6 +45,14 @@ function BottomTabsScreen(props) {
                     initialParams={{ user: props?.route?.params?.user }}
                     options={{
                         headerTitle: 'Filtrar Op'
+                    }}
+                />
+                <Tab.Screen
+                    name="Notes"
+                    component={NotesStackScreen}
+                    initialParams={{ user: props?.route?.params?.user }}
+                    options={{
+                        headerTitle: 'Apuntes'
                     }}
                 />
                 {/* <Tab.Screen
@@ -182,4 +192,40 @@ const FilterOperationStackScreen = (props) => (
             }}
         />
     </FilterOperationStack.Navigator>
+);
+
+const NotesStackScreen = (props) => (
+    <NotesStack.Navigator
+        screenOptions={{
+            headerStyle: {
+                backgroundColor: colors.mainColor
+            },
+            headerTintColor: colors.white,
+            headerTitleStyle: {
+                fontWeight: 'bold'
+            }
+        }}
+    >
+        <NotesStack.Screen
+            name="Notes"
+            component={Notes}
+            initialParams={{ user: props?.route?.params?.user }}
+            options={{
+                headerTitle: 'Apuntes',
+                headerStyle: {
+                    backgroundColor: colors.mainColor
+                },
+                headerTintColor: colors.white,
+                headerTitleStyle: {
+                    fontWeight: 'bold'
+                },
+                // eslint-disable-next-line react/display-name
+                headerLeft: () => (
+                    <TouchableOpacity style={styles.menu} onPress={() => props?.navigation?.openDrawer()}>
+                        <Icon name="menu" size={30} type="feather" color={colors.white} />
+                    </TouchableOpacity>
+                )
+            }}
+        />
+    </NotesStack.Navigator>
 );

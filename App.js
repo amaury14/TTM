@@ -6,12 +6,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import { Image, Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
+import AddNote from './app/screens/notes/AddNote';
 import colors from './app/config/colors';
 import BottomTabsScreen from './app/screens/BottomTabScreen';
 import CompoundInterestScreen from './app/screens/CompoundInterestScreen';
 import { DrawerContent } from './app/screens/DrawerContent';
 import LoginScreen from './app/screens/LoginScreen';
 import DetailsOperation from './app/screens/operations/DetailsOperation';
+import NoteDetails from './app/screens/notes/NoteDetails';
+import UpdateNote from './app/screens/notes/UpdateNote';
 import UpdateOperation from './app/screens/operations/UpdateOperation';
 import ViewAllOperation from './app/screens/operations/ViewAllOperation';
 import TradingCalculatorScreen from './app/screens/TradingCalculatorScreen';
@@ -138,6 +141,49 @@ export default function App() {
                             component={TradingCalculatorScreen}
                             options={{
                                 headerTitle: 'Calculadora de Trading',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: colors.white,
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="AddNote"
+                            component={AddNote}
+                            initialParams={{ user: state?.user }}
+                            options={{
+                                headerTitle: 'Agregar Apunte',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: colors.white,
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="UpdateNote"
+                            component={UpdateNote}
+                            options={{
+                                headerTitle: 'Modificar Apunte',
+                                headerStyle: {
+                                    backgroundColor: colors.mainColor
+                                },
+                                headerTintColor: colors.white,
+                                headerTitleStyle: {
+                                    fontWeight: 'bold'
+                                }
+                            }}
+                        />
+                        <Drawer.Screen
+                            name="NoteDetails"
+                            component={NoteDetails}
+                            options={{
+                                headerTitle: 'Detalles',
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
                                 },

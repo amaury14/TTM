@@ -57,6 +57,9 @@ function TTMTabBar({ state, descriptors, navigation }) {
                     case 'FilterOperation': {
                         return 'filter';
                     }
+                    case 'Notes': {
+                        return 'file-text';
+                    }
                     }
                 };
 
