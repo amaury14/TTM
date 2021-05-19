@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     dates: {
         left: 12,
         position: 'absolute',
-        top: 70
+        top: 68
     },
     investment: {
         color: colors.investment,
