@@ -70,7 +70,7 @@ export function DrawerContent(props) {
                             />
                             <DrawerItem
                                 icon={() => <Icon name="folder-plus" size={30} type="feather" color={colors.white} />}
-                                label={() => <Text style={styles.drawerItem}>Calculadora Interés Compuesto</Text>}
+                                label={() => <Text style={styles.drawerItem}>Calculadora de Interés Compuesto</Text>}
                                 onPress={() => props?.navigation?.navigate('CompoundInterestScreen')}
                             />
                             <DrawerItem
