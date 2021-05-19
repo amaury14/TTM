@@ -11,13 +11,25 @@ const OperationCard = (props) => {
     const getProfitPercent = () => {
         const amount = parseFloat(item?.takeProfit ?? item?.upperLimit) - parseFloat(item?.triggerPrice);
         const res = (amount * 100) / parseFloat(item?.triggerPrice);
-        return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}%`;
+        return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}`;
+    };
+
+    const getProfitMoney = () => {
+        if (!isNaN(parseFloat(item?.investment)) && !isNaN(parseFloat(item?.profitPercent))) {
+            const res = parseFloat(item?.investment) * (parseFloat(item?.profitPercent) / 100);
+            return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}`;
+        }
+        return '-';
     };
 
     const getDates = () => {
         const start = item?.startDate ? new Date(item?.startDate)?.toLocaleDateString() : '...';
         const end = item?.closeDate ? new Date(item?.closeDate)?.toLocaleDateString() : '...';
         return `${start} - ${end}`;
+    };
+
+    const getValue = (value) => {
+        return !value || value === '' ? '-' : value;
     };
 
     const getPriceRange = () => {
@@ -83,8 +95,20 @@ const OperationCard = (props) => {
                         {getPriceRange()}
                     </View>
                     <View style={styles.column3}>
-                        <Text style={styles.label}>% Posible Profit</Text>
-                        <Text style={styles.value}>{getProfitPercent()}</Text>
+                        {item?.opState === '1' && (
+                            <View>
+                                <Text style={styles.label}>% Posible Profit</Text>
+                                <Text style={styles.value}>{getProfitPercent()}</Text>
+                            </View>
+                        )}
+                        {item?.opState === '2' && (
+                            <View>
+                                <Text style={styles.label}>% Rendimiento</Text>
+                                <Text style={styles.value}>{getValue(item?.profitPercent)}</Text>
+                                <Text style={styles.label}>$ Rendimiento</Text>
+                                <Text style={styles.value}>{getProfitMoney()}</Text>
+                            </View>
+                        )}
                     </View>
                     <View style={styles.column4}>
                         <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
@@ -163,7 +187,7 @@ const styles = StyleSheet.create({
     dates: {
         left: 12,
         position: 'absolute',
-        top: 67
+        top: 70
     },
     investment: {
         color: colors.investment,
@@ -173,7 +197,7 @@ const styles = StyleSheet.create({
     label: {
         color: colors.mainColor,
         fontSize: 14,
-        fontWeight: '900'
+        fontWeight: 'bold'
     },
     pair: {
         color: colors.black,

@@ -43,7 +43,7 @@ const UpdateOperation = (props) => {
 
     useEffect(() => {
         getOperationById(id);
-    }, []);
+    }, [props]);
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });
@@ -54,6 +54,7 @@ const UpdateOperation = (props) => {
     };
 
     const getOperationById = async (id) => {
+        setLoading(true);
         const dbRef = firebase.fireDb.collection('operations').doc(id);
         const doc = await dbRef?.get();
         const operation = doc?.data();

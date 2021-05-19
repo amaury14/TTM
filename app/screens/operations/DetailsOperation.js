@@ -42,7 +42,7 @@ const DetailsOperation = (props) => {
     const getProfitMoney = () => {
         if (!isNaN(parseFloat(item?.investment)) && !isNaN(parseFloat(item?.profitPercent))) {
             const res = parseFloat(item?.investment) * (parseFloat(item?.profitPercent) / 100);
-            return isNaN(res?.toFixed(2)) ? '-' : `$${res?.toFixed(2)}`;
+            return isNaN(res?.toFixed(2)) ? '-' : `${res?.toFixed(2)}`;
         }
         return '-';
     };
@@ -58,13 +58,13 @@ const DetailsOperation = (props) => {
                 <View style={styles.postContent}>
                     <View style={styles.row}>
                         <View style={styles.column2}>
-                            <Text style={styles.postTitle}>{getValue(item?.pairCoin.toUpperCase())}</Text>
+                            <Text style={styles.title}>{getValue(item?.pairCoin.toUpperCase())}</Text>
                         </View>
                     </View>
                     <View style={styles.row}>
                         <View style={styles.column}>
                             <Text style={styles.label}>Inversión</Text>
-                            <Text style={styles.postTitle}>${getValue(item?.investment)}</Text>
+                            <Text style={styles.postTitle}>{getValue(item?.investment)}</Text>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label}>% Rendimiento</Text>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     label: {
         color: colors.mainColor,
         fontSize: 14,
-        fontWeight: '900'
+        fontWeight: 'bold'
     },
     pair: {
         color: colors.black,
@@ -189,7 +189,11 @@ const styles = StyleSheet.create({
     tinyLogo: {
         height: 50,
         width: 50
-    }
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: 'bold'
+    },
 });
 
 export default DetailsOperation;
