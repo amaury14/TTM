@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 5,
         padding: 3,
-        width: 110
+        width: 350
     },
     inputNotes: {
         borderColor: colors.gray,

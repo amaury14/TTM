@@ -65,10 +65,7 @@ const Notes = (props) => {
                             element?.title?.toLowerCase()?.includes(searchString?.toLowerCase())
                         );
                     }
-                    handlePropChange(
-                        'notes',
-                        utils.sortArrayDescending(notes, 'date')
-                    );
+                    handlePropChange('notes', utils.sortArrayDescending(notes, 'date'));
                 });
             handlePropChange('loading', false);
         } catch (error) {
@@ -131,10 +128,7 @@ const Notes = (props) => {
                     <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
                         <Icon name="x-square" type="feather" color={colors.black} />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonSearch}
-                        onPress={() => fetchNotes(state?.searchString)}
-                    >
+                    <TouchableOpacity style={styles.buttonSearch} onPress={() => fetchNotes(state?.searchString)}>
                         <Icon name="search" type="feather" color={colors.black} />
                     </TouchableOpacity>
                 </View>
@@ -179,11 +173,19 @@ const styles = StyleSheet.create({
         backgroundColor: colors.red,
         borderRadius: 50,
         bottom: 30,
-        height: 50,
+        elevation: 5,
+        height: 55,
         justifyContent: 'center',
         position: 'absolute',
         right: 30,
-        width: 50,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 5
+        },
+        shadowOpacity: 0,
+        shadowRadius: 5,
+        width: 55,
         zIndex: 10
     },
     buttonClear: {

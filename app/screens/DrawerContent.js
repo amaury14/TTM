@@ -1,7 +1,7 @@
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Avatar, Caption, Drawer, Text, Title } from 'react-native-paper';
 
@@ -18,26 +18,28 @@ export function DrawerContent(props) {
 
     return (
         <LinearGradient
-            colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
+            colors={[colors.black, colors.black]}
             style={styles.background}
         >
-            <View style={styles.view1}>
+            <View style={styles.drawerContent}>
                 <DrawerContentScrollView {...props}>
-                    <View style={styles.drawerContent}>
+                    <View>
+                        <Image style={styles.userPicBackground} source={require('../assets/background-drawer1.png')} />
                         <View style={styles.userInfoSection}>
-                            <View style={styles.view2}>
+                            <View style={[styles.row, styles.userPic]}>
                                 <Avatar.Image
                                     source={{
                                         uri: user?.profile_picture
                                     }}
                                     size={50}
                                 />
-                                <View style={styles.view3}>
+                            </View>
+                            <View style={styles.row}>
+                                <View style={styles.column}>
                                     <Title style={styles.title}>{user?.first_last_name}</Title>
                                     <Caption style={styles.caption}>{user?.gmail}</Caption>
                                 </View>
                             </View>
-
                             {/* <View style={styles.row}>
                                 <View style={styles.section}>
                                     <Paragraph style={[styles.paragraph, styles.caption]}></Paragraph>
@@ -52,7 +54,7 @@ export function DrawerContent(props) {
                             </View> */}
                         </View>
 
-                        <Drawer.Section style={styles.drawerSection}>
+                        <Drawer.Section>
                             <DrawerItem
                                 icon={() => <Icon name="grid" size={30} type="feather" color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Dashboard</Text>}
@@ -146,8 +148,11 @@ const styles = StyleSheet.create({
     },
     caption: {
         color: colors.white,
-        fontSize: 14,
-        lineHeight: 14
+        fontSize: 15,
+        marginBottom: 10
+    },
+    column: {
+        flexDirection: 'column'
     },
     drawerContent: {
         flex: 1
@@ -155,15 +160,12 @@ const styles = StyleSheet.create({
     drawerItem: {
         color: colors.white,
         fontSize: 18,
-        marginLeft: -15
+        marginLeft: -20
     },
     drawerItemBottom: {
         color: colors.gray2,
         fontSize: 18,
-        marginLeft: -15
-    },
-    drawerSection: {
-        marginTop: 15
+        marginLeft: -20
     },
     // paragraph: {
     //     fontWeight: 'bold',
@@ -176,8 +178,9 @@ const styles = StyleSheet.create({
     //     paddingVertical: 12
     // },
     row: {
-        alignItems: 'center',
-        flexDirection: 'row'
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
     },
     section: {
         alignItems: 'center',
@@ -186,27 +189,25 @@ const styles = StyleSheet.create({
     },
     title: {
         color: colors.white,
-        fontSize: 16,
+        fontSize: 17,
         fontWeight: 'bold',
         marginTop: 3
     },
     userInfoSection: {
-        paddingLeft: 20
+        paddingLeft: 20,
+        position: 'absolute'
+    },
+    userPic: {
+        marginBottom: 15,
+        marginTop: 15
+    },
+    userPicBackground: {
+        height: 160,
+        width: '100%'
     },
     version: {
         color: colors.gray2,
         fontSize: 13,
         marginBottom: 2
-    },
-    view1: {
-        flex: 1
-    },
-    view2: {
-        flexDirection: 'row',
-        marginTop: 15
-    },
-    view3: {
-        flexDirection: 'column',
-        marginLeft: 8
     }
 });

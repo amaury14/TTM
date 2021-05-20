@@ -19,7 +19,7 @@ const NoteDetails = (props) => {
         <View style={styles.container}>
             <Text style={styles.header}>{getValue(item?.title)}</Text>
             <View style={styles.postContent}>
-                <TTMButtom style={styles.button} title="Modificar Nota" customClick={() => editNote()} />
+                <TTMButtom style={styles.button} title="Modificar Apunte" customClick={() => editNote()} />
                 <ScrollView>
                     <View style={styles.row}>
                         <View style={styles.column}>
