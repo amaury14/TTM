@@ -2,7 +2,7 @@
   "expo": {
     "name": "TTM",
     "slug": "TTM",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./app/assets/rocket.png",
     "splash": {
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.amaurychong.ttm",
-      "buildNumber": "6",
+      "buildNumber": "7",
       "supportsTablet": true,
       "config": {
         "googleSignIn": {
@@ -28,7 +28,7 @@
     },
     "android": {
       "package": "com.amaurychong.ttm",
-      "versionCode": 6,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/rocket.png",
         "backgroundColor": "#FFFFFF"

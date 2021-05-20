@@ -1,6 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "version": "1.0.8",
+  "version": "1.0.7",
   "scripts": {
     "start": "expo start",
     "start-prod": "expo start --no-dev --minify",
@@ -16,7 +16,7 @@
     "build-android-bundle": "expo build:android -t app-bundle",
     "build-ios-simulator": "expo build:ios -t simulator",
     "build-ios-archive": "expo build:ios -t archive",
-    "version": "npx react-native-version --never-amend"
+    "version": "npm version patch"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.4.7",
