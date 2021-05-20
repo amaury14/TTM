@@ -18,7 +18,7 @@
     ],
     "ios": {
       "bundleIdentifier": "com.amaurychong.ttm",
-      "buildNumber": "13",
+      "buildNumber": "14",
       "supportsTablet": true,
       "config": {
         "googleSignIn": {
@@ -28,7 +28,7 @@
     },
     "android": {
       "package": "com.amaurychong.ttm",
-      "versionCode": 13,
+      "versionCode": 14,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/rocket.png",
         "backgroundColor": "#FFFFFF"
