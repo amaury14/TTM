@@ -16,7 +16,7 @@
     "build-android-bundle": "expo build:android -t app-bundle",
     "build-ios-simulator": "expo build:ios -t simulator",
     "build-ios-archive": "expo build:ios -t archive",
-    "raise-version": "npm version patch && npx react-native-version --never-amend && git add . && git commit"
+    "raise-version": "npm version patch && npx react-native-version --never-amend && git add . && git commit -m 'raised version'"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.4.7",
