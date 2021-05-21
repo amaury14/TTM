@@ -121,7 +121,7 @@ const Notes = (props) => {
                         value={state?.searchString}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Escriba para buscar..."
-                        placeholderTextColor={colors.black}
+                        placeholderTextColor={colors.white}
                         onChangeText={(value) => handlePropChange('searchString', value)}
                         blurOnSubmit={false}
                     />
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     input: {
-        borderColor: colors.black,
+        borderColor: colors.white,
         borderRadius: 8,
         borderWidth: 1.5,
         height: 40,

@@ -69,7 +69,7 @@ export default function App() {
                                 headerTitle: 'TTM - Diario de Trading',
                                 // eslint-disable-next-line react/display-name
                                 headerLeft: () => (
-                                    <Image style={styles.logo} source={require('./app/assets/rocket.png')} />
+                                    <Image style={styles.logo} source={require('./app/assets/logo.png')} />
                                 ),
                                 headerStyle: {
                                     backgroundColor: colors.mainColor

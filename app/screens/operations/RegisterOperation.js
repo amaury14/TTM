@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     input: {
-        borderColor: colors.gray,
+        borderColor: colors.gray2,
         borderRadius: 8,
         borderWidth: 1.5,
         height: 30,
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
         width: 110
     },
     inputNotes: {
-        borderColor: colors.gray,
+        borderColor: colors.gray2,
         borderRadius: 8,
         borderWidth: 1.5,
         height: 180,

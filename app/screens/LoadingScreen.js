@@ -26,7 +26,7 @@ const LoadingScreen = (props) => {
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
-                <Image style={styles.logo} source={require('../assets/rocket.png')} />
+                <Image style={styles.logo} source={require('../assets/logo.png')} />
                 <ActivityIndicator size={90} color={colors.gray2} />
             </LinearGradient>
         </View>

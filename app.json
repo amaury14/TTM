@@ -1,48 +1,46 @@
 {
-  "expo": {
-    "name": "TTM",
-    "slug": "TTM",
-    "version": "1.0.5",
-    "orientation": "portrait",
-    "icon": "./app/assets/rocket.png",
-    "splash": {
-      "image": "./app/assets/background.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "com.amaurychong.ttm",
-      "buildNumber": "6",
-      "supportsTablet": true,
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com"
-        }
-      }
-    },
-    "android": {
-      "package": "com.amaurychong.ttm",
-      "versionCode": 6,
-      "adaptiveIcon": {
-        "foregroundImage": "./app/assets/rocket.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "config": {
-        "googleSignIn": {
-          "apiKey": "AIzaSyBmcWwsx4Ug-WKXUjbzSbKcZ4Gr_dstERA",
-          "certificateHash": "D1D1B929EF6F74CB8B221BB893AC15A7B357471E"
-        }
-      }
-    },
-    "web": {
-      "favicon": "./app/assets/rocket.png"
-    },
-    "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
-  }
+    "expo": {
+        "name": "TTM",
+        "slug": "TTM",
+        "version": "1.0.5",
+        "orientation": "portrait",
+        "icon": "./app/assets/logo.png",
+        "splash": {
+            "image": "./app/assets/background3.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "bundleIdentifier": "com.amaurychong.ttm",
+            "buildNumber": "6",
+            "supportsTablet": true,
+            "config": {
+                "googleSignIn": {
+                    "reservedClientId": "150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com"
+                }
+            }
+        },
+        "android": {
+            "package": "com.amaurychong.ttm",
+            "versionCode": 6,
+            "adaptiveIcon": {
+                "foregroundImage": "./app/assets/logo.png",
+                "backgroundColor": "#FFFFFF"
+            },
+            "config": {
+                "googleSignIn": {
+                    "apiKey": "AIzaSyBmcWwsx4Ug-WKXUjbzSbKcZ4Gr_dstERA",
+                    "certificateHash": "D1D1B929EF6F74CB8B221BB893AC15A7B357471E"
+                }
+            }
+        },
+        "web": {
+            "favicon": "./app/assets/logo.png"
+        },
+        "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
+    }
 }

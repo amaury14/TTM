@@ -29,7 +29,7 @@ const FilterOperation = (props) => {
 
     const [state, setState] = useState({
         operations: [],
-        opState: getRadioConfigColor(colors.black),
+        opState: getRadioConfigColor(colors.white),
         searchString: '',
         loading: true
     });
@@ -148,7 +148,7 @@ const FilterOperation = (props) => {
                         value={state?.searchString}
                         underlineColorAndroid={colors.underlineColorAndroid}
                         placeholder="Escriba para buscar..."
-                        placeholderTextColor={colors.black}
+                        placeholderTextColor={colors.white}
                         onChangeText={(value) => handlePropChange('searchString', value)}
                         blurOnSubmit={false}
                     />
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     input: {
-        borderColor: colors.black,
+        borderColor: colors.white,
         borderRadius: 8,
         borderWidth: 1.5,
         height: 40,
@@ -233,9 +233,10 @@ const styles = StyleSheet.create({
         width: 260
     },
     label: {
-        color: colors.black,
-        fontSize: 12,
-        fontWeight: 'bold'
+        color: colors.white,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginTop: 10
     },
     lisView: {
         height: 0.2,

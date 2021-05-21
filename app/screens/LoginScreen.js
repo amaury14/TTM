@@ -8,7 +8,6 @@ import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
 const LoginScreen = () => {
-
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
         await dbRef.set({
@@ -103,10 +102,10 @@ const LoginScreen = () => {
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.white, colors.white, colors.white]}
+                colors={[colors.gray2, colors.gray2, colors.gray2, colors.grayLigth, colors.white]}
                 style={styles.background}
             >
-                <Image style={styles.logo} source={require('../assets/rocket.png')} />
+                <Image style={styles.logo} source={require('../assets/logo.png')} />
 
                 {/* <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
                     <View style={styles.socialButtonContent}>
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         alignItems: 'center',
-        borderRadius: 30,
+        borderRadius: 10,
         flexDirection: 'row',
         height: 45,
         justifyContent: 'center',
@@ -161,7 +160,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.googleColor
     },
     icon: {
-        height: 30,
+        height: 'auto',
         marginRight: 5,
         width: 30
     },
@@ -169,10 +168,10 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     logo: {
-        height: 150,
+        height: 80,
         position: 'absolute',
         top: 50,
-        width: 150
+        width: 270
     },
     socialButtonContent: {
         alignItems: 'center',
