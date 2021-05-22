@@ -31,7 +31,7 @@
       "versionCode": 8,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/logo1.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#000"
       },
       "config": {
         "googleSignIn": {
