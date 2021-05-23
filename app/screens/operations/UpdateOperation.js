@@ -16,6 +16,7 @@ import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TTMButtom from '../components/TTMButtom';
+import TTMHeader from '../components/TTMHeader';
 
 const UpdateOperation = (props) => {
     const { id, user } = props?.route?.params;
@@ -126,6 +127,7 @@ const UpdateOperation = (props) => {
     return (
         <SafeAreaView style={styles.flex1}>
             <View style={styles.flex1}>
+                <TTMHeader text={'Modificar Operación'}/>
                 <ScrollView keyboardShouldPersistTaps="handled">
                     <KeyboardAvoidingView behavior="padding" style={styles.key}>
                         <View style={styles.row}>
@@ -333,7 +335,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 20
+        marginBottom: 10,
+        marginTop: 10
     }
 });
 

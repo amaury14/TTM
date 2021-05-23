@@ -14,6 +14,7 @@ import {
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
+import TTMHeader from '../components/TTMHeader';
 
 const AddNote = (props) => {
     const user = props?.route?.params?.user;
@@ -77,6 +78,7 @@ const AddNote = (props) => {
     return (
         <SafeAreaView style={styles.flex1}>
             <View style={styles.flex1}>
+                <TTMHeader text={'Agregar Apunte'}/>
                 <ScrollView keyboardShouldPersistTaps="handled">
                     <KeyboardAvoidingView behavior="padding" style={styles.key}>
                         <View style={styles.row}>
@@ -169,7 +171,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 20
+        marginBottom: 10,
+        marginTop: 10
     }
 });
 

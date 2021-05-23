@@ -1,8 +1,8 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
+import TTMHeader from '../components/TTMHeader';
 
 const NoteDetails = (props) => {
     const { item, user } = props?.route?.params;
@@ -17,7 +17,7 @@ const NoteDetails = (props) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>{getValue(item?.title)}</Text>
+            <TTMHeader text={getValue(item?.title)}/>
             <View style={styles.postContent}>
                 <TTMButtom style={styles.button} title="Modificar Apunte" customClick={() => editNote()} />
                 <ScrollView>
@@ -43,14 +43,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1
-    },
-    header: {
-        alignItems: 'center',
-        backgroundColor: colors.mainColor,
-        color: colors.white,
-        fontSize: 20,
-        fontWeight: 'bold',
-        padding: 15
     },
     postContent: {
         flex: 1,

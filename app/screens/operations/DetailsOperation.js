@@ -4,6 +4,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import images from '../../assets';
 import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
+import TTMHeader from '../components/TTMHeader';
 
 const DetailsOperation = (props) => {
     const { item, user } = props?.route?.params;
@@ -52,85 +53,88 @@ const DetailsOperation = (props) => {
     };
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.header}>{getIcon(item?.pairCoin)}</View>
-                <View style={styles.postContent}>
-                    <View style={styles.row}>
-                        <View style={styles.column2}>
-                            <Text style={styles.title}>{getValue(item?.pairCoin.toUpperCase())}</Text>
+        <View>
+            <TTMHeader text={`Detalles: ${getValue(item?.pairCoin.toUpperCase())}`}/>
+            <ScrollView>
+                <View style={styles.container}>
+                    <View style={styles.header}>{getIcon(item?.pairCoin)}</View>
+                    <View style={styles.postContent}>
+                        <View style={styles.row}>
+                            <View style={styles.column2}>
+                                <Text style={styles.title}>{getValue(item?.pairCoin.toUpperCase())}</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Inversión</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.investment)}</Text>
+                        <View style={styles.row}>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Inversión</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.investment)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>% Rendimiento</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.profitPercent)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>$ Rendimiento</Text>
+                                <Text style={styles.postTitle}>{getProfitMoney()}</Text>
+                            </View>
                         </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>% Rendimiento</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.profitPercent)}</Text>
+                        <View style={styles.row}>
+                            <View style={styles.column2}>
+                                <Text style={styles.label}>Notas</Text>
+                                <Text style={styles.postDescription}>{getValue(item?.notes)}</Text>
+                            </View>
                         </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>$ Rendimiento</Text>
-                            <Text style={styles.postTitle}>{getProfitMoney()}</Text>
+                        <View style={styles.row}>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Lower Limit</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.lowerLimit)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Trigger Price</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.triggerPrice)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Upper Limit</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.upperLimit)}</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.column2}>
-                            <Text style={styles.label}>Notas</Text>
-                            <Text style={styles.postDescription}>{getValue(item?.notes)}</Text>
+                        <View style={styles.row}>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Stop Loss</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.stopLoss)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Take Profit</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.takeProfit)}</Text>
+                            </View>
+                            <View style={styles.column}>
+                                <Text style={styles.label}>Grillas</Text>
+                                <Text style={styles.postTitle}>{getValue(item?.grids)}</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Lower Limit</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.lowerLimit)}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Trigger Price</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.triggerPrice)}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Upper Limit</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.upperLimit)}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.row}>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Stop Loss</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.stopLoss)}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Take Profit</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.takeProfit)}</Text>
-                        </View>
-                        <View style={styles.column}>
-                            <Text style={styles.label}>Grillas</Text>
-                            <Text style={styles.postTitle}>{getValue(item?.grids)}</Text>
-                        </View>
-                    </View>
-                    <TTMButtom title="Modificar Operación" customClick={() => editOperation()} />
+                        <TTMButtom title="Modificar Operación" customClick={() => editOperation()} />
 
-                    {/* <Text style={styles.tags}></Text>
+                        {/* <Text style={styles.tags}></Text>
 
-          <Text style={styles.date}></Text>
+            <Text style={styles.date}></Text>
 
-          <View style={styles.profile}>
-            <Image
-              style={styles.avatar}
-              source={{
-                uri: "https://bootdey.com/img/Content/avatar/avatar1.png",
-              }}
-            />
-            <Text style={styles.name}>Johan Doe</Text>
-          </View>
-
-          <TouchableOpacity style={styles.shareButton}>
-            <Text style={styles.shareButtonText}>Like</Text>
-          </TouchableOpacity> */}
-                </View>
+            <View style={styles.profile}>
+                <Image
+                style={styles.avatar}
+                source={{
+                    uri: "https://bootdey.com/img/Content/avatar/avatar1.png",
+                }}
+                />
+                <Text style={styles.name}>Johan Doe</Text>
             </View>
-        </ScrollView>
+
+            <TouchableOpacity style={styles.shareButton}>
+                <Text style={styles.shareButtonText}>Like</Text>
+            </TouchableOpacity> */}
+                    </View>
+                </View>
+            </ScrollView>
+        </View>
     );
 };
 
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        backgroundColor: colors.mainColor,
+        backgroundColor: colors.gray2,
         padding: 15
     },
     label: {

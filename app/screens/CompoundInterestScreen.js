@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-    Alert,
-    FlatList,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
-} from 'react-native';
+import { Alert, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import colors from '../config/colors';
 import TTMSplitter from './components/TTMSplitter';
 import TTMButtom from './components/TTMButtom';
+import TTMHeader from './components/TTMHeader';
 
 const CompoundInterestScreen = () => {
     const initialState = {
@@ -89,6 +81,7 @@ const CompoundInterestScreen = () => {
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
+                <TTMHeader text={'Calculadora de Interés Compuesto'} />
                 <View style={styles.row}>
                     <Text style={styles.label}>* Campos requeridos</Text>
                 </View>
@@ -252,7 +245,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: 10
     },
     row2: {
         alignItems: 'center',

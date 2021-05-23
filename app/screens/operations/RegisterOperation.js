@@ -311,7 +311,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginBottom: 20
+        marginBottom: 10,
+        marginTop: 10
     }
 });
 
