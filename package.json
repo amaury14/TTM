@@ -1,6 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "start": "expo start",
     "start-prod": "expo start --no-dev --minify",
