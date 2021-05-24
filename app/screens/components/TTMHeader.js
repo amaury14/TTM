@@ -19,7 +19,7 @@ const TTMHeader = (props) => {
 
 const styles = StyleSheet.create({
     header: {
-        alignItems: 'flex-start',
+        alignItems: 'center',
         backgroundColor: colors.mainColor,
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 20,
         fontWeight: 'bold',
-        marginLeft: 20
+        marginLeft: 15
     }
 });
 

@@ -81,7 +81,7 @@ const CompoundInterestScreen = () => {
                 colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
                 style={styles.background}
             >
-                <TTMHeader text={'Calculadora de Interés Compuesto'} />
+                <TTMHeader text={'Calc. de Interés Compuesto'} />
                 <View style={styles.row}>
                     <Text style={styles.label}>* Campos requeridos</Text>
                 </View>

@@ -18,7 +18,7 @@ const DetailsOperation = (props) => {
         if (pieces?.length === 1) {
             const image1 = images.logos[pieces?.[0]];
             return (
-                <View style={styles.row}>
+                <View style={styles.rowLogo}>
                     {!!image1 && <Image style={styles.tinyLogo} source={images.logos[pieces?.[0]]} />}
                     {!image1 && <Text style={styles.pair}>{pieces?.[0]?.toUpperCase()}</Text>}
                 </View>
@@ -27,7 +27,7 @@ const DetailsOperation = (props) => {
             const image1 = images.logos[pieces?.[0]];
             const image2 = images.logos[pieces?.[1]];
             return (
-                <View style={styles.row}>
+                <View style={styles.rowLogo}>
                     {!!image1 && <Image style={styles.tinyLogo} source={images.logos[pieces?.[0]]} />}
                     {!image1 && <Text style={styles.pair}>{pieces?.[0]?.toUpperCase()}</Text>}
 
@@ -54,7 +54,7 @@ const DetailsOperation = (props) => {
 
     return (
         <View>
-            <TTMHeader text={`Detalles: ${getValue(item?.pairCoin.toUpperCase())}`}/>
+            <TTMHeader text={`Detalles: ${getValue(item?.pairCoin.toUpperCase())}`} />
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.header}>{getIcon(item?.pairCoin)}</View>
@@ -190,6 +190,11 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         marginBottom: 8
     },
+    rowLogo: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
+    },
     tinyLogo: {
         height: 50,
         width: 50
@@ -197,7 +202,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 26,
         fontWeight: 'bold'
-    },
+    }
 });
 
 export default DetailsOperation;
