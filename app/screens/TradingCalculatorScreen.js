@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+import Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View
-} from 'react-native';
+import React, { useState } from 'react';
+import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import colors from '../config/colors';
-import TTMSplitter from './components/TTMSplitter';
 import TTMButtom from './components/TTMButtom';
 import TTMHeader from './components/TTMHeader';
+import TTMSplitter from './components/TTMSplitter';
 
 const TradingCalculatorScreen = () => {
     const initialState = {
@@ -47,17 +40,17 @@ const TradingCalculatorScreen = () => {
         setState({ ...state, [name]: value });
     };
 
-    const showAlert = (title, text) => {
-        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
+    const showAlert = (title, text, cancelable) => {
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable });
     };
 
     const calculateTrading = () => {
         if (state?.entryPrice <= 0 || state?.entryPrice === '') {
-            showAlert('Advertencia', 'Rellene el Precio de Entrada');
+            showAlert('Advertencia', 'Rellene el Precio de Entrada', false);
             return;
         }
         if (state?.stopLoss <= 0 || state?.stopLoss === '') {
-            showAlert('Advertencia', 'Rellene el Stop Loss');
+            showAlert('Advertencia', 'Rellene el Stop Loss', false);
             return;
         }
         handlePropChange('result', initialState?.result);
@@ -67,23 +60,28 @@ const TradingCalculatorScreen = () => {
         const custom = parseFloat(state?.custom) ?? 0;
         res = {
             ...res,
-            oneOne: parseFloat(((entry - stop) + entry)?.toFixed(2)),
-            oneTwo: parseFloat((((entry - stop) * 2) + entry)?.toFixed(2)),
-            oneThree: parseFloat((((entry - stop) * 3) + entry)?.toFixed(2)),
-            oneFour: parseFloat((((entry - stop) * 4) + entry)?.toFixed(2)),
-            oneFive: parseFloat((((entry - stop) * 5) + entry)?.toFixed(2)),
-            oneSix: parseFloat((((entry - stop) * 6) + entry)?.toFixed(2)),
-            percent30: parseFloat((entry + (entry * 0.3))?.toFixed(2)),
-            percent40: parseFloat((entry + (entry * 0.4))?.toFixed(2)),
-            percent50: parseFloat((entry + (entry * 0.5))?.toFixed(2)),
-            percent60: parseFloat((entry + (entry * 0.6))?.toFixed(2)),
-            percent70: parseFloat((entry + (entry * 0.7))?.toFixed(2)),
-            percent80: parseFloat((entry + (entry * 0.8))?.toFixed(2)),
-            percent90: parseFloat((entry + (entry * 0.9))?.toFixed(2)),
+            oneOne: parseFloat((entry - stop + entry)?.toFixed(2)),
+            oneTwo: parseFloat(((entry - stop) * 2 + entry)?.toFixed(2)),
+            oneThree: parseFloat(((entry - stop) * 3 + entry)?.toFixed(2)),
+            oneFour: parseFloat(((entry - stop) * 4 + entry)?.toFixed(2)),
+            oneFive: parseFloat(((entry - stop) * 5 + entry)?.toFixed(2)),
+            oneSix: parseFloat(((entry - stop) * 6 + entry)?.toFixed(2)),
+            percent30: parseFloat((entry + entry * 0.3)?.toFixed(2)),
+            percent40: parseFloat((entry + entry * 0.4)?.toFixed(2)),
+            percent50: parseFloat((entry + entry * 0.5)?.toFixed(2)),
+            percent60: parseFloat((entry + entry * 0.6)?.toFixed(2)),
+            percent70: parseFloat((entry + entry * 0.7)?.toFixed(2)),
+            percent80: parseFloat((entry + entry * 0.8)?.toFixed(2)),
+            percent90: parseFloat((entry + entry * 0.9)?.toFixed(2)),
             percent100: parseFloat((entry * 2)?.toFixed(2)),
-            percentCustom: (custom === 0 || custom === '') ? 0 : parseFloat((entry + (entry * (custom / 100)))?.toFixed(2)),
+            percentCustom: custom === 0 || custom === '' ? 0 : parseFloat((entry + entry * (custom / 100))?.toFixed(2))
         };
         handlePropChange('result', res);
+    };
+
+    const copyToClipboard = (text) => {
+        Clipboard.setString(text?.toString());
+        showAlert('Información', `Precio: $ ${text?.toString()} copiado al portapapeles!!!`, true);
     };
 
     return (
@@ -149,71 +147,101 @@ const TradingCalculatorScreen = () => {
                     <View style={styles.row2}>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-1</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneOne}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneOne)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneOne}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-2</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneTwo}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneTwo)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneTwo}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-3</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneThree}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneThree)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneThree}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.row2}>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-4</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneFour}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneFour)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneFour}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-5</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneFive}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneFive)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneFive}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>1-6</Text>
-                            <Text style={styles.label3}>$ {state?.result?.oneSix}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.oneSix)}>
+                                <Text style={styles.label3}>$ {state?.result?.oneSix}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.row2}>
                         <View style={styles.column}>
                             <Text style={styles.label2}>30%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent30}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent30)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent30}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>40%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent40}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent40)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent40}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>50%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent50}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent50)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent50}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.row2}>
                         <View style={styles.column}>
                             <Text style={styles.label2}>60%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent60}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent60)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent60}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>70%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent70}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent70)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent70}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>80%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent80}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent80)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent80}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.row2}>
                         <View style={styles.column}>
                             <Text style={styles.label2}>90%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent90}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent90)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent90}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>100%</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percent100}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percent100)}>
+                                <Text style={styles.label3}>$ {state?.result?.percent100}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.column}>
                             <Text style={styles.label2}>% Pers.</Text>
-                            <Text style={styles.label3}>$ {state?.result?.percentCustom}</Text>
+                            <TouchableOpacity onPress={() => copyToClipboard(state?.result?.percentCustom)}>
+                                <Text style={styles.label3}>$ {state?.result?.percentCustom}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>

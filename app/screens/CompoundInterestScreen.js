@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Alert, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import {
+    Alert,
+    FlatList,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 import colors from '../config/colors';
-import TTMSplitter from './components/TTMSplitter';
 import TTMButtom from './components/TTMButtom';
 import TTMHeader from './components/TTMHeader';
+import TTMSplitter from './components/TTMSplitter';
 
 const CompoundInterestScreen = () => {
     const initialState = {
@@ -23,21 +34,21 @@ const CompoundInterestScreen = () => {
         setState({ ...state, [name]: value });
     };
 
-    const showAlert = (title, text) => {
-        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable: false });
+    const showAlert = (title, text, cancelable) => {
+        Alert.alert(title, text, [{ text: 'Aceptar' }], { cancelable });
     };
 
     const calculateInterest = () => {
         if (state?.investment <= 0 || state?.investment === '') {
-            showAlert('Advertencia', 'Rellene la Inversión');
+            showAlert('Advertencia', 'Rellene la Inversión', false);
             return;
         }
         if (state?.months <= 0 || state?.months === '') {
-            showAlert('Advertencia', 'Rellene los Meses');
+            showAlert('Advertencia', 'Rellene los Meses', false);
             return;
         }
         if (state?.monthlyRate <= 0 || state?.monthlyRate === '') {
-            showAlert('Advertencia', 'Rellene el % por Mes');
+            showAlert('Advertencia', 'Rellene el % por Mes', false);
             return;
         }
         handlePropChange('result', []);
@@ -59,9 +70,14 @@ const CompoundInterestScreen = () => {
         return <View style={styles.lisView} />;
     };
 
+    const copyToClipboard = (text) => {
+        Clipboard.setString(text?.toString());
+        showAlert('Información', `$ ${text?.toString()} copiado al portapapeles!!!`, true);
+    };
+
     const listItemView = (item) => {
         return (
-            <View style={styles.row2}>
+            <TouchableOpacity style={styles.row2} onPress={() => copyToClipboard(item?.total)}>
                 <View style={styles.column1}>
                     <Text style={styles.label2}>{item?.month}</Text>
                 </View>
@@ -71,7 +87,7 @@ const CompoundInterestScreen = () => {
                 <View style={styles.column2}>
                     <Text style={styles.label2}>${item?.total}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     };
 
