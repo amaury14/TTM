@@ -21,7 +21,9 @@ const TTMDashboard = (props) => {
         performancePercent: 0,
         loading: true,
         modalVisible: false,
-        modalView: 'about'
+        modalView: 'about',
+        open: [],
+        investment: 0
     });
 
     // Refreshing data on component focus
@@ -43,6 +45,10 @@ const TTMDashboard = (props) => {
 
     const getProfitPercent = (number) => {
         return isNaN(number?.toFixed(2)) ? '-' : `${number?.toFixed(2)}%`;
+    };
+
+    const getInvestment = (number) => {
+        return isNaN(number?.toFixed(2)) ? '-' : `$${number?.toFixed(2)}`;
     };
 
     const getRankByPerformance = (type, number) => {
@@ -106,24 +112,30 @@ const TTMDashboard = (props) => {
             handlePropChange('loading', true);
             await firebase.fireDb
                 .collection('operations')
-                .where('opState', '==', '2')
                 .where('userId', '==', user?.id)
                 .onSnapshot((querySnapshot) => {
                     let operations = [];
                     let positives = 0;
                     let negatives = 0;
                     let totalPerformance = 0;
+                    let investment = 0;
+                    let open = [];
                     let total = querySnapshot?.docs?.length;
                     querySnapshot?.docs?.forEach((doc) => {
                         const { ...data } = doc?.data();
-                        operations?.push({ id: doc?.id, ...data });
-                        if (data?.profitPercent !== '') {
-                            totalPerformance += parseInt(data?.profitPercent);
-                            if (parseInt(data?.profitPercent) > 0) {
-                                positives++;
-                            } else {
-                                negatives++;
+                        if (data?.opState === '2') {
+                            operations?.push({ id: doc?.id, ...data });
+                            if (data?.profitPercent !== '') {
+                                totalPerformance += parseInt(data?.profitPercent);
+                                if (parseInt(data?.profitPercent) > 0) {
+                                    positives++;
+                                } else {
+                                    negatives++;
+                                }
                             }
+                        } else if (data?.opState === '1') {
+                            open?.push({ id: doc?.id, ...data });
+                            investment = investment + parseFloat(data?.investment);
                         }
                     });
                     setState({
@@ -133,7 +145,9 @@ const TTMDashboard = (props) => {
                         negatives,
                         total,
                         performancePercentReal: totalPerformance / operations?.length,
-                        performancePercent: totalPerformance / operations?.length / 100
+                        performancePercent: totalPerformance / operations?.length / 100,
+                        open,
+                        investment
                     });
                 });
             handlePropChange('loading', false);
@@ -252,11 +266,17 @@ const TTMDashboard = (props) => {
                                 <Text style={styles.valueBigRed}>{state?.negatives}</Text>
                             </View>
                         </View>
-                        <View style={styles.row}>
-                            <View style={styles.columnLong}>
-                                <Text style={styles.label}>% Rendimiento</Text>
+                        <View style={styles.row3}>
+                            <View style={styles.column2}>
+                                <Text style={styles.label}>% Rend</Text>
                                 <View style={styles.row2}>
                                     <Text style={styles.value}>{getProfitPercent(state?.performancePercentReal)}</Text>
+                                </View>
+                            </View>
+                            <View style={styles.column2}>
+                                <Text style={styles.label}>$ Inversión</Text>
+                                <View style={styles.row2}>
+                                    <Text style={styles.value}>{getInvestment(state?.investment)}</Text>
                                 </View>
                             </View>
                         </View>
@@ -313,9 +333,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start'
     },
-    columnLong: {
+    column2: {
+        alignItems: 'flex-start',
         flexDirection: 'column',
-        width: 150
+        justifyContent: 'flex-start',
+        width: 85
     },
     columnRank: {
         alignItems: 'flex-start',
@@ -391,6 +413,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    row3: {
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        justifyContent: 'flex-start'
     },
     value: {
         color: colors.mainColor,
