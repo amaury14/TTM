@@ -1,12 +1,21 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import images from '../../assets';
 import colors from '../../config/colors';
+import TTMButtom from '../components/TTMButtom';
 
 const OperationCard = (props) => {
     const item = props?.item;
+
+    const [state, setState] = useState({
+        modalVisible: false
+    });
+
+    const handlePropChange = (name, value) => {
+        setState({ ...state, [name]: value });
+    };
 
     const getProfitPercent = () => {
         const amount = parseFloat(item?.takeProfit ?? item?.upperLimit) - parseFloat(item?.triggerPrice);
@@ -82,47 +91,103 @@ const OperationCard = (props) => {
         }
     };
 
+    const getOperationIcon = (grids) => {
+        let image = images?.opType?.hand;
+        if (grids !== '' && !isNaN(parseInt(grids, 10))) {
+            image = images?.opType?.bot;
+        }
+        return (
+            <View style={styles.row}>
+                {!!image && <Image style={styles.tinyLogo} source={image} />}
+            </View>
+        );
+    };
+
+    const getOperationText = (grids) => {
+        let text = 'Operación Manual.';
+        if (grids !== '' && !isNaN(parseInt(grids, 10))) {
+            text = 'Operación en Bot.';
+        }
+        return (
+            <View>
+                <Text style={styles.modalText}>{text}</Text>
+            </View>
+        );
+    };
+
+    const openModal = (modalVisible) => {
+        setState({
+            ...state,
+            modalVisible
+        });
+    };
+
     return (
         <View>
-            {item && (
-                <View key={item?.op_id} style={styles.card}>
-                    <View style={styles.column1}>
-                        {getIcon(item?.pairCoin)}
-                        <Text style={styles.investment}>{item?.investment} USDT</Text>
-                    </View>
-                    <View style={styles.column2}>
-                        <Text style={styles.label}>Rango de Precios</Text>
-                        {getPriceRange()}
-                    </View>
-                    <View style={styles.column3}>
-                        {item?.opState === '1' && (
-                            <View>
-                                <Text style={styles.label}>% Posible Profit</Text>
-                                <Text style={styles.value}>{getProfitPercent()}</Text>
-                            </View>
-                        )}
-                        {item?.opState === '2' && (
-                            <View>
-                                <Text style={styles.label}>% Rendimiento</Text>
-                                <Text style={styles.value}>{getValue(item?.profitPercent)}</Text>
-                                <Text style={styles.label}>$ Rendimiento</Text>
-                                <Text style={styles.value}>{getProfitMoney()}</Text>
-                            </View>
-                        )}
-                    </View>
-                    <View style={styles.column4}>
-                        <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
-                            <Icon name="edit" type="feather" color={colors.mainColor} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={props?.deleteClick}>
-                            <Icon name="trash-2" type="feather" color={colors.red} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.dates}>
-                        <Text style={styles.investment}>{getDates()}</Text>
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={state?.modalVisible}
+                onRequestClose={() => handlePropChange('modalVisible', !state?.modalVisible)}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View>
+                            <Text style={styles.modalText}>{getOperationText(item?.grids)}</Text>
+                        </View>
+                        <View style={styles.buttonModal}>
+                            <TTMButtom
+                                title="Cerrar"
+                                customClick={() => handlePropChange('modalVisible', !state?.modalVisible)}
+                            />
+                        </View>
                     </View>
                 </View>
-            )}
+            </Modal>
+            <View>
+                {item && (
+                    <View key={item?.op_id} style={styles.card}>
+                        <View style={styles.column1}>
+                            {getIcon(item?.pairCoin)}
+                            <Text style={styles.investment}>{item?.investment} USDT</Text>
+                        </View>
+                        <View style={styles.column2}>
+                            <Text style={styles.label}>Rango de Precios</Text>
+                            {getPriceRange()}
+                        </View>
+                        <View style={styles.column3}>
+                            {item?.opState === '1' && (
+                                <View>
+                                    <Text style={styles.label}>% Posible Profit</Text>
+                                    <Text style={styles.value}>{getProfitPercent()}</Text>
+                                </View>
+                            )}
+                            {item?.opState === '2' && (
+                                <View>
+                                    <Text style={styles.label}>% Rendimiento</Text>
+                                    <Text style={styles.value}>{getValue(item?.profitPercent)}</Text>
+                                    <Text style={styles.label}>$ Rendimiento</Text>
+                                    <Text style={styles.value}>{getProfitMoney()}</Text>
+                                </View>
+                            )}
+                        </View>
+                        <View style={styles.column4}>
+                            <TouchableOpacity style={[styles.button, styles.opType]} onPress={() => openModal(true)}>
+                                {getOperationIcon(item?.grids)}
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
+                                <Icon name="edit" type="feather" color={colors.mainColor} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={props?.deleteClick}>
+                                <Icon name="trash-2" type="feather" color={colors.red} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.dates}>
+                            <Text style={styles.investment}>{getDates()}</Text>
+                        </View>
+                    </View>
+                )}
+            </View>
         </View>
     );
 };
@@ -133,9 +198,15 @@ const styles = StyleSheet.create({
         backgroundColor: colors.gray,
         borderRadius: 8,
         color: colors.white,
+        marginBottom: 2,
         marginRight: 2,
         padding: 3,
         width: 30
+    },
+    buttonModal: {
+        bottom: 10,
+        position: 'absolute',
+        right: 0
     },
     card: {
         flexDirection: 'row',
@@ -157,6 +228,12 @@ const styles = StyleSheet.create({
         shadowRadius: 6.68,
         elevation: 11,
         minHeight: 88
+    },
+    centeredView: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 22
     },
     coinSplitter: {
         fontSize: 25,
@@ -198,6 +275,31 @@ const styles = StyleSheet.create({
         color: colors.mainColor,
         fontSize: 14,
         fontWeight: 'bold'
+    },
+    modalText: {
+        fontSize: 20,
+        marginBottom: 15,
+        textAlign: 'center'
+    },
+    modalView: {
+        alignItems: 'center',
+        backgroundColor: colors.white,
+        borderRadius: 20,
+        elevation: 5,
+        height: 110,
+        margin: 20,
+        padding: 10,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        width: 300
+    },
+    opType: {
+        backgroundColor: colors.secondary
     },
     pair: {
         color: colors.black,

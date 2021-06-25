@@ -1,4 +1,8 @@
 const images = {
+    opType: {
+        bot: require('./bot.png'),
+        hand: require('./hand.png')
+    },
     ranks: {
         loser: require('./loser.png'),
         prey: require('./prey.png'),
