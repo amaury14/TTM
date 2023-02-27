@@ -1,13 +1,30 @@
-import * as Google from 'expo-google-app-auth';
+// import * as Google from 'expo-google-app-auth';
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
+WebBrowser.maybeCompleteAuthSession();
+
 const LoginScreen = () => {
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        expoClientId: '150449439362-mgtsbevol33nnhf1qqdt9888hos58asm.apps.googleusercontent.com',
+        iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
+        androidClientId: '150449439362-l1f4ogos63o5bfbpin8hhek756ju0utm.apps.googleusercontent.com',
+        webClientId: '150449439362-bt80j08j0ttomppmj6rkj3lhfghhnppu.apps.googleusercontent.com'
+    });
+
+    useEffect(() => {
+        if (response?.type === 'success') {
+            onSignIn(response);
+        }
+    }, [response]);
+
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
         await dbRef.set({
@@ -52,8 +69,8 @@ const LoginScreen = () => {
             if (!isUserEqual(googleUser, firebaseUser)) {
                 // Build Firebase credential with the Google ID token.
                 var credential = firebase.firebase.auth.GoogleAuthProvider.credential(
-                    googleUser?.idToken,
-                    googleUser?.accessToken
+                    googleUser?.params?.id_token,
+                    googleUser?.authentication?.accessToken
                 );
 
                 // Sign in with credential from the Google user.
@@ -79,21 +96,7 @@ const LoginScreen = () => {
 
     const signInWithGoogleAsync = async () => {
         try {
-            const result = await Google.logInAsync({
-                androidStandaloneAppClientId:
-                    '150449439362-e8ocsm95f0nnbddpjva1jp7ma2kuuim9.apps.googleusercontent.com',
-                iosStandaloneAppClientId: '150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com',
-                androidClientId: '150449439362-l1f4ogos63o5bfbpin8hhek756ju0utm.apps.googleusercontent.com',
-                iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
-                scopes: ['profile', 'email']
-            });
-
-            if (result.type === 'success') {
-                onSignIn(result);
-                return result?.accessToken;
-            } else {
-                return { cancelled: true };
-            }
+            promptAsync();
         } catch (e) {
             return { error: true };
         }
