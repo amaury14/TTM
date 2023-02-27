@@ -1,4 +1,4 @@
-import Clipboard from 'expo-clipboard';
+import * as Clipboard from 'expo-clipboard';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import {
