@@ -1,53 +1,55 @@
 {
-  "expo": {
-    "name": "TTM",
-    "slug": "TTM",
-    "version": "1.0.12",
-    "orientation": "portrait",
-    "icon": "./app/assets/adaptive-icon.png",
-    "splash": {
-      "image": "./app/assets/background3.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "bundleIdentifier": "com.amaurychong.ttm",
-      "buildNumber": "13",
-      "supportsTablet": true,
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com"
+    "expo": {
+        "name": "TTM",
+        "slug": "TTM",
+        "version": "1.0.12",
+        "orientation": "portrait",
+        "icon": "./app/assets/adaptive-icon.png",
+        "splash": {
+            "image": "./app/assets/background3.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "bundleIdentifier": "com.amaurychong.ttm",
+            "buildNumber": "13",
+            "supportsTablet": true,
+            "config": {
+                "googleSignIn": {
+                    "reservedClientId": "150449439362-sbjk90u5gfv2oi29qj6q3mp7chih2pqe.apps.googleusercontent.com"
+                }
+            }
+        },
+        "android": {
+            "package": "com.amaurychong.ttm",
+            "versionCode": 13,
+            "adaptiveIcon": {
+                "foregroundImage": "./app/assets/adaptive-icon.png",
+                "backgroundColor": "#000"
+            },
+            "config": {
+                "googleSignIn": {
+                    "apiKey": "AIzaSyBmcWwsx4Ug-WKXUjbzSbKcZ4Gr_dstERA",
+                    "certificateHash": "D1D1B929EF6F74CB8B221BB893AC15A7B357471E"
+                }
+            }
+        },
+        "web": {
+            "favicon": "./app/assets/adaptive-icon.png"
+        },
+        "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc.",
+        "extra": {
+            "eas": {
+                "projectId": "38bc5e18-9a76-4b1a-807c-d54dee84202d"
+            }
         }
-      }
     },
-    "android": {
-      "package": "com.amaurychong.ttm",
-      "versionCode": 13,
-      "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#000"
-      },
-      "config": {
-        "googleSignIn": {
-          "apiKey": "AIzaSyBmcWwsx4Ug-WKXUjbzSbKcZ4Gr_dstERA",
-          "certificateHash": "D1D1B929EF6F74CB8B221BB893AC15A7B357471E"
-        }
-      }
-    },
-    "web": {
-      "favicon": "./app/assets/adaptive-icon.png"
-    },
-    "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc.",
-    "extra": {
-      "eas": {
-        "projectId": "38bc5e18-9a76-4b1a-807c-d54dee84202d"
-      }
+    "react-native-google-mobile-ads": {
+        "android_app_id": "ca-app-pub-8958974719234949~7089830958",
+        "ios_app_id": "ca-app-pub-8958974719234949~2979195550"
     }
-  }
 }

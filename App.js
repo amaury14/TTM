@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import mobileAds from 'react-native-google-mobile-ads';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,34 +25,40 @@ import firebase from './database/firebase';
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949~7089830958';
+
 export default function App() {
     let [state, setState] = useState({
         isLoggedIn: false,
         user: null
     });
 
-    useEffect(
-        () =>
-            firebase.firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    setState({
-                        user: {
-                            id: user?.uid,
-                            gmail: user?.email,
-                            profile_picture: user?.photoURL,
-                            first_last_name: user?.displayName
-                        },
-                        isLoggedIn: true
-                    });
-                } else {
-                    setState({
-                        user: null,
-                        isLoggedIn: false
-                    });
-                }
-            }),
-        []
-    );
+    useEffect(() => {
+        mobileAds()
+            .initialize()
+            .then((adapterStatuses) => {
+                console.log('🚀 ~ adapterStatuses:', adapterStatuses);
+                // Initialization complete!
+            });
+        firebase.firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                setState({
+                    user: {
+                        id: user?.uid,
+                        gmail: user?.email,
+                        profile_picture: user?.photoURL,
+                        first_last_name: user?.displayName
+                    },
+                    isLoggedIn: true
+                });
+            } else {
+                setState({
+                    user: null,
+                    isLoggedIn: false
+                });
+            }
+        });
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -69,7 +77,7 @@ export default function App() {
                                 headerTitle: 'TTM - Diario de Trading',
                                 // eslint-disable-next-line react/display-name
                                 headerLeft: () => (
-                                    <Image style={styles.logo} source={require('./app/assets/logo.png')} />
+                                    <Image style={styles.logo} source={require('./app/assets/header-logo.png')} />
                                 ),
                                 headerStyle: {
                                     backgroundColor: colors.mainColor
@@ -195,6 +203,13 @@ export default function App() {
                         />
                     </Drawer.Navigator>
                 )}
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.FULL_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true
+                    }}
+                />
             </NavigationContainer>
         </SafeAreaView>
     );
