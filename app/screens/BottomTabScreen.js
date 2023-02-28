@@ -28,7 +28,8 @@ function BottomTabsScreen(props) {
                     component={DashboardStackScreen}
                     initialParams={{ user: props?.route?.params?.user }}
                     options={{
-                        headerTitle: 'Dashboard'
+                        headerTitle: 'Dashboard',
+                        headerShown: false
                     }}
                 />
                 <Tab.Screen
@@ -36,7 +37,8 @@ function BottomTabsScreen(props) {
                     component={RegisterOperationStackScreen}
                     initialParams={{ user: props?.route?.params?.user }}
                     options={{
-                        headerTitle: 'Agregar Op'
+                        headerTitle: '+ Operación',
+                        headerShown: false
                     }}
                 />
                 <Tab.Screen
@@ -44,7 +46,8 @@ function BottomTabsScreen(props) {
                     component={FilterOperationStackScreen}
                     initialParams={{ user: props?.route?.params?.user }}
                     options={{
-                        headerTitle: 'Filtrar Op'
+                        headerTitle: 'Filtrar Ops',
+                        headerShown: false
                     }}
                 />
                 <Tab.Screen
@@ -52,7 +55,8 @@ function BottomTabsScreen(props) {
                     component={NotesStackScreen}
                     initialParams={{ user: props?.route?.params?.user }}
                     options={{
-                        headerTitle: 'Apuntes'
+                        headerTitle: 'Apuntes',
+                        headerShown: false
                     }}
                 />
                 {/* <Tab.Screen

@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.ttm"
+    namespace 'com.amaurychong.ttm'
     defaultConfig {
         manifestPlaceholders = [appAuthRedirectScheme: 'dev.expo.app']
         applicationId 'com.amaurychong.ttm'

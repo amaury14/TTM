@@ -43,6 +43,11 @@
     "web": {
       "favicon": "./app/assets/adaptive-icon.png"
     },
-    "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc."
+    "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc.",
+    "extra": {
+      "eas": {
+        "projectId": "38bc5e18-9a76-4b1a-807c-d54dee84202d"
+      }
+    }
   }
 }
