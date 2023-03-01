@@ -1,15 +1,9 @@
-// import * as Google from 'expo-google-app-auth';
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
-
-WebBrowser.maybeCompleteAuthSession();
 
 const LoginScreen = () => {
     const [request, response, promptAsync] = Google.useAuthRequest({
@@ -104,10 +98,6 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.container}>
-            <LinearGradient
-                colors={[colors.gray2, colors.gray2, colors.gray2, colors.grayLigth, colors.white]}
-                style={styles.background}
-            >
                 <Image style={styles.logo} source={require('../assets/logo.png')} />
 
                 {/* <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
@@ -126,7 +116,6 @@ const LoginScreen = () => {
                         <Text style={styles.loginText}>Continuar con Google</Text>
                     </View>
                 </TouchableOpacity>
-            </LinearGradient>
         </View>
     );
 };

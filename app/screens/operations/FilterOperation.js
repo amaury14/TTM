@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
@@ -128,10 +127,6 @@ const FilterOperation = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
                 <View style={styles.row}>
                     <View style={styles.column}>
                         <Text style={styles.label}>Estado de la operación:</Text>
@@ -182,7 +177,6 @@ const FilterOperation = (props) => {
                         </View>
                     )}
                 </ScrollView>
-            </LinearGradient>
         </SafeAreaView>
     );
 };

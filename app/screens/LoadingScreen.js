@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 
 import firebase from '../../database/firebase';
@@ -22,13 +21,8 @@ const LoadingScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
                 <Image style={styles.logo} source={require('../assets/logo.png')} />
                 <ActivityIndicator size={90} color={colors.gray2} />
-            </LinearGradient>
         </View>
     );
 };

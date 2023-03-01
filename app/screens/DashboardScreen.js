@@ -1,4 +1,3 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
@@ -21,14 +20,9 @@ const DashboardScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
                 <TTMDashboard user={user} />
                 <TTMSplitter />
                 <ViewAllOperation user={user} />
-            </LinearGradient>
         </View>
     );
 };

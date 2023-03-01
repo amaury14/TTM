@@ -1,5 +1,4 @@
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -17,10 +16,6 @@ export function DrawerContent(props) {
     };
 
     return (
-        <LinearGradient
-            colors={[colors.black, colors.black]}
-            style={styles.background}
-        >
             <View style={styles.drawerContent}>
                 <DrawerContentScrollView {...props}>
                     <View>
@@ -129,7 +124,6 @@ export function DrawerContent(props) {
                     </View>
                 </View>
             </View>
-        </LinearGradient>
     );
 }
 

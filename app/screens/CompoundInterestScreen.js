@@ -1,5 +1,3 @@
-import * as Clipboard from 'expo-clipboard';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import {
     Alert,
@@ -71,7 +69,7 @@ const CompoundInterestScreen = () => {
     };
 
     const copyToClipboard = (text) => {
-        Clipboard.setString(text?.toString());
+        //Clipboard.setString(text?.toString());
         showAlert('Información', `$ ${text?.toString()} copiado al portapapeles!!!`, true);
     };
 

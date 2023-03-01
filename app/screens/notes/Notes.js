@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useState } from 'react';
 import {
     ActivityIndicator,
@@ -111,10 +110,6 @@ const Notes = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
                 <View style={styles.row}>
                     <TextInput
                         style={styles.input}
@@ -155,7 +150,6 @@ const Notes = (props) => {
                 <TouchableOpacity style={styles.buttonAdd} onPress={() => navigation.navigate('AddNote')}>
                     <Icon name="plus" type="feather" size={40} color={colors.black} />
                 </TouchableOpacity>
-            </LinearGradient>
         </SafeAreaView>
     );
 };

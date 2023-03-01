@@ -1,5 +1,3 @@
-import * as Clipboard from 'expo-clipboard';
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState } from 'react';
 import { Alert, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -80,16 +78,12 @@ const TradingCalculatorScreen = () => {
     };
 
     const copyToClipboard = (text) => {
-        Clipboard.setString(text?.toString());
+        // Clipboard.setString(text?.toString());
         showAlert('Información', `Precio: $ ${text?.toString()} copiado al portapapeles!!!`, true);
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
                 <TTMHeader text={'Calculadora de Trading'} />
                 <View style={styles.row}>
                     <Text style={styles.label}>* Campos requeridos</Text>
@@ -245,7 +239,6 @@ const TradingCalculatorScreen = () => {
                         </View>
                     </View>
                 </ScrollView>
-            </LinearGradient>
         </SafeAreaView>
     );
 };
