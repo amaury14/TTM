@@ -19,3 +19,9 @@ Run `npm run build-android` and/or  `npm run build-ios`.
 
 #### Raise version on the project (affect the view on the UI version):
 Run `npm run raise-version`.
+
+
+#### Regenerate android and ios folders
+sudo rm -rf android/ ios/
+npm i react-native-eject
+npx react-native eject

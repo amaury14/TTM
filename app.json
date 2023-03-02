@@ -1,6 +1,7 @@
 {
     "name": "TTM",
     "slug": "TTM",
+    "displayName": "TTM",
     "version": "1.0.12",
     "orientation": "portrait",
     "icon": "./app/assets/adaptive-icon.png",

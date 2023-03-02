@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "150449439362",
+    "project_id": "tdm-react-native",
+    "storage_bucket": "tdm-react-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150449439362:android:2503881d2f164bc2d92a9b",
+        "android_client_info": {
+          "package_name": "com.amaurychong.ttm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150449439362-bt80j08j0ttomppmj6rkj3lhfghhnppu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2jZNmGubsKW-99u_ukO9WIyAUyeMj16w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150449439362-bt80j08j0ttomppmj6rkj3lhfghhnppu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8958974719234949~7089830958"
+    }
+  ],
+  "configuration_version": "1"
+}
