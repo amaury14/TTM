@@ -1,4 +1,4 @@
-package com.ttm;
+package com.amaurychong.ttm;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
