@@ -37,7 +37,7 @@ export default function App() {
         mobileAds()
             .initialize()
             .then((adapterStatuses) => {
-                console.log('🚀 ~ adapterStatuses:', adapterStatuses);
+                // console.log('🚀 ~ adapterStatuses:', adapterStatuses);
                 // Initialization complete!
             });
         firebase.firebase.auth().onAuthStateChanged((user) => {
@@ -203,13 +203,13 @@ export default function App() {
                         />
                     </Drawer.Navigator>
                 )}
-                <BannerAd
+                {/* <BannerAd
                     unitId={adUnitId}
-                    size={BannerAdSize.FULL_BANNER}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
                     requestOptions={{
                         requestNonPersonalizedAdsOnly: true
                     }}
-                />
+                /> */}
             </NavigationContainer>
         </SafeAreaView>
     );

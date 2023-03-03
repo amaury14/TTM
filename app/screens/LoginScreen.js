@@ -1,24 +1,12 @@
-import React, { useEffect } from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
 
 const LoginScreen = () => {
-    const [request, response, promptAsync] = Google.useAuthRequest({
-        expoClientId: '150449439362-mgtsbevol33nnhf1qqdt9888hos58asm.apps.googleusercontent.com',
-        iosClientId: '150449439362-e43j1h4emqe3h80q8bspqvq83pfludmu.apps.googleusercontent.com',
-        androidClientId: '150449439362-l1f4ogos63o5bfbpin8hhek756ju0utm.apps.googleusercontent.com',
-        webClientId: '150449439362-bt80j08j0ttomppmj6rkj3lhfghhnppu.apps.googleusercontent.com'
-    });
-
-    useEffect(() => {
-        if (response?.type === 'success') {
-            onSignIn(response);
-        }
-    }, [response]);
-
     const addNewUser = async (result) => {
         const dbRef = firebase.fireDb.collection('users').doc(result?.user?.uid);
         await dbRef.set({
@@ -63,8 +51,8 @@ const LoginScreen = () => {
             if (!isUserEqual(googleUser, firebaseUser)) {
                 // Build Firebase credential with the Google ID token.
                 var credential = firebase.firebase.auth.GoogleAuthProvider.credential(
-                    googleUser?.params?.id_token,
-                    googleUser?.authentication?.accessToken
+                    googleUser?.idToken,
+                    googleUser?.serverAuthCode
                 );
 
                 // Sign in with credential from the Google user.
@@ -90,7 +78,21 @@ const LoginScreen = () => {
 
     const signInWithGoogleAsync = async () => {
         try {
-            promptAsync();
+            GoogleSignin.configure({
+                webClientId: '150449439362-bt80j08j0ttomppmj6rkj3lhfghhnppu.apps.googleusercontent.com',
+                offlineAccess: true
+            });
+            // Check if your device supports Google Play
+            await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+            // Get the users ID token
+            const result = await GoogleSignin.signIn();
+
+            if (result?.idToken) {
+                onSignIn(result);
+                return result?.idToken;
+            } else {
+                return { cancelled: true };
+            }
         } catch (e) {
             return { error: true };
         }
@@ -98,7 +100,8 @@ const LoginScreen = () => {
 
     return (
         <View style={styles.container}>
-                <Image style={styles.logo} source={require('../assets/logo.png')} />
+            <ImageBackground source={require('../assets/background3.png')} resizeMode="cover" style={styles.image}>
+                {/* <Image style={styles.logo} source={require('../assets/logo.png')} /> */}
 
                 {/* <TouchableOpacity style={[styles.buttonContainer, styles.fabookButton]}>
                     <View style={styles.socialButtonContent}>
@@ -116,11 +119,18 @@ const LoginScreen = () => {
                         <Text style={styles.loginText}>Continuar con Google</Text>
                     </View>
                 </TouchableOpacity>
+            </ImageBackground>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    image: {
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%'
+    },
     background: {
         alignItems: 'center',
         flex: 1,
