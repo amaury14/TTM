@@ -1,8 +1,8 @@
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { Avatar, Caption, Drawer, Text, Title } from 'react-native-paper';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
@@ -51,38 +51,38 @@ export function DrawerContent(props) {
 
                         <Drawer.Section>
                             <DrawerItem
-                                icon={() => <Icon name="grid" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="fa-table-cells-large" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Dashboard</Text>}
                                 onPress={() => props?.navigation?.navigate('DashboardScreen')}
                             />
                             <DrawerItem
-                                icon={() => <Icon name="activity" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="fa-chart-line" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Agregar Operación</Text>}
                                 onPress={() => props?.navigation?.navigate('RegisterOperation')}
                             />
                             <DrawerItem
-                                icon={() => <Icon name="filter" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="filter" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Filtrar Operaciones</Text>}
                                 onPress={() => props?.navigation?.navigate('FilterOperation')}
                             />
                             <DrawerItem
-                                icon={() => <Icon name="file-text" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="file-text" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Apuntes</Text>}
                                 onPress={() => props?.navigation?.navigate('Notes')}
                             />
                             <DrawerItem
-                                icon={() => <Icon name="folder-plus" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="folder-plus" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Calculadora de Interés Compuesto</Text>}
                                 onPress={() => props?.navigation?.navigate('CompoundInterestScreen')}
                             />
                             <DrawerItem
-                                icon={() => <Icon name="bar-chart-2" size={30} type="feather" color={colors.white} />}
+                                icon={() => <FontAwesomeIcon icon="fa-chart-bar" size={30} color={colors.white} />}
                                 label={() => <Text style={styles.drawerItem}>Calculadora de Trading</Text>}
                                 onPress={() => props?.navigation?.navigate('TradingCalculatorScreen')}
                             />
                             {/* <DrawerItem
                                 icon={() => (
-                                    <Icon name="settings" size={size} type="feather" color={color} />
+                                    <FontAwesomeIcon icon="settings" size={size} color={color} />
                                 )}
                                 label="Configuración"
                                 onPress={() => {
@@ -108,7 +108,7 @@ export function DrawerContent(props) {
                 </DrawerContentScrollView>
                 <Drawer.Section style={styles.bottomDrawerSection}>
                     <DrawerItem
-                        icon={() => <Icon name="log-out" size={30} type="feather" color={colors.gray2} />}
+                        icon={() => <FontAwesomeIcon icon="fa-arrow-right-from-bracket" size={30} color={colors.gray2} />}
                         label={() => <Text style={styles.drawerItemBottom}>Cerrar sesión</Text>}
                         onPress={() => singOut()}
                     />
@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     drawerContent: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'black'
     },
     drawerItem: {
         color: colors.white,

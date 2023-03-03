@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import colors from '../../config/colors';
 
@@ -34,10 +34,10 @@ const NoteCard = (props) => {
                     </View>
                     <View style={styles.column2}>
                         <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
-                            <Icon name="edit" type="feather" color={colors.mainColor} />
+                            <FontAwesomeIcon icon="edit" color={colors.mainColor} />
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.button} onPress={props?.deleteClick}>
-                            <Icon name="trash-2" type="feather" color={colors.red} />
+                            <FontAwesomeIcon icon="trash-2" color={colors.red} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.dates}>

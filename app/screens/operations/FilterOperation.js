@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import RadioGroup from 'react-native-radio-buttons-group';
 
 import firebase from '../../../database/firebase';
@@ -127,56 +127,56 @@ const FilterOperation = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-                <View style={styles.row}>
-                    <View style={styles.column}>
-                        <Text style={styles.label}>Estado de la operación:</Text>
-                        <RadioGroup
-                            radioButtons={state?.opState}
-                            onPress={(value) => updateOnValueChange('opState', value)}
-                            layout="row"
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Estado de la operación:</Text>
+                    <RadioGroup
+                        radioButtons={state?.opState}
+                        onPress={(value) => updateOnValueChange('opState', value)}
+                        layout="row"
+                    />
+                </View>
+            </View>
+            <View style={styles.row}>
+                <TextInput
+                    style={styles.input}
+                    value={state?.searchString}
+                    underlineColorAndroid={colors.underlineColorAndroid}
+                    placeholder="Escriba para buscar..."
+                    placeholderTextColor={colors.white}
+                    onChangeText={(value) => handlePropChange('searchString', value)}
+                    blurOnSubmit={false}
+                />
+                <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
+                    <FontAwesomeIcon icon="x-square" color={colors.black} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonSearch}
+                    onPress={() => fetchOperations(state?.opState, state?.searchString)}
+                >
+                    <FontAwesomeIcon icon="search" color={colors.black} />
+                </TouchableOpacity>
+            </View>
+            <TTMSplitter />
+            <ScrollView>
+                {!state?.loading && (
+                    <View style={styles.loader}>
+                        <ActivityIndicator size="large" color={colors.gray2} />
+                    </View>
+                )}
+                {state?.loading && (
+                    <View style={styles.row}>
+                        <FlatList
+                            data={state?.operations}
+                            ItemSeparatorComponent={listViewItemSeparator}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => listItemView(item)}
+                            refreshing={state?.loading}
+                            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
                         />
                     </View>
-                </View>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.input}
-                        value={state?.searchString}
-                        underlineColorAndroid={colors.underlineColorAndroid}
-                        placeholder="Escriba para buscar..."
-                        placeholderTextColor={colors.white}
-                        onChangeText={(value) => handlePropChange('searchString', value)}
-                        blurOnSubmit={false}
-                    />
-                    <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
-                        <Icon name="x-square" type="feather" color={colors.black} />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonSearch}
-                        onPress={() => fetchOperations(state?.opState, state?.searchString)}
-                    >
-                        <Icon name="search" type="feather" color={colors.black} />
-                    </TouchableOpacity>
-                </View>
-                <TTMSplitter />
-                <ScrollView>
-                    {!state?.loading && (
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.gray2} />
-                        </View>
-                    )}
-                    {state?.loading && (
-                        <View style={styles.row}>
-                            <FlatList
-                                data={state?.operations}
-                                ItemSeparatorComponent={listViewItemSeparator}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) => listItemView(item)}
-                                refreshing={state?.loading}
-                                ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron registros</Text>}
-                            />
-                        </View>
-                    )}
-                </ScrollView>
+                )}
+            </ScrollView>
         </SafeAreaView>
     );
 };

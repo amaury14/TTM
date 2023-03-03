@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
@@ -110,46 +110,46 @@ const Notes = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-                <View style={styles.row}>
-                    <TextInput
-                        style={styles.input}
-                        value={state?.searchString}
-                        underlineColorAndroid={colors.underlineColorAndroid}
-                        placeholder="Escriba para buscar..."
-                        placeholderTextColor={colors.white}
-                        onChangeText={(value) => handlePropChange('searchString', value)}
-                        blurOnSubmit={false}
-                    />
-                    <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
-                        <Icon name="x-square" type="feather" color={colors.black} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonSearch} onPress={() => fetchNotes(state?.searchString)}>
-                        <Icon name="search" type="feather" color={colors.black} />
-                    </TouchableOpacity>
-                </View>
-                <TTMSplitter />
-                <ScrollView>
-                    {!state?.loading && (
-                        <View style={styles.loader}>
-                            <ActivityIndicator size="large" color={colors.gray2} />
-                        </View>
-                    )}
-                    {state?.loading && (
-                        <View style={styles.row}>
-                            <FlatList
-                                data={state?.notes}
-                                ItemSeparatorComponent={listViewItemSeparator}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) => listItemView(item)}
-                                refreshing={state?.loading}
-                                ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron notas</Text>}
-                            />
-                        </View>
-                    )}
-                </ScrollView>
-                <TouchableOpacity style={styles.buttonAdd} onPress={() => navigation.navigate('AddNote')}>
-                    <Icon name="plus" type="feather" size={40} color={colors.black} />
+            <View style={styles.row}>
+                <TextInput
+                    style={styles.input}
+                    value={state?.searchString}
+                    underlineColorAndroid={colors.underlineColorAndroid}
+                    placeholder="Escriba para buscar..."
+                    placeholderTextColor={colors.white}
+                    onChangeText={(value) => handlePropChange('searchString', value)}
+                    blurOnSubmit={false}
+                />
+                <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
+                    <FontAwesomeIcon icon="x-square" color={colors.black} />
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonSearch} onPress={() => fetchNotes(state?.searchString)}>
+                    <FontAwesomeIcon icon="search" color={colors.black} />
+                </TouchableOpacity>
+            </View>
+            <TTMSplitter />
+            <ScrollView>
+                {!state?.loading && (
+                    <View style={styles.loader}>
+                        <ActivityIndicator size="large" color={colors.gray2} />
+                    </View>
+                )}
+                {state?.loading && (
+                    <View style={styles.row}>
+                        <FlatList
+                            data={state?.notes}
+                            ItemSeparatorComponent={listViewItemSeparator}
+                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={({ item }) => listItemView(item)}
+                            refreshing={state?.loading}
+                            ListEmptyComponent={<Text style={styles.noRecords}>No se encontraron notas</Text>}
+                        />
+                    </View>
+                )}
+            </ScrollView>
+            <TouchableOpacity style={styles.buttonAdd} onPress={() => navigation.navigate('AddNote')}>
+                <FontAwesomeIcon icon="plus" size={40} color={colors.black} />
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

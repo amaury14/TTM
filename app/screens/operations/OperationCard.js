@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import images from '../../assets';
 import colors from '../../config/colors';
@@ -96,11 +96,7 @@ const OperationCard = (props) => {
         if (grids !== '' && !isNaN(parseInt(grids, 10))) {
             image = images?.opType?.bot;
         }
-        return (
-            <View style={styles.row}>
-                {!!image && <Image style={styles.tinyLogo} source={image} />}
-            </View>
-        );
+        return <View style={styles.row}>{!!image && <Image style={styles.tinyLogo} source={image} />}</View>;
     };
 
     const getOperationText = (grids) => {
@@ -176,10 +172,10 @@ const OperationCard = (props) => {
                                 {getOperationIcon(item?.grids)}
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={props?.updateClick}>
-                                <Icon name="edit" type="feather" color={colors.mainColor} />
+                                <FontAwesomeIcon icon="edit" color={colors.mainColor} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={props?.deleteClick}>
-                                <Icon name="trash-2" type="feather" color={colors.red} />
+                                <FontAwesomeIcon icon="trash-2" color={colors.red} />
                             </TouchableOpacity>
                         </View>
                         <View style={styles.dates}>

@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import colors from '../config/colors';
 import TTMTabBar from './components/TTMTabBar';
@@ -118,7 +118,7 @@ const DashboardStackScreen = (props) => (
                 // eslint-disable-next-line react/display-name
                 headerLeft: () => (
                     <TouchableOpacity style={styles.menu} onPress={() => props?.navigation?.openDrawer()}>
-                        <Icon name="menu" size={30} type="feather" color={colors.white} />
+                        <FontAwesomeIcon icon="fa-bars" size={30} color={colors.white} />
                     </TouchableOpacity>
                 )
             }}
@@ -154,7 +154,7 @@ const RegisterOperationStackScreen = (props) => (
                 // eslint-disable-next-line react/display-name
                 headerLeft: () => (
                     <TouchableOpacity style={styles.menu} onPress={() => props?.navigation?.openDrawer()}>
-                        <Icon name="menu" size={30} type="feather" color={colors.white} />
+                        <FontAwesomeIcon icon="fa-bars" size={30} color={colors.white} />
                     </TouchableOpacity>
                 )
             }}
@@ -190,7 +190,7 @@ const FilterOperationStackScreen = (props) => (
                 // eslint-disable-next-line react/display-name
                 headerLeft: () => (
                     <TouchableOpacity style={styles.menu} onPress={() => props?.navigation?.openDrawer()}>
-                        <Icon name="menu" size={30} type="feather" color={colors.white} />
+                        <FontAwesomeIcon icon="fa-bars" size={30} color={colors.white} />
                     </TouchableOpacity>
                 )
             }}
@@ -226,7 +226,7 @@ const NotesStackScreen = (props) => (
                 // eslint-disable-next-line react/display-name
                 headerLeft: () => (
                     <TouchableOpacity style={styles.menu} onPress={() => props?.navigation?.openDrawer()}>
-                        <Icon name="menu" size={30} type="feather" color={colors.white} />
+                        <FontAwesomeIcon icon="fa-bars" size={30} color={colors.white} />
                     </TouchableOpacity>
                 )
             }}

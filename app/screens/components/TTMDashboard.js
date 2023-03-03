@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, Linking, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import firebase from '../../../database/firebase';
 import images from '../../assets';
@@ -162,34 +162,34 @@ const TTMDashboard = (props) => {
 
     const getModalView = () => {
         switch (state?.modalView) {
-        case 'about': {
-            return (
-                <View>
-                    <Text style={styles.modalText}>TTM - To The Moon</Text>
-                    <Text style={styles.modalText}>Diario de Trading</Text>
-                    <Text style={styles.modalText}>Desarrollador: Amaury Chong Rodríguez</Text>
-                    <Text style={styles.modalText}>Contacto:</Text>
-                    <TouchableOpacity onPress={() => Linking.openURL('mailto:amaurychong@gmail.com')}>
-                        <Text style={styles.emailLink}>amaurychong@gmail.com</Text>
-                    </TouchableOpacity>
-                </View>
-            );
-        }
-        case 'rank': {
-            return (
-                <View>
-                    <Text style={styles.modalText}>
+            case 'about': {
+                return (
+                    <View>
+                        <Text style={styles.modalText}>TTM - To The Moon</Text>
+                        <Text style={styles.modalText}>Diario de Trading</Text>
+                        <Text style={styles.modalText}>Desarrollador: Amaury Chong Rodríguez</Text>
+                        <Text style={styles.modalText}>Contacto:</Text>
+                        <TouchableOpacity onPress={() => Linking.openURL('mailto:amaurychong@gmail.com')}>
+                            <Text style={styles.emailLink}>amaurychong@gmail.com</Text>
+                        </TouchableOpacity>
+                    </View>
+                );
+            }
+            case 'rank': {
+                return (
+                    <View>
+                        <Text style={styles.modalText}>
                             Rango: {getRankByPerformance('label', state?.performancePercentReal)}
-                    </Text>
-                    <Text style={styles.modalText}>
+                        </Text>
+                        <Text style={styles.modalText}>
                             % Rendimiento: {getProfitPercent(state?.performancePercentReal)}
-                    </Text>
-                    <Text style={styles.modalText}>
+                        </Text>
+                        <Text style={styles.modalText}>
                             Descripción: {getRankDescriptionByPerformance(state?.performancePercentReal)}
-                    </Text>
-                </View>
-            );
-        }
+                        </Text>
+                    </View>
+                );
+            }
         }
     };
 
@@ -231,10 +231,10 @@ const TTMDashboard = (props) => {
                     <View>
                         <View style={styles.corner}>
                             <TouchableOpacity style={styles.button} onPress={() => signOut()}>
-                                <Icon name="power" type="feather" size={30} color={colors.red} />
+                                <FontAwesomeIcon icon="fa-arrow-right-from-bracket" size={30} color={colors.red} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.button} onPress={() => openModal('about', true)}>
-                                <Icon name="info" type="feather" size={30} color={colors.blue} />
+                                <FontAwesomeIcon icon="info" size={30} color={colors.blue} />
                             </TouchableOpacity>
                         </View>
                         <View style={styles.columnRank}>
@@ -381,6 +381,7 @@ const styles = StyleSheet.create({
         width: 100
     },
     modalText: {
+        color: 'black',
         fontSize: 20,
         marginBottom: 15,
         textAlign: 'center'

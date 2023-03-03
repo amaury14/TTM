@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import firebase from '../../database/firebase';
 import colors from '../config/colors';
@@ -115,7 +115,12 @@ const LoginScreen = () => {
                     onPress={() => signInWithGoogleAsync()}
                 >
                     <View style={styles.socialButtonContent}>
-                        <Icon style={styles.icon} name="google" type="fontisto" color={colors.white} />
+                        <FontAwesomeIcon
+                            style={styles.icon}
+                            icon="fa-brands fa-google"
+                            color={colors.white}
+                            size={30}
+                        />
                         <Text style={styles.loginText}>Continuar con Google</Text>
                     </View>
                 </TouchableOpacity>
@@ -167,7 +172,8 @@ const styles = StyleSheet.create({
         width: 30
     },
     loginText: {
-        color: colors.white
+        color: colors.white,
+        fontSize: 20
     },
     logo: {
         height: 80,

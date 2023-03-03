@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import colors from '../../config/colors';
@@ -10,7 +10,7 @@ const TTMHeader = (props) => {
     return (
         <View style={styles.header}>
             <TouchableOpacity style={styles.menu} onPress={() => navigation?.goBack()}>
-                <Icon name="arrow-left" size={30} type="feather" color={colors.white} />
+                <FontAwesomeIcon icon="arrow-left" size={30} color={colors.white} />
             </TouchableOpacity>
             <Text style={styles.text}>{props?.text}</Text>
         </View>

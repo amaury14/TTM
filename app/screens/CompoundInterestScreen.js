@@ -91,84 +91,79 @@ const CompoundInterestScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[colors.mainColor, colors.mainColor, colors.mainColor, colors.white, colors.white]}
-                style={styles.background}
-            >
-                <TTMHeader text={'Calc. de Interés Compuesto'} />
+            <TTMHeader text={'Calc. de Interés Compuesto'} />
+            <View style={styles.row}>
+                <Text style={styles.label}>* Campos requeridos</Text>
+            </View>
+            <View style={styles.row}>
+                <View style={styles.column}>
+                    <Text style={styles.label}>* Inversión</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={state?.investment}
+                        underlineColorAndroid={colors.underlineColorAndroid}
+                        placeholder="Inversión"
+                        placeholderTextColor={colors.white}
+                        onChangeText={(value) => handlePropChange('investment', value)}
+                        blurOnSubmit={false}
+                        keyboardType="numeric"
+                    />
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>* Meses</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={state?.months}
+                        underlineColorAndroid={colors.underlineColorAndroid}
+                        placeholder="Meses"
+                        placeholderTextColor={colors.white}
+                        onChangeText={(value) => handlePropChange('months', value)}
+                        blurOnSubmit={false}
+                        keyboardType="numeric"
+                    />
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>* % por Mes</Text>
+                    <TextInput
+                        style={styles.input}
+                        value={state?.monthlyRate}
+                        underlineColorAndroid={colors.underlineColorAndroid}
+                        placeholder="% por Mes"
+                        placeholderTextColor={colors.white}
+                        onChangeText={(value) => handlePropChange('monthlyRate', value)}
+                        blurOnSubmit={false}
+                        keyboardType="numeric"
+                    />
+                </View>
+            </View>
+            <View style={styles.row}>
+                <TTMButtom title="Limpiar" style={styles.buttonClear} customClick={() => setState(initialState)} />
+                <TTMButtom title="Calcular" style={styles.buttonSearch} customClick={() => calculateInterest()} />
+            </View>
+            <TTMSplitter />
+            <View style={styles.row2}>
+                <View style={styles.column1}>
+                    <Text style={styles.label2}>Mes</Text>
+                </View>
+                <View style={styles.column2}>
+                    <Text style={styles.label2}>$ Previo</Text>
+                </View>
+                <View style={styles.column2}>
+                    <Text style={styles.label2}>$ Total</Text>
+                </View>
+            </View>
+            <ScrollView>
                 <View style={styles.row}>
-                    <Text style={styles.label}>* Campos requeridos</Text>
+                    <FlatList
+                        data={state?.result}
+                        ItemSeparatorComponent={listViewItemSeparator}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => listItemView(item)}
+                        refreshing={state?.loading}
+                        ListEmptyComponent={<Text style={styles.noRecords}>No hay resultados</Text>}
+                    />
                 </View>
-                <View style={styles.row}>
-                    <View style={styles.column}>
-                        <Text style={styles.label}>* Inversión</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={state?.investment}
-                            underlineColorAndroid={colors.underlineColorAndroid}
-                            placeholder="Inversión"
-                            placeholderTextColor={colors.white}
-                            onChangeText={(value) => handlePropChange('investment', value)}
-                            blurOnSubmit={false}
-                            keyboardType="numeric"
-                        />
-                    </View>
-                    <View style={styles.column}>
-                        <Text style={styles.label}>* Meses</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={state?.months}
-                            underlineColorAndroid={colors.underlineColorAndroid}
-                            placeholder="Meses"
-                            placeholderTextColor={colors.white}
-                            onChangeText={(value) => handlePropChange('months', value)}
-                            blurOnSubmit={false}
-                            keyboardType="numeric"
-                        />
-                    </View>
-                    <View style={styles.column}>
-                        <Text style={styles.label}>* % por Mes</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={state?.monthlyRate}
-                            underlineColorAndroid={colors.underlineColorAndroid}
-                            placeholder="% por Mes"
-                            placeholderTextColor={colors.white}
-                            onChangeText={(value) => handlePropChange('monthlyRate', value)}
-                            blurOnSubmit={false}
-                            keyboardType="numeric"
-                        />
-                    </View>
-                </View>
-                <View style={styles.row}>
-                    <TTMButtom title="Limpiar" style={styles.buttonClear} customClick={() => setState(initialState)} />
-                    <TTMButtom title="Calcular" style={styles.buttonSearch} customClick={() => calculateInterest()} />
-                </View>
-                <TTMSplitter />
-                <View style={styles.row2}>
-                    <View style={styles.column1}>
-                        <Text style={styles.label2}>Mes</Text>
-                    </View>
-                    <View style={styles.column2}>
-                        <Text style={styles.label2}>$ Previo</Text>
-                    </View>
-                    <View style={styles.column2}>
-                        <Text style={styles.label2}>$ Total</Text>
-                    </View>
-                </View>
-                <ScrollView>
-                    <View style={styles.row}>
-                        <FlatList
-                            data={state?.result}
-                            ItemSeparatorComponent={listViewItemSeparator}
-                            keyExtractor={(item, index) => index.toString()}
-                            renderItem={({ item }) => listItemView(item)}
-                            refreshing={state?.loading}
-                            ListEmptyComponent={<Text style={styles.noRecords}>No hay resultados</Text>}
-                        />
-                    </View>
-                </ScrollView>
-            </LinearGradient>
+            </ScrollView>
         </SafeAreaView>
     );
 };

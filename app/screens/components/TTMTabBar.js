@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import colors from '../../config/colors';
 
@@ -19,8 +19,8 @@ function TTMTabBar({ state, descriptors, navigation }) {
                     options?.headerTitle !== undefined
                         ? options?.headerTitle
                         : options?.title !== undefined
-                            ? options?.title
-                            : route?.name;
+                        ? options?.title
+                        : route?.name;
 
                 const isFocused = state?.index === index;
 
@@ -45,21 +45,21 @@ function TTMTabBar({ state, descriptors, navigation }) {
 
                 const getIcon = (name) => {
                     switch (name) {
-                    case 'DashboardScreen': {
-                        return 'grid';
-                    }
-                    case 'RegisterOperation': {
-                        return 'activity';
-                    }
-                    case 'SettingsScreen': {
-                        return 'settings';
-                    }
-                    case 'FilterOperation': {
-                        return 'filter';
-                    }
-                    case 'Notes': {
-                        return 'file-text';
-                    }
+                        case 'DashboardScreen': {
+                            return 'fa-table-cells-large';
+                        }
+                        case 'RegisterOperation': {
+                            return 'fa-chart-line';
+                        }
+                        case 'SettingsScreen': {
+                            return 'settings';
+                        }
+                        case 'FilterOperation': {
+                            return 'filter';
+                        }
+                        case 'Notes': {
+                            return 'file-text';
+                        }
                     }
                 };
 
@@ -74,10 +74,9 @@ function TTMTabBar({ state, descriptors, navigation }) {
                         onLongPress={onLongPress}
                         style={styles.bottomBar}
                     >
-                        <Icon
-                            name={getIcon(route?.name)}
+                        <FontAwesomeIcon
+                            icon={getIcon(route?.name)}
                             size={25}
-                            type="feather"
                             color={isFocused ? colors.mainColor : colors.gray}
                         />
                         <Text
