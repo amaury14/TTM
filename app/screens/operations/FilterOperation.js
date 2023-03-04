@@ -21,6 +21,9 @@ import { getRadioConfigColor } from '../../config/radioGroup';
 import utils from '../../utils/util';
 import TTMSplitter from '../components/TTMSplitter';
 import OperationCard from './OperationCard';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const FilterOperation = (props) => {
     const navigation = useNavigation();
@@ -148,7 +151,7 @@ const FilterOperation = (props) => {
                     blurOnSubmit={false}
                 />
                 <TouchableOpacity style={styles.buttonClear} onPress={() => handlePropChange('searchString', '')}>
-                    <FontAwesomeIcon icon="x-square" color={colors.black} />
+                    <FontAwesomeIcon icon="fa-xmark" color={colors.black} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonSearch}
@@ -177,6 +180,13 @@ const FilterOperation = (props) => {
                     </View>
                 )}
             </ScrollView>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true
+                }}
+            />
         </SafeAreaView>
     );
 };

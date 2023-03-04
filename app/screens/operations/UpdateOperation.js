@@ -17,6 +17,9 @@ import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TTMButtom from '../components/TTMButtom';
 import TTMHeader from '../components/TTMHeader';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const UpdateOperation = (props) => {
     const { id, user } = props?.route?.params;
@@ -285,6 +288,13 @@ const UpdateOperation = (props) => {
                         )}
                     </KeyboardAvoidingView>
                 </ScrollView>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true
+                    }}
+                />
             </View>
         </SafeAreaView>
     );

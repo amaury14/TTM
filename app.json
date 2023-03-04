@@ -44,6 +44,7 @@
     "description": "To The Moon - Trading Diary, record all actions in your trading day, notes, photos, thoughts, psicotrading performance, etc.",
     "react-native-google-mobile-ads": {
         "android_app_id": "ca-app-pub-8958974719234949~7089830958",
-        "ios_app_id": "ca-app-pub-8958974719234949~2979195550"
+        "ios_app_id": "ca-app-pub-8958974719234949~2979195550",
+        "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you."
     }
 }

@@ -3,6 +3,9 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import TTMButtom from '../components/TTMButtom';
 import TTMHeader from '../components/TTMHeader';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const NoteDetails = (props) => {
     const { item, user } = props?.route?.params;
@@ -17,7 +20,7 @@ const NoteDetails = (props) => {
 
     return (
         <View style={styles.container}>
-            <TTMHeader text={getValue(item?.title)}/>
+            <TTMHeader text={getValue(item?.title)} />
             <View style={styles.postContent}>
                 <TTMButtom style={styles.button} title="Modificar Apunte" customClick={() => editNote()} />
                 <ScrollView>
@@ -27,6 +30,13 @@ const NoteDetails = (props) => {
                         </View>
                     </View>
                 </ScrollView>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true
+                    }}
+                />
             </View>
         </View>
     );

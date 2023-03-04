@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Alert,
     FlatList,
@@ -15,6 +15,9 @@ import colors from '../config/colors';
 import TTMButtom from './components/TTMButtom';
 import TTMHeader from './components/TTMHeader';
 import TTMSplitter from './components/TTMSplitter';
+import { RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-8958974719234949/9073174071';
 
 const CompoundInterestScreen = () => {
     const initialState = {
@@ -27,6 +30,28 @@ const CompoundInterestScreen = () => {
     const [state, setState] = useState({
         ...initialState
     });
+
+    const rewarded = RewardedAd.createForAdRequest(adUnitId, {
+        requestNonPersonalizedAdsOnly: true
+    });
+
+    useEffect(() => {
+        // Start loading the rewarded straight away
+        rewarded.load();
+
+        const unsubscribeLoaded = rewarded.addAdEventListener(RewardedAdEventType.LOADED, () => {
+            rewarded.show();
+        });
+        const unsubscribeEarned = rewarded.addAdEventListener(RewardedAdEventType.EARNED_REWARD, (reward) => {
+            console.log('User earned reward of ', reward);
+        });
+
+        // Unsubscribe from events on unmount
+        return () => {
+            unsubscribeLoaded();
+            unsubscribeEarned();
+        };
+    }, []);
 
     const handlePropChange = (name, value) => {
         setState({ ...state, [name]: value });

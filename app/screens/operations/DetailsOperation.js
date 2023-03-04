@@ -5,6 +5,9 @@ import images from '../../assets';
 import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
 import TTMHeader from '../components/TTMHeader';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const DetailsOperation = (props) => {
     const { item, user } = props?.route?.params;
@@ -134,6 +137,13 @@ const DetailsOperation = (props) => {
                     </View>
                 </View>
             </ScrollView>
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true
+                }}
+            />
         </View>
     );
 };

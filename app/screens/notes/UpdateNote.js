@@ -15,6 +15,9 @@ import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
 import TTMHeader from '../components/TTMHeader';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const UpdateNote = (props) => {
     const { id, user } = props?.route?.params;
@@ -22,7 +25,7 @@ const UpdateNote = (props) => {
     const initialState = {
         title: '',
         note: '',
-        date: new Date().getTime(),
+        date: new Date().getTime()
     };
 
     const [state, setState] = useState(initialState);
@@ -89,7 +92,7 @@ const UpdateNote = (props) => {
     return (
         <SafeAreaView style={styles.flex1}>
             <View style={styles.flex1}>
-                <TTMHeader text={'Editar Apunte'}/>
+                <TTMHeader text={'Editar Apunte'} />
                 <ScrollView keyboardShouldPersistTaps="handled">
                     <KeyboardAvoidingView behavior="padding" style={styles.key}>
                         <View style={styles.row}>
@@ -132,6 +135,13 @@ const UpdateNote = (props) => {
                         )}
                     </KeyboardAvoidingView>
                 </ScrollView>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true
+                    }}
+                />
             </View>
         </SafeAreaView>
     );

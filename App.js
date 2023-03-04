@@ -33,20 +33,28 @@ library.add(fab, far, fas);
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949~7089830958';
-
 export default function App() {
     let [state, setState] = useState({
         isLoggedIn: false,
-        user: null
+        user: null,
+        adapterStatuses: null
     });
 
     useEffect(() => {
         mobileAds()
-            .initialize()
-            .then((adapterStatuses) => {
-                // console.log('🚀 ~ adapterStatuses:', adapterStatuses);
-                // Initialization complete!
+            .setRequestConfiguration({
+                // An array of test device IDs to allow.
+                testDeviceIdentifiers: ['b94f96d']
+            })
+            .then(() => {
+                mobileAds()
+                    .initialize()
+                    .then((adapterStatuses) => {
+                        setState({
+                            ...state,
+                            adapterStatuses
+                        });
+                    });
             });
         firebase.firebase.auth().onAuthStateChanged((user) => {
             if (user) {
@@ -211,13 +219,6 @@ export default function App() {
                         />
                     </Drawer.Navigator>
                 )}
-                {/* <BannerAd
-                    unitId={adUnitId}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{
-                        requestNonPersonalizedAdsOnly: true
-                    }}
-                /> */}
             </NavigationContainer>
         </SafeAreaView>
     );

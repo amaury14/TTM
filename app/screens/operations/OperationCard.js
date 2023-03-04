@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import images from '../../assets';
 import colors from '../../config/colors';
 import TTMButtom from '../components/TTMButtom';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const OperationCard = (props) => {
     const item = props?.item;
@@ -181,6 +184,13 @@ const OperationCard = (props) => {
                         <View style={styles.dates}>
                             <Text style={styles.investment}>{getDates()}</Text>
                         </View>
+                        <BannerAd
+                            unitId={adUnitId}
+                            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                            requestOptions={{
+                                requestNonPersonalizedAdsOnly: true
+                            }}
+                        />
                     </View>
                 )}
             </View>

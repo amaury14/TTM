@@ -11,11 +11,13 @@ import {
     View
 } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
-
 import firebase from '../../../database/firebase';
 import colors from '../../config/colors';
 import radioConfig from '../../config/radioGroup';
 import TTMButtom from '../components/TTMButtom';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const RegisterOperation = (props) => {
     const user = props?.route?.params?.user;
@@ -261,6 +263,13 @@ const RegisterOperation = (props) => {
                         )}
                     </KeyboardAvoidingView>
                 </ScrollView>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{
+                        requestNonPersonalizedAdsOnly: true
+                    }}
+                />
             </View>
         </SafeAreaView>
     );

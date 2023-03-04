@@ -3,6 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import colors from '../../config/colors';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const NoteCard = (props) => {
     const item = props?.item;
@@ -43,6 +46,13 @@ const NoteCard = (props) => {
                     <View style={styles.dates}>
                         <Text style={styles.investment}>{getDate()}</Text>
                     </View>
+                    <BannerAd
+                        unitId={adUnitId}
+                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                        requestOptions={{
+                            requestNonPersonalizedAdsOnly: true
+                        }}
+                    />
                 </View>
             )}
         </View>

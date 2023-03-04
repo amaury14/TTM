@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import colors from '../config/colors';
 import TTMDashboard from './components/TTMDashboard';
 import TTMSplitter from './components/TTMSplitter';
 import ViewAllOperation from './operations/ViewAllOperation';
+
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-8958974719234949/7113047539';
 
 const DashboardScreen = (props) => {
     const user = props?.route?.params?.user;
@@ -20,9 +22,16 @@ const DashboardScreen = (props) => {
 
     return (
         <View style={styles.body}>
-                <TTMDashboard user={user} />
-                <TTMSplitter />
-                <ViewAllOperation user={user} />
+            <TTMDashboard user={user} />
+            <TTMSplitter />
+            <ViewAllOperation user={user} />
+            <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                requestOptions={{
+                    requestNonPersonalizedAdsOnly: true
+                }}
+            />
         </View>
     );
 };
