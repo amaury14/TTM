@@ -8,7 +8,7 @@
 #### Start development app:
 Run `npm run start`.
 
-#### Start in produection mode:
+#### Start in production mode:
 Run `npm run start-prod`.
 
 #### Lint and fix the project:
