@@ -27,6 +27,7 @@ jobs:
         run: |
           npm install
           npm install --global expo-cli
+          npm install --global eas-cli
           expo login -u amaurychong -p Rodriguez1422
           npm run build-android-apk --if-present
         env:
